@@ -24,8 +24,15 @@ export async function fetchBookByISBN(isbn: string): Promise<IBook | null> {
       categories: bookData.categories,
       imageLink: bookData.imageLinks?.thumbnail?.replace("http:", "https:"),
       language: bookData.language,
-      pdfTokenLink: response.data.items[0].accessInfo?.pdf?.acsTokenLink,
-      webReaderLink: response.data.items[0].accessInfo?.webReaderLink,
+      pdfTokenLink:
+        response.data.items[0].accessInfo?.pdf?.acsTokenLink?.replace(
+          "http:",
+          "https:"
+        ),
+      webReaderLink: response.data.items[0].accessInfo?.webReaderLink?.replace(
+        "http:",
+        "https:"
+      ),
       qtyOwned: 0, // 默认库存量，后续可在表单修改
       borrowedBooksCount: 0, // 默认借出 0
       isRecommended: false,
