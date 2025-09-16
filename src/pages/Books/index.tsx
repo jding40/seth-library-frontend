@@ -21,6 +21,8 @@ const BooksPage: FC = () => {
 
 
                                 setAllBooks(books);
+                                console.log("allbooks: ", allBooks);//allbooks: []
+
                                 setRecommendedBooks(books?.filter((b) => b.isRecommended));
                         } catch (error) {
                                 console.error("❌ Failed to fetch books:", error);
@@ -85,7 +87,7 @@ const BooksPage: FC = () => {
                             <h2 className="text-2xl font-bold mb-4">📖 Seth's Book Collection</h2>
                             {allBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                                        {allBooks.map((book) => (
+                                        {allBooks?.map((book) => (
                                             <BookCard key={book._id} book={book} />
                                         ))}
                                 </div>

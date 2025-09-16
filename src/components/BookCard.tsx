@@ -1,11 +1,13 @@
 // src/components/BookCard.tsx
 import { type IBook } from "../services/bookApi";
+import {type FC } from "react";
 
 interface BookCardProps {
     book: IBook;
+    userRole?: string;
 }
 
-const BookCard = ({ book }: BookCardProps) => {
+const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
     return (
         <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition h-60">
             {/* 左侧封面 */}
@@ -37,10 +39,10 @@ const BookCard = ({ book }: BookCardProps) => {
                             {book.qtyOwned - book.borrowedBooksCount}/{book.qtyOwned}
                         </span>
                     </p>
-                    {book.isRecommended && (
-                        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                            Recommended
-                        </span>
+                    {userRole === "admin" && (
+                        <a  href={`\\books\\edit\\${book.ISBN}`} className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                            Edit
+                        </a>
                     )}
                 </div>
             </div>

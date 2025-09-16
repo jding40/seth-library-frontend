@@ -10,6 +10,8 @@ import BooksPage from "../pages/Books";
 import UsersPage from "../pages/Users";
 import BorrowPage from "../pages/Borrows";
 import AddNewBookInfoByISBNPage from "../pages/AddNewBookInfoByISBN";
+import Signin from "../pages/Signin";
+import BookEditPage from "../pages/BookEditPage";
 
 const router = createBrowserRouter([
         {
@@ -33,7 +35,17 @@ const router = createBrowserRouter([
                     </div>
                     </>
             ),
-        },
+        },        {
+        path: "/books/edit/:isbn",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <BookEditPage />
+                </div>
+            </>
+        ),
+    },
     {
         path: "/books/add-new-book-by-isbn",
         element: (
@@ -67,6 +79,17 @@ const router = createBrowserRouter([
                     </>
             ),
         },
+    {
+        path: "/login",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <Signin />
+                </div>
+            </>
+        ),
+    },
         {
             path: "*",
             element: (

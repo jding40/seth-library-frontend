@@ -1,7 +1,7 @@
 import { type FC, useState } from "react";
 import { fetchBookByISBN } from "../../services/googleBooksApi";
 import bookApi from "../../services/bookApi";
-import { type IBook } from "../../services/bookApi";
+import {type IBook} from "../../types"
 
 const AddNewBookInfoByISBNPage: FC = () => {
         const [isbn, setIsbn] = useState("");

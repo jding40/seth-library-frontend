@@ -1,6 +1,6 @@
 // src/api/googleBooksApi.ts
 import axios from "axios";
-import { type IBook } from "./bookApi";
+import {type IBook} from "../types"
 
 export async function fetchBookByISBN(isbn: string): Promise<IBook | null> {
   try {
