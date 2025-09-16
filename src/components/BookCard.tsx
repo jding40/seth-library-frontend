@@ -1,5 +1,5 @@
 // src/components/BookCard.tsx
-import { type IBook } from "../services/bookApi";
+import { type IBook } from "../types";
 import {type FC } from "react";
 
 interface BookCardProps {

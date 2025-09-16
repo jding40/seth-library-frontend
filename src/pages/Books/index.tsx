@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 //import { getAllBooks } from "@/api/bookApi";  // 假设你封装过bookApi
 //import { getAllBooks } from "../../services/bookApi";
 import BookCard from "../../components/BookCard";
-import bookApi, {type IBook } from "../../services/bookApi";
+import bookApi from "../../services/bookApi";
+import {type IBook } from "../../types";
 //import type {AxiosResponse} from "axios";
 
 const BooksPage: FC = () => {

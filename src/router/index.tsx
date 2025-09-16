@@ -41,7 +41,7 @@ const router = createBrowserRouter([
             <>
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                    <BookEditPage />
+                    <BookEditPage ISBN={""} title={""} qtyOwned={0} borrowedBooksCount={0} />
                 </div>
             </>
         ),
