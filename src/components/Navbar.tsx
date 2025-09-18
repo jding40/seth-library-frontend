@@ -1,15 +1,15 @@
 // src/components/Navbar.tsx
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 //import {jwtDecode} from "jwt-decode";
 import {getUserRole} from "../utils";
-//import type {IUserPayload} from "../types";
+import type {RoleType} from "../types";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const role: "admin" | "guest" = getUserRole();
+  const role: RoleType = getUserRole();
 
-  const [userRole, setUserRole] = useState<"admin" |'guest'>("guest");
+  const [userRole, setUserRole] = useState<RoleType>("guest");
   //const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -30,6 +30,13 @@ const Navbar = () => {
 
     navigate("/login");
   };
+
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const toggleMobileMenu = ()=>{
+    if (mobileMenuRef.current) {
+      mobileMenuRef.current.classList.toggle("hidden");
+    }
+  }
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -72,7 +79,7 @@ const Navbar = () => {
               </>
             )}
 
-            {!userRole ? (
+            {userRole==="guest" ? (
               <Link
                 to="/login"
                 className="text-gray-700 hover:text-blue-600 transition"
@@ -93,10 +100,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               className="text-gray-700 hover:text-blue-600 focus:outline-none"
-              onClick={() => {
-                const menu = document.getElementById("mobile-menu");
-                menu?.classList.toggle("hidden");
-              }}
+              onClick={toggleMobileMenu}
             >
               ☰
             </button>
@@ -108,6 +112,7 @@ const Navbar = () => {
       <div
         id="mobile-menu"
         className="hidden md:hidden bg-gray-50 px-4 py-2 space-y-2"
+        ref={mobileMenuRef}
       >
         <Link to="/" className="block text-gray-700 hover:text-blue-600">
           Home

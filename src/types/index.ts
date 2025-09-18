@@ -1,5 +1,7 @@
+export type RoleType = "admin" | "guest" | "user";
+
 export interface IUserPayload {
-    role: "admin" | "guest";
+    role: RoleType;
     email: string;
 }
 

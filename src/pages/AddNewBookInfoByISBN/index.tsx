@@ -36,8 +36,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         //const savedBook = await bookApi.addBook(book);
                         console.log(book);
                         await bookApi.create(book)
-                        //setMessage(`✅ 已保存: ${savedBook.title}`);
-                        setMessage(`✅ book information saved...`);
+                        setMessage(`✅ Information of ${book.title} already saved...`);
 
                 } catch (error) {
                         console.error(error);
@@ -68,14 +67,14 @@ const AddNewBookInfoByISBNPage: FC = () => {
                             </button>
                     </div>
 
-                    {/* 显示查询结果 */}
+                    {/* Display query result */}
                     {book && (
                         <div className="border p-4 rounded shadow mb-4">
                                 <h2 className="text-lg font-bold">{book.title}</h2>
                                 {book.subtitle && <p className="text-sm">{book.subtitle}</p>}
                                 {book.authors && <p className="mt-2">👤 Author: {book.authors.join(", ")}</p>}
                                 {book.publishDate && <p>📅 Publish Date: {book.publishDate}</p>}
-                                {book.pageCount && <p>📖 Pages: {book.pageCount}</p>}
+                                {Number(book.pageCount) > 0 && <p>📖 Pages: {book.pageCount}</p>}
                                 {book.imageLink && (
                                     <img
                                         src={book.imageLink}
@@ -92,7 +91,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         </div>
                     )}
 
-                    {/* 状态消息 */}
+                    {/* staus or error message */}
                     {message && <p className="mt-4 text-left">{message}</p>}
             </div>
         );

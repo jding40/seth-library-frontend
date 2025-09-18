@@ -5,28 +5,28 @@ export interface IUser {
     _id?: string;
     email: string;
     password?: string;
-    role: "admin" | "guest";
+    role: "admin" | "user"| "guest";
     firstName?: string;
     lastName?: string;
     tel?: string;
 }
 
 const userApi = {
-    // 注册
+    // Sign up
     register: (data: { email: string; password: string; role?: string }) =>
         http.post<IUser>("/user/register", data),
 
-    // 登录
+    // Log in
     login: (data: { email: string; password: string }) =>
         http.post<{ token: string; user: IUser }>("/user/login", data),
 
-    // 获取所有用户（需要 admin）
+    // ger all users（user role has to be admin）
     getAll: () => http.get<IUser[]>("/user"),
 
-    // 删除用户（需要 admin）
+    // delete a user（user role has to be admin）
     delete: (id: string) => http.delete(`/user/${id}`),
 
-    // 更新用户（需要 admin）
+    // update a user（user role has to be admin）
     update: (id: string, data: Partial<IUser>) =>
         http.put(`/user/${id}`, data),
 };

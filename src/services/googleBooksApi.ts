@@ -33,15 +33,15 @@ export async function fetchBookByISBN(isbn: string): Promise<IBook | null> {
         "http:",
         "https:"
       ),
-      qtyOwned: 0, // 默认库存量，后续可在表单修改
-      borrowedBooksCount: 0, // 默认借出 0
+      qtyOwned: 0, // default qty is 0
+      borrowedBooksCount: 0, // default value is 0
       isRecommended: false,
       isWishList: false,
     };
 
     return book;
   } catch (error) {
-    console.error("获取图书信息失败:", error);
+    console.error("Failed to get book information:", error);
     return null;
   }
 }

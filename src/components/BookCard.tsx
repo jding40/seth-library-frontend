@@ -10,7 +10,7 @@ interface BookCardProps {
 const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
     return (
         <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition h-60">
-            {/* 左侧封面 */}
+            {/* book cover on the left */}
             <div className="w-36 flex-shrink-0">
                 <img
                     src={book.imageLink || "https://books.google.ca/googlebooks/images/no_cover_thumb.gif"}
@@ -19,7 +19,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
                 />
             </div>
 
-            {/* 右侧信息 */}
+            {/* book info on the right */}
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
                     <h2 className="text-lg font-semibold text-gray-800">{book.title}</h2>

@@ -6,7 +6,7 @@ import {type IBook} from "../types"
 
 
 const bookApi = {
-    // 获取所有书籍
+    // get all books
     //getAll: (): Promise<AxiosResponse<IBook[]>> => http.get<IBook[]>("/books"),
     getAll: async (): Promise<IBook[]> => {
         const res   = await http.get<IBook[]>("/books");
@@ -15,17 +15,17 @@ const bookApi = {
         return books;
     },
 
-    // 获取单本书籍
+    // get a book
     getByIsbn: (isbn: string) => http.get<IBook>(`/books/${isbn}`),
 
-    // 创建书籍
+    // create a book
     create: (data: IBook) => http.post<IBook>("/books", data),
 
-    // 更新书籍
+    // update a book
     update: ( data: Partial<IBook>) =>
         http.put("/books", data),
 
-    // 删除书籍
+    // delete a book
     remove: (id: string) => http.delete(`/books/${id}`),
 };
 
