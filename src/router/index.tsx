@@ -12,8 +12,10 @@ import BorrowPage from "../pages/Borrows";
 import AddNewBookInfoByISBNPage from "../pages/AddNewBookInfoByISBN";
 import Signin from "../pages/Signin";
 import BookEditPage from "../pages/BookEditPage";
+import {type FC } from "react";
+import {RequireAuth} from "../auth";
 
-const router = createBrowserRouter([
+const router= createBrowserRouter([
         {
             path: "/",
             element: (
@@ -49,12 +51,12 @@ const router = createBrowserRouter([
     {
         path: "/books/add-new-book-by-isbn",
         element: (
-            <>
+            <RequireAuth role="admin">
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <AddNewBookInfoByISBNPage />
                 </div>
-            </>
+            </RequireAuth>
         ),
     },
         {
@@ -103,7 +105,7 @@ const router = createBrowserRouter([
     },
     ]);
 
-const AppRoutes = () => {
+const AppRoutes:FC = () => {
     return <RouterProvider router={router} />;
 };
 

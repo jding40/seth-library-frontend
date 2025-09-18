@@ -15,7 +15,7 @@ const BookEditPage:FC<IBook> = () => {
 
     if (!isbn) throw new Error(`No book found with ISBN: ${isbn}`)
 
-    // 1. 获取图书详情
+    // 1. get book information from the backend database
     useEffect(() => {
         const fetchBook = async () => {
             try {
@@ -32,7 +32,7 @@ const BookEditPage:FC<IBook> = () => {
         if (isbn) fetchBook();
     }, [isbn]);
 
-    // 2. 提交更新
+    // 2. submit the form
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!book || !isbn) return;
@@ -48,7 +48,7 @@ const BookEditPage:FC<IBook> = () => {
         }
     };
 
-    // 3. 处理输入
+    // 3. process the input
     //const handleChange = (field: keyof IBook, value:any) => { setBook((prev) => (prev ? { ...prev, [field]: value } : prev)); };
     const handleChange = <K extends keyof IBook>(field: K, value: IBook[K]) => {
         setBook((prev) => (prev ? { ...prev, [field]: value } : prev));

@@ -1,10 +1,10 @@
 import { type FC } from "react";
+import userApi from "../../services/userApi";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import http from "../../services/http";
-import { jwtDecode } from "jwt-decode";
-import {type IUserPayload} from "../../types";
+// import { jwtDecode } from "jwt-decode";
+// import { type IUserPayload } from "../../types";
 
 const Login: FC = () => {
   const [email, setEmail] = useState("");
@@ -16,30 +16,29 @@ const Login: FC = () => {
     e.preventDefault();
 
     try {
-      const res = await http.post(
-        `${import.meta.env.VITE_API_BASE_URL}/user/login`,
-        {
-          email,
-          password,
-        }
-      );
 
-
+      const res = await userApi.login(
+          {
+            email,
+            password
+          }
+      )
 
       const { token } = res.data;
 
-      const decodedUser: IUserPayload = jwtDecode<IUserPayload>(token);
-      console.log("decodeduser: ",decodedUser)
+      //const decodedUser: IUserPayload = jwtDecode<IUserPayload>(token);
+      //console.log("decodeduser: ", decodedUser);
 
-      // 保存用户信息和 token
+      // save token to local storage
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(decodedUser));
+      //localStorage.setItem("user", JSON.stringify(decodedUser));
 
       navigate("/");
-
     } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'response' in err) {
-        const errorResponse = (err as { response?: { data?: { message?: string } } });
+      if (err && typeof err === "object" && "response" in err) {
+        const errorResponse = err as {
+          response?: { data?: { message?: string } };
+        };
         setError(errorResponse.response?.data?.message || "Login failed");
       } else {
         setError("Login failed");
