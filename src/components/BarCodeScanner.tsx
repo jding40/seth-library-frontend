@@ -23,7 +23,7 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
                 }
 
                 await codeReader.decodeFromVideoDevice(
-                    devices[0].deviceId,
+                    devices[devices.length -1].deviceId,
                     videoRef.current!,
                     (result, err) => {
                         if (result) {
