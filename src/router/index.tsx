@@ -12,6 +12,7 @@ import BorrowPage from "../pages/Borrows";
 import AddNewBookInfoByISBNPage from "../pages/AddNewBookInfoByISBN";
 import Signin from "../pages/Signin";
 import BookEditPage from "../pages/BookEditPage";
+import BorrowCreationPage from "../pages/BorrowCreationPage";
 import {type FC } from "react";
 import {RequireAuth} from "../auth";
 
@@ -81,6 +82,17 @@ const router= createBrowserRouter([
                     </>
             ),
         },
+    {
+        path: "/borrows/new",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <BorrowCreationPage />
+                </div>
+            </>
+        ),
+    },
     {
         path: "/login",
         element: (

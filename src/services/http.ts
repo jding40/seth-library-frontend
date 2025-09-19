@@ -15,7 +15,16 @@ const http: AxiosInstance = axios.create({
   timeout: 5000,
   headers: {
     //"Authorization": "Bearer " + localStorage.getItem("token"),
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${localStorage.getItem("token")}`, // it will be "Bearer null" if no token is found in localStorage
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    //"Access-Control-Allow-Origin": "*",
+    //"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    //"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+    //"Access-Control-Allow-Credentials": "true",
+    //"Access-Control-Max-Age": "86400",
+    //"Access-Control-Expose-Headers": "Authorization",
+    //"Access-Control-Allow-Origin": "*",
   },
 });
 

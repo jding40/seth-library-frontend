@@ -1,13 +1,18 @@
 import { type FC, useState } from "react";
+
 import { fetchBookByISBN } from "../../services/googleBooksApi";
 import bookApi from "../../services/bookApi";
 import {type IBook} from "../../types"
+import axios from "axios";
+import BarcodeScanner from "../../components/BarCodeScanner.tsx";
 
 const AddNewBookInfoByISBNPage: FC = () => {
         const [isbn, setIsbn] = useState("");
         const [book, setBook] = useState<IBook | null>(null);
         const [loading, setLoading] = useState(false);
         const [message, setMessage] = useState("");
+
+
 
         const handleSearch = async () => {
                 setLoading(true);
@@ -32,15 +37,21 @@ const AddNewBookInfoByISBNPage: FC = () => {
                 if (!book) return;
                 setLoading(true);
                 setMessage("");
+
                 try {
                         //const savedBook = await bookApi.addBook(book);
                         console.log(book);
                         await bookApi.create(book)
+
                         setMessage(`✅ Information of ${book.title} already saved...`);
 
                 } catch (error) {
-                        console.error(error);
-                        setMessage(`❌ Failed to save, ${(error as Error).message}...`);
+                        console.log("error: ",error);
+                        if (axios.isAxiosError(error)) {
+                                console.error("❌ response data:", error.response?.data);
+                                setMessage(`❌ ${error.response?.data?.message ?? error.message}`);
+                        }
+                        else {setMessage(`❌ Failed to save, ${(error as Error).message}...`);}
                 } finally {
                         setLoading(false);
                 }
@@ -49,6 +60,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
         return (
             <div className="p-6 max-w-xl mx-auto">
                     <h1 className="text-2xl font-bold mb-4">📚 Register new book in database</h1>
+                    <BarcodeScanner onDetected={(code) => setIsbn(code)} />
 
                     {/* enter ISBN */}
                     <div className="flex items-center mb-4">

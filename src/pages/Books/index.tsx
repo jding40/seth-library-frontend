@@ -7,6 +7,7 @@ import bookApi from "../../services/bookApi";
 import {type IBook } from "../../types";
 //import type {AxiosResponse} from "axios";
 
+
 const BooksPage: FC = () => {
         const [recommendedBooks, setRecommendedBooks] = useState<IBook[]>([]);
         const [allBooks, setAllBooks] = useState<IBook[]>([]);
@@ -62,6 +63,7 @@ const BooksPage: FC = () => {
                             </Link>
 
                     </div>
+
 
                     {/* Seth's Pick */}
                     <section>
