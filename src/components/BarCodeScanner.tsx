@@ -34,6 +34,7 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
                     return;
                 }
                 setCameraQty(devices.length);
+                console.log("cameraQty: ", cameraQty);
 
                 const selectedDeviceId:string = devices[cameraIndex].deviceId;
 
@@ -70,13 +71,13 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
         return () => {
             //codeReader.reset();
         };
-    }, [onDetected]);
+    }, [onDetected, cameraIndex]);
 
     return (
         <div className="flex flex-col items-center relative">
             <video ref={videoRef} className="w-full max-w-sm border rounded shadow" />
             {error && <p className="text-red-600">{error}</p>}
-            <span className="text-gray-600 absolute bottom-5 right-5" onClick={switchCamera}>🔄</span>
+            {cameraQty>1 && <span className="text-gray-600 absolute bottom-5 right-5" onClick={switchCamera}>🔄</span>}
         </div>
     );
 }
