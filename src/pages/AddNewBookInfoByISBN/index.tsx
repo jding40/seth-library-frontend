@@ -1,4 +1,4 @@
-import { type FC, useState } from "react";
+import { type FC, useState, useRef } from "react";
 
 import { fetchBookByISBN } from "../../services/googleBooksApi";
 import bookApi from "../../services/bookApi";
@@ -11,6 +11,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
         const [book, setBook] = useState<IBook | null>(null);
         const [loading, setLoading] = useState(false);
         const [message, setMessage] = useState("");
+        const searchRef = useRef(null)
 
 
 
@@ -57,10 +58,15 @@ const AddNewBookInfoByISBNPage: FC = () => {
                 }
         };
 
+        const handleOnDetect = (barCode: string):void=>{
+                setIsbn(barCode);
+                handleSearch();
+        }
+
         return (
             <div className="p-6 max-w-xl mx-auto">
                     <h1 className="text-2xl font-bold mb-4">📚 Register new book in database</h1>
-                    <BarcodeScanner onDetected={(code) => setIsbn(code)} />
+                    <BarcodeScanner onDetected={ handleOnDetect } />
 
                     {/* enter ISBN */}
                     <div className="flex items-center mb-4">
@@ -73,6 +79,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                             <button
                                 onClick={handleSearch}
                                 disabled={loading || !isbn.trim()}
+                                ref={searchRef}
                                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
                             >
                                     {loading ? "Searching......" : "Search"}
