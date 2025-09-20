@@ -10,12 +10,21 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const codeReaderRef = useRef<BrowserMultiFormatReader | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [cameraIndex, setCameraIndex] = useState(0);
+    const [cameraQty, setCameraQty] = useState(1);
+
+    const switchCamera = ()=>{
+        setCameraIndex((prev) => (prev + 1) % cameraQty);
+    }
+
+
 
     useEffect(() => {
         const codeReader = new BrowserMultiFormatReader();
         codeReaderRef.current = codeReader;
 
         let controls: IScannerControls | null = null;
+
 
         const startScanner = async () => {
             try {
@@ -24,8 +33,10 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
                     setError("No camera found");
                     return;
                 }
+                setCameraQty(devices.length);
 
-                const selectedDeviceId:string = devices[devices.length -1].deviceId;
+                const selectedDeviceId:string = devices[cameraIndex].deviceId;
+
 
                 controls = await codeReader.decodeFromVideoDevice(
                     selectedDeviceId,
@@ -62,9 +73,10 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
     }, [onDetected]);
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center relative">
             <video ref={videoRef} className="w-full max-w-sm border rounded shadow" />
             {error && <p className="text-red-600">{error}</p>}
+            <span className="text-gray-600 absolute bottom-5 right-5" onClick={switchCamera}>🔄</span>
         </div>
     );
 }
