@@ -78,7 +78,7 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
             {error && <p className="text-red-600">{error}</p>}
 
             {/* switch camera */}
-            {cameraQty > 1 && (
+            {cameraQty > 1 && isScanning && (
                 <span
                     className="text-gray-600 absolute bottom-5 right-5 cursor-pointer"
                     onClick={switchCamera}
