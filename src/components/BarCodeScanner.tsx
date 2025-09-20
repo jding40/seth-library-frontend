@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { BrowserMultiFormatReader } from "@zxing/browser";
+//https://www.npmjs.com/package/@zxing/browser/v/0.1.5
+import { BrowserMultiFormatReader, type IScannerControls } from "@zxing/browser";
 
 interface BarcodeScannerProps {
     onDetected: (isbn: string) => void;
@@ -14,6 +15,8 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
         const codeReader = new BrowserMultiFormatReader();
         codeReaderRef.current = codeReader;
 
+        let controls: IScannerControls | null = null;
+
         const startScanner = async () => {
             try {
                 const devices = await BrowserMultiFormatReader.listVideoInputDevices();
@@ -22,26 +25,32 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
                     return;
                 }
 
-                await codeReader.decodeFromVideoDevice(
-                    devices[devices.length -1].deviceId,
+                const selectedDeviceId:string = devices[devices.length -1].deviceId;
+
+                controls = await codeReader.decodeFromVideoDevice(
+                    selectedDeviceId,
                     videoRef.current!,
                     (result, err) => {
                         if (result) {
                             const isbn = result.getText();
+                            console.log("Detected result:", result);
                             onDetected(isbn);
 
                             // ✅ stop scanning
                             //codeReader.reset();
-                            codeReaderRef.current = null;
+                            // codeReaderRef.current = null;
+                            controls?.stop()
                         }
                         if (err && !(err.name === "NotFoundException")) {
                             console.warn(err);
                         }
                     }
                 );
-            } catch (e: Error | unknown) {
+
+
+            } catch (e: unknown) {
                     // setError(e.message || "Camera error");
-                console.log(e)
+                console.error("Camera Error: ",e)
             }
         };
 
