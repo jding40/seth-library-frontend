@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-//https://www.npmjs.com/package/@zxing/browser/v/0.1.5
 import { BrowserMultiFormatReader, type IScannerControls } from "@zxing/browser";
 
 interface BarcodeScannerProps {
@@ -12,20 +11,22 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
     const [error, setError] = useState<string | null>(null);
     const [cameraIndex, setCameraIndex] = useState(0);
     const [cameraQty, setCameraQty] = useState(1);
+    const [isScanning, setIsScanning] = useState(false);
 
-    const switchCamera = ()=>{
+    const controlsRef = useRef<IScannerControls | null>(null);
+
+    const switchCamera = () => {
         setCameraIndex((prev) => (prev + 1) % cameraQty);
-    }
-
-
+    };
 
     useEffect(() => {
-        const codeReader = new BrowserMultiFormatReader();
-        codeReaderRef.current = codeReader;
+        codeReaderRef.current = new BrowserMultiFormatReader();
+        return () => {
+            controlsRef.current?.stop();
+        };
+    }, []);
 
-        let controls: IScannerControls | null = null;
-
-
+    useEffect(() => {
         const startScanner = async () => {
             try {
                 const devices = await BrowserMultiFormatReader.listVideoInputDevices();
@@ -34,12 +35,10 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
                     return;
                 }
                 setCameraQty(devices.length);
-                console.log("cameraQty: ", cameraQty);
 
-                const selectedDeviceId:string = devices[cameraIndex].deviceId;
+                const selectedDeviceId = devices[cameraIndex].deviceId;
 
-
-                controls = await codeReader.decodeFromVideoDevice(
+                controlsRef.current = await codeReaderRef.current!.decodeFromVideoDevice(
                     selectedDeviceId,
                     videoRef.current!,
                     (result, err) => {
@@ -48,36 +47,53 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
                             console.log("Detected result:", result);
                             onDetected(isbn);
 
-                            // ✅ stop scanning
-                            //codeReader.reset();
-                            // codeReaderRef.current = null;
-                            controls?.stop()
+                            // 停止扫描（只扫一次）
+                            setIsScanning(false);
                         }
                         if (err && !(err.name === "NotFoundException")) {
                             console.warn(err);
                         }
                     }
                 );
-
-
-            } catch (e: unknown) {
-                    // setError(e.message || "Camera error");
-                console.error("Camera Error: ",e)
+            } catch (e) {
+                console.error("Camera Error: ", e);
+                setError("Camera error");
             }
         };
 
-        startScanner();
+        if (isScanning) {
+            startScanner();
+        } else {
+            controlsRef.current?.stop();
+        }
 
         return () => {
-            //codeReader.reset();
+            controlsRef.current?.stop();
         };
-    }, [onDetected, cameraIndex]);
+    }, [isScanning, cameraIndex, onDetected]);
 
     return (
         <div className="flex flex-col items-center relative">
             <video ref={videoRef} className="w-full max-w-sm border rounded shadow" />
             {error && <p className="text-red-600">{error}</p>}
-            {cameraQty>1 && <span className="text-gray-600 absolute bottom-5 right-5" onClick={switchCamera}>🔄</span>}
+
+            {/* switch camera */}
+            {cameraQty > 1 && (
+                <span
+                    className="text-gray-600 absolute bottom-5 right-5 cursor-pointer"
+                    onClick={switchCamera}
+                >
+                    🔄
+                </span>
+            )}
+
+            {/* start/stop scanning*/}
+            <div
+                onClick={() => setIsScanning((prev) => !prev)}
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer text-4xl"
+            >
+                {!isScanning ? "▶️" : "⏹️"}
+            </div>
         </div>
     );
 }
