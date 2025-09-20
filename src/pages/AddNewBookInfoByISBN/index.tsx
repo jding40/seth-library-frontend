@@ -15,11 +15,11 @@ const AddNewBookInfoByISBNPage: FC = () => {
 
 
 
-        const handleSearch = async () => {
+        const handleSearch = async (queryIsbn?:string) => {
                 setLoading(true);
                 setMessage("");
                 try {
-                        const result = await fetchBookByISBN(isbn);
+                        const result = await fetchBookByISBN(queryIsbn??isbn);
                         if (result) {
                                 setBook(result);
                         } else {
@@ -58,9 +58,9 @@ const AddNewBookInfoByISBNPage: FC = () => {
                 }
         };
 
-        const handleOnDetect = (barCode: string):void=>{
+        const handleOnDetect =  (barCode: string):void=>{
                 setIsbn(barCode);
-                handleSearch();
+                handleSearch(barCode);
         }
 
         return (
@@ -77,7 +77,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                                 className="flex-grow border px-3 py-2 rounded mr-2"
                             />
                             <button
-                                onClick={handleSearch}
+                                onClick={()=>handleSearch(isbn)}
                                 disabled={loading || !isbn.trim()}
                                 ref={searchRef}
                                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
