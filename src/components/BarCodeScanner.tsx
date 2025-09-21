@@ -74,30 +74,31 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
 
     return (
         <div className="mb-4">
-        <div className="flex flex-col items-center relative">
+            <div className="flex flex-col items-center relative">
 
-            <video ref={videoRef} className="w-full  border rounded shadow" />
+                <video ref={videoRef} className="w-full  border rounded shadow" />
 
+                <div className="absolute bottom-5 right-5">
+                    {/* switch camera */}
+                    {cameraQty > 1 && isScanning && (
+                        <span
+                            className=" cursor-pointer text-4xl"
+                            onClick={switchCamera}
+                        >
+                            🔄
+                        </span>
+                    )}
 
-            {/* switch camera */}
-            {cameraQty > 1 && isScanning && (
-                <span
-                    className="text-gray-600 absolute bottom-5 right-5 cursor-pointer"
-                    onClick={switchCamera}
-                >
-                    🔄
-                </span>
-            )}
-
-            {/* start/stop scanning*/}
-            <div
-                onClick={() => setIsScanning((prev) => !prev)}
-                // className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer text-4xl"
-                className="absolute bottom-5 right-5 cursor-pointer text-4xl"
-            >
-                {!isScanning ? "▶️" : "⏹️"}
+                    {/* start/stop scanning*/}
+                    <span
+                        onClick={() => setIsScanning((prev) => !prev)}
+                        // className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer text-4xl"
+                        className="cursor-pointer text-4xl"
+                    >
+                        {!isScanning ? "▶️" : "⏹️"}
+                    </span>
+                </div>
             </div>
-        </div>
             {error && <p className="text-red-600">{error}</p>}
         </div>
     );
