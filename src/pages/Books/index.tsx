@@ -2,16 +2,19 @@ import { type FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 //import { getAllBooks } from "@/api/bookApi";  // 假设你封装过bookApi
 //import { getAllBooks } from "../../services/bookApi";
-import BookCard from "../../components/BookCard";
-import bookApi from "../../services/bookApi";
-import {type IBook } from "../../types";
+import BookCard from "../../components/BookCard.tsx";
+import bookApi from "../../services/bookApi.ts";
+import {type IBook} from "../../types"
+import { getUserRole } from "../../utils";
 //import type {AxiosResponse} from "axios";
 
-
-const BooksPage: FC = () => {
+const HomePage: FC = () => {
         const [recommendedBooks, setRecommendedBooks] = useState<IBook[]>([]);
         const [allBooks, setAllBooks] = useState<IBook[]>([]);
         const [loading, setLoading] = useState(true);
+
+        const userRole=getUserRole();
+
 
         useEffect(() => {
                 const fetchBooks = async () => {
@@ -43,14 +46,13 @@ const BooksPage: FC = () => {
         return (
             <div className="p-6 space-y-10">
                     {/* Sub-menu */}
-                    <div className="flex gap-4">
+                    {userRole==="admin"&&<div className="flex gap-4">
                             <Link
                                 to="/books/wishlist"
                                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                             >
                                     📚 Wishlist
                             </Link>
-
                             <Link
                                 to="/books/add-new-book-by-isbn"
                                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
@@ -58,12 +60,12 @@ const BooksPage: FC = () => {
                                     ✏️ Register A New Book By ISBN
                             </Link>
                             <Link to="/books/add-new-book-by-isbn"
-                            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
                                     Register A New Book Manually
                             </Link>
 
-                    </div>
 
+                    </div>}
 
                     {/* Seth's Pick */}
                     <section>
@@ -71,7 +73,7 @@ const BooksPage: FC = () => {
                             {recommendedBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                         {recommendedBooks.map((book) => (
-                                            <BookCard key={book._id} book={book} />
+                                            <BookCard key={book._id} book={book} userRole={userRole} />
                                         ))}
                                 </div>
                             ) : (
@@ -85,7 +87,7 @@ const BooksPage: FC = () => {
                             {allBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                         {allBooks?.map((book) => (
-                                            <BookCard key={book._id} book={book} />
+                                            <BookCard key={book._id} book={book} userRole={userRole} />
                                         ))}
                                 </div>
                             ) : (
@@ -96,4 +98,4 @@ const BooksPage: FC = () => {
         );
 };
 
-export default BooksPage;
+export default HomePage;

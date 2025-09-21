@@ -1,5 +1,6 @@
 import { useState } from "react";
-import borrowApi, { type IBorrowRecord } from "../../services/borrowApi";
+import borrowApi from "../../services/borrowApi";
+import { type IBorrowRecord } from "../../types";
 import axios from "axios";
 import {type Location, useLocation} from "react-router-dom";
 
@@ -10,7 +11,8 @@ export default function BorrowCreationPage() {
     const defaultIsbn:string = queryParams.get("isbn") || "";
     const [formData, setFormData] = useState<IBorrowRecord>({
         ISBN: defaultIsbn,
-        qty: 1,
+        totalQty: 1,
+        outstandingQty: 1,
         borrowerName: "",
         borrowDate: new Date(),
         notes: "",
@@ -26,7 +28,7 @@ export default function BorrowCreationPage() {
         setFormData((prev) => ({
             ...prev,
             [name]:
-                name === "qty"
+                name === "totalQty"
                     ? parseInt(value, 10) || 0
                     : name === "borrowDate"
                         ? new Date(value)
@@ -44,7 +46,8 @@ export default function BorrowCreationPage() {
             setMessage(`✅ Borrow record created for ${res.data.borrowerName}`);
             setFormData({
                 ISBN: "",
-                qty: 1,
+                totalQty: 1,
+                outstandingQty: 1,
                 borrowerName: "",
                 borrowDate: new Date(),
                 notes: "",
@@ -90,8 +93,8 @@ export default function BorrowCreationPage() {
                     <label className="block text-sm font-medium">Quantity</label>
                     <input
                         type="number"
-                        name="qty"
-                        value={formData.qty}
+                        name="totalQty"
+                        value={formData.totalQty}
                         onChange={handleChange}
                         className="mt-1 block w-full border rounded px-3 py-2"
                         min={1}
