@@ -11,6 +11,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
     const [book, setBook] = useState<IBook | null>(null);
     const [localRecord, setLocalRecord] = useState(record)
 
+
     useEffect(() => {
         const fetchBook = async () => {
             try {
@@ -24,13 +25,16 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
     }, [record.ISBN, record.isBadDebt, record.isReturned]);
 
     const toggleBadDebt = ():void=>{
-        console.log("toggle bad debt...");
+        const confirmed = window.confirm(localRecord.isBadDebt?"Are you sure to cancel the bad-debt status?":"are you sure to mark it as bad debt?");
+        if (!confirmed) return;
         const updated:IBorrowRecord  = {...record, isBadDebt: !localRecord.isBadDebt }
         setLocalRecord(updated);
         borrowApi.toggleBadDebt(record._id as string);
     }
 
     const handleReturn = ():void =>{
+        const confirmed = window.confirm("are you sure to mark it as returned?")
+        if (!confirmed) return;
         const updated:IBorrowRecord = {...record, isReturned:!localRecord.isReturned, outstandingQty:0};
         setLocalRecord(updated);
         borrowApi.handleReturn(record._id as string)
@@ -74,7 +78,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
                 Returned
               </span>
                         ) : (
-                            <span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full" onClick = {handleReturn}>
+                            <span className="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-2 py-1 rounded-full" onClick = {handleReturn}>
                 Not Returned
               </span>
                         )}
