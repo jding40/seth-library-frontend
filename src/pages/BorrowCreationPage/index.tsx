@@ -110,7 +110,7 @@ export default function BorrowCreationPage() {
                             className="mt-1 block w-full border rounded px-3 py-2"
                             required
                         />
-                        <button className="absolute right-2 top-1 bg-blue-700 text-white py-1 px-2 rounded-sm" onClick={getInfo}>Get Info</button>
+                        <button type="button" className="absolute right-2 top-1 bg-blue-700 text-white py-1 px-2 rounded-sm" onClick={getInfo}>Get Info</button>
                     </div>
                 </div>
                 {bookTitle && (

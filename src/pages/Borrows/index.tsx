@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import borrowApi from "../../services/borrowApi";
 import  { type IBorrowRecord } from "../../types";
-import BorrowCard from "../../components/BorrowRecordCard2";
+import BorrowCard from "../../components/BorrowRecordCard";
 import {Link} from "react-router-dom";
 
 type ReturnFilter = "all" | "returned" | "notReturned";
