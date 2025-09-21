@@ -52,8 +52,8 @@ const BorrowsPage = () => {
                     {/* filter */}
                     <div className="mb-6 space-y-2">
                             <div className="flex items-center space-x-2">
-                                    <span className="w-30">Returned?</span>
-                                    <label className="mr-2 xl:mr-4 w-24">
+                                    <span className="w-20 xl:w-30">Returned?</span>
+                                    <label className="xl:mr-4  w-16 xl:w-24">
                                             <input
                                                 type="radio"
                                                 checked={returnFilter === "returned"}
@@ -61,7 +61,7 @@ const BorrowsPage = () => {
                                             />{" "}
                                             Yes
                                     </label>
-                                    <label className="mr-2 xl:mr-4  w-24">
+                                    <label className="xl:mr-4  w-16 xl:w-24">
                                             <input
                                                 type="radio"
                                                 checked={returnFilter === "notReturned"}
@@ -80,8 +80,8 @@ const BorrowsPage = () => {
                             </div>
 
                             <div className="flex items-center space-x-2">
-                                    <span className="w-30">Bad debt?</span>
-                                    <label className="mr-2 xl:mr-4  w-24">
+                                    <span className="w-20 xl:w-30">Bad debt?</span>
+                                    <label className="xl:mr-4  w-16 xl:w-24">
                                             <input
                                                 type="radio"
                                                 checked={debtFilter === "badDebt"}
@@ -89,7 +89,7 @@ const BorrowsPage = () => {
                                             />{" "}
                                             Yes
                                     </label>
-                                    <label className="mr-2 xl:mr-4  w-24">
+                                    <label className="xl:mr-4 w-16 xl:w-24">
                                             <input
                                                 type="radio"
                                                 checked={debtFilter === "notBadDebt"}
