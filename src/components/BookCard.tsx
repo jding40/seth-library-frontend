@@ -60,7 +60,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
                     )}
                 </div>
                 <div>
-                    {book.qtyOwned===0 &&<span className={classnames("material-symbols-outlined ", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
+                    {book.qtyOwned===0 &&<span className={classnames("material-symbols-outlined me-2", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
                     <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>
 
                 </div>
