@@ -4,7 +4,7 @@ import { fetchBookByISBN } from "../../services/googleBooksApi";
 import bookApi from "../../services/bookApi";
 import {type IBook} from "../../types"
 import axios from "axios";
-import BarcodeScanner from "../../components/BarCodeScanner2.tsx";
+import BarcodeScanner from "../../components/BarCodeScanner.tsx";
 
 const AddNewBookInfoByISBNPage: FC = () => {
         const [isbn, setIsbn] = useState("");
