@@ -51,7 +51,7 @@ const BorrowsPage = () => {
 
                     {/* filter */}
                     <div className="mb-6 space-y-2">
-                            <div className="flex items-center space-x-2">
+                            <div className="flex justify-between sm:justify-start items-center space-x-2">
                                     <span className="w-20 xl:w-30">Returned?</span>
                                     <label className="xl:mr-4  w-16 xl:w-24">
                                             <input
@@ -79,7 +79,7 @@ const BorrowsPage = () => {
                                     </label>
                             </div>
 
-                            <div className="flex items-center space-x-2">
+                            <div className="flex justify-between sm:justify-start items-center space-x-2">
                                     <span className="w-20 xl:w-30">Bad debt?</span>
                                     <label className="xl:mr-4  w-16 xl:w-24">
                                             <input
