@@ -1,8 +1,10 @@
 import { useState } from "react";
 import borrowApi from "../../services/borrowApi";
+import bookApi from "../../services/bookApi";
 import { type IBorrowRecord } from "../../types";
 import axios from "axios";
 import {type Location, useLocation} from "react-router-dom";
+import BarcodeScanner from "../../components/BarCodeScanner.tsx";
 
 export default function BorrowCreationPage() {
 
@@ -18,8 +20,10 @@ export default function BorrowCreationPage() {
         notes: "",
     });
 
+
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const [bookTitle, setBookTitle] = useState("");
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,9 +68,27 @@ export default function BorrowCreationPage() {
         }
     };
 
+    const handleOnDetect =  (barCode: string):void=>{
+        setFormData({
+            ISBN: barCode,
+            totalQty: 1,
+            outstandingQty: 1,
+            borrowerName: "",
+            borrowDate: new Date(),
+            notes: "",
+        });
+    }
+
+    const getInfo = async () => {
+
+        const res = await bookApi.getByIsbn(formData.ISBN);
+        setBookTitle(res.data.title);
+    }
+
     return (
         <div className="max-w-lg mx-auto bg-white shadow rounded p-6">
             <h2 className="text-xl font-bold mb-4">Create Borrow Record</h2>
+            {!formData.ISBN && <BarcodeScanner onDetected={handleOnDetect}/>}
             {message && (
                 <div className="mb-4 text-sm">
                     {message.startsWith("✅") ? (
@@ -79,15 +101,24 @@ export default function BorrowCreationPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium">ISBN</label>
-                    <input
-                        type="text"
-                        name="ISBN"
-                        value={formData.ISBN}
-                        onChange={handleChange}
-                        className="mt-1 block w-full border rounded px-3 py-2"
-                        required
-                    />
+                    <div className="relative">
+                        <input
+                            type="text"
+                            name="ISBN"
+                            value={formData.ISBN}
+                            onChange={handleChange}
+                            className="mt-1 block w-full border rounded px-3 py-2"
+                            required
+                        />
+                        <button className="absolute right-2 top-1 bg-blue-700 text-white py-1 px-2 rounded-sm" onClick={getInfo}>Get Info</button>
+                    </div>
                 </div>
+                {bookTitle && (
+                    <div className="mb-4 text-sm">
+                        {bookTitle}
+                    </div>
+                )}
+
 
                 <div>
                     <label className="block text-sm font-medium">Quantity</label>

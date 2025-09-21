@@ -49,11 +49,11 @@ const BorrowsPage = () => {
 
                     <h1 className="text-2xl font-bold mb-4">📖 Borrow Records</h1>
 
-                    {/* 筛选按钮 */}
+                    {/* filter */}
                     <div className="mb-6 space-y-2">
-                            <div>
-                                    <span className="mr-4 font-medium">Filter by return status:</span>
-                                    <label className="mr-4">
+                            <div className="flex items-center space-x-4">
+                                    <span className="mr-2 xl:mr-4 font-medium w-45">Filter by return status:</span>
+                                    <label className="mr-2 xl:mr-4 w-36">
                                             <input
                                                 type="radio"
                                                 checked={returnFilter === "returned"}
@@ -61,7 +61,7 @@ const BorrowsPage = () => {
                                             />{" "}
                                             Returned
                                     </label>
-                                    <label className="mr-4">
+                                    <label className="mr-2 xl:mr-4  w-36">
                                             <input
                                                 type="radio"
                                                 checked={returnFilter === "notReturned"}
@@ -79,9 +79,9 @@ const BorrowsPage = () => {
                                     </label>
                             </div>
 
-                            <div>
-                                    <span className="mr-4 font-medium">Filter by bad debt:</span>
-                                    <label className="mr-4">
+                            <div className="flex items-center space-x-4">
+                                    <span className="mr-2 xl:mr-4 font-medium w-45">Filter by bad debt:</span>
+                                    <label className="mr-2 xl:mr-4 w-36">
                                             <input
                                                 type="radio"
                                                 checked={debtFilter === "badDebt"}
@@ -89,7 +89,7 @@ const BorrowsPage = () => {
                                             />{" "}
                                             Bad Debt
                                     </label>
-                                    <label className="mr-4">
+                                    <label className="mr-2 xl:mr-4  w-36">
                                             <input
                                                 type="radio"
                                                 checked={debtFilter === "notBadDebt"}
@@ -108,7 +108,7 @@ const BorrowsPage = () => {
                             </div>
                     </div>
 
-                    {/* 卡片列表 */}
+                    {/* card list */}
                     {loading ? (
                         <p>Loading records...</p>
                     ) : filteredRecords.length === 0 ? (

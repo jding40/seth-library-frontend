@@ -66,10 +66,10 @@ const BooksPage: FC = () => {
 
 
                     {/* Seth's Pick */}
-                    <section>
+                    <section className="">
                             <h2 className="text-2xl font-bold mb-4">🔥 Seth's Pick</h2>
                             {recommendedBooks?.length > 0 ? (
-                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {recommendedBooks.map((book) => (
                                             <BookCard key={book._id} book={book} />
                                         ))}
@@ -83,7 +83,7 @@ const BooksPage: FC = () => {
                     <section>
                             <h2 className="text-2xl font-bold mb-4">📖 Seth's Book Collection</h2>
                             {allBooks?.length > 0 ? (
-                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {allBooks?.map((book) => (
                                             <BookCard key={book._id} book={book} />
                                         ))}

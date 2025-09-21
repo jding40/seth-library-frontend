@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
-import Home from "../pages/Books";
+import Home from "../pages/Home";
 import BooksPage from "../pages/Books";
 import UsersPage from "../pages/Users";
 import BorrowPage from "../pages/Borrows";
@@ -22,7 +22,7 @@ const router= createBrowserRouter([
             element: (
                 <>
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <Home />
                     </div>
                     </>
@@ -33,7 +33,7 @@ const router= createBrowserRouter([
             element: (
                 <>
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <BooksPage />
                     </div>
                     </>
@@ -43,7 +43,7 @@ const router= createBrowserRouter([
         element: (
             <>
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <BookEditPage ISBN={""} title={""} qtyOwned={0} borrowedBooksCount={0} />
                 </div>
             </>
@@ -54,7 +54,7 @@ const router= createBrowserRouter([
         element: (
             <RequireAuth role="admin">
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <AddNewBookInfoByISBNPage />
                 </div>
             </RequireAuth>
@@ -65,7 +65,7 @@ const router= createBrowserRouter([
             element: (
                 <>
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <UsersPage />
                     </div>
                     </>
@@ -76,7 +76,7 @@ const router= createBrowserRouter([
             element: (
                 <>
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <BorrowPage />
                     </div>
                     </>
@@ -87,7 +87,7 @@ const router= createBrowserRouter([
         element: (
             <>
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <BorrowCreationPage />
                 </div>
             </>
@@ -98,7 +98,7 @@ const router= createBrowserRouter([
         element: (
             <>
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                     <Signin />
                 </div>
             </>
@@ -109,7 +109,7 @@ const router= createBrowserRouter([
             element: (
                 <>
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
                 <h2 className="text-red-500">404 Page not existed</h2>
         </div>
         </>
