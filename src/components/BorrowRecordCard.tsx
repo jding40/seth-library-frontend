@@ -40,6 +40,14 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
         borrowApi.handleReturn(record._id as string)
     }
 
+    const handleDelete = ():void=>{
+        const confirmed = window.confirm("Are you sure to delete this borrow record?")
+        if(!confirmed) return;
+        if(localRecord._id)borrowApi.remove(localRecord._id);
+    }
+
+
+
     return (
         <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition h-40 mb-4">
             {/* 左侧封面 */}
@@ -61,7 +69,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
                         <h2 className="text-lg font-semibold text-gray-800">
                             {book?.title || "Unknown Book"}
                         </h2>
-                        {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 absolute bottom--20 right-1">delete</span>}
+                        {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 absolute bottom--20 right-1" onClick={handleDelete}>delete</span>}
                     </div>
                     <p className="text-sm text-gray-600 mt-1">
                         Borrower: <span className="font-medium">{localRecord.borrowerName}</span>
