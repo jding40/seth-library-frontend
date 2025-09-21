@@ -69,7 +69,7 @@ const BorrowsPage = () => {
                                             />{" "}
                                             No
                                     </label>
-                                    <label>
+                                    <label className="w-16 xl:w-24">
                                             <input
                                                 type="radio"
                                                 checked={returnFilter === "all"}
@@ -97,7 +97,7 @@ const BorrowsPage = () => {
                                             />{" "}
                                             No
                                     </label>
-                                    <label>
+                                    <label className="w-16 xl:w-24">
                                             <input
                                                 type="radio"
                                                 checked={debtFilter === "all"}
