@@ -10,7 +10,7 @@ const borrowApi = {
         http.put(`/borrow-record/${data._id}`, data),
     remove: (id: string) => http.delete(`/borrow-record/${id}`),
     toggleBadDebt: (id: string) => http.get(`/borrow-record/toggle-bad-debt/${id}`),
-    toggleReturned: (id: string) => http.get(`/borrow-record/toggle-returned/${id}`),
+    handleReturn: (id: string) => http.get(`/borrow-record/toggle-returned/${id}`),
 
 }
 

@@ -25,15 +25,15 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
 
     const toggleBadDebt = ():void=>{
         console.log("toggle bad debt...");
-        const updated = {...record, isBadDebt: !localRecord.isBadDebt }
+        const updated:IBorrowRecord  = {...record, isBadDebt: !localRecord.isBadDebt }
         setLocalRecord(updated);
         borrowApi.toggleBadDebt(record._id as string);
     }
 
-    const toggleReturn = ():void =>{
-        const updated:IBorrowRecord = {...record, isReturned:!localRecord.isReturned};
+    const handleReturn = ():void =>{
+        const updated:IBorrowRecord = {...record, isReturned:!localRecord.isReturned, outstandingQty:0};
         setLocalRecord(updated);
-        borrowApi.toggleReturned(record._id as string)
+        borrowApi.handleReturn(record._id as string)
     }
 
     return (
@@ -74,7 +74,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
                 Returned
               </span>
                         ) : (
-                            <span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full" onClick = {toggleReturn}>
+                            <span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full" onClick = {handleReturn}>
                 Not Returned
               </span>
                         )}

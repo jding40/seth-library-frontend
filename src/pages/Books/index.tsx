@@ -9,7 +9,7 @@ import { getUserRole } from "../../utils";
 //import type {AxiosResponse} from "axios";
 
 const HomePage: FC = () => {
-        const [recommendedBooks, setRecommendedBooks] = useState<IBook[]>([]);
+
         const [allBooks, setAllBooks] = useState<IBook[]>([]);
         const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,7 @@ const HomePage: FC = () => {
                                 setAllBooks(books);
                                 console.log("allbooks: ", allBooks);//allbooks: []
 
-                                setRecommendedBooks(books?.filter((b) => b.isRecommended));
+
                         } catch (error) {
                                 console.error("❌ Failed to fetch books:", error);
                         } finally {
@@ -67,25 +67,13 @@ const HomePage: FC = () => {
 
                     </div>}
 
-                    {/* Seth's Pick */}
-                    <section>
-                            <h2 className="text-2xl font-bold mb-4">🔥 Seth's Pick</h2>
-                            {recommendedBooks?.length > 0 ? (
-                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                                        {recommendedBooks.map((book) => (
-                                            <BookCard key={book._id} book={book} userRole={userRole} />
-                                        ))}
-                                </div>
-                            ) : (
-                                <p>No recommended books yet.</p>
-                            )}
-                    </section>
+
 
                     {/* Seth's Book Collection */}
                     <section>
                             <h2 className="text-2xl font-bold mb-4">📖 Seth's Book Collection</h2>
                             {allBooks?.length > 0 ? (
-                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {allBooks?.map((book) => (
                                             <BookCard key={book._id} book={book} userRole={userRole} />
                                         ))}

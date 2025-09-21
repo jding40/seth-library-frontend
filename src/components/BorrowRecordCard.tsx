@@ -1,6 +1,7 @@
 import { type FC, useEffect, useState } from "react";
 
 import bookApi from "../services/bookApi";
+import borrowApi from "../services/borrowApi";
 import { type IBook, type IBorrowRecord } from "../types";
 import type { AxiosResponse } from "axios";
 
@@ -27,35 +28,39 @@ const BorrowCard: FC<BorrowCardProps> = ({ borrow, onUpdate }) => {
     }, [borrow?.ISBN]);
 
     // 点击归还状态切换
-    const handleToggleReturn = async () => {
-        if (!borrow || !book) return;
-        setUpdating(true);
-        try {
-            const updated: IBook = {
-                ...book,
-                borrowedBooksCount: borrow.isReturned
-                    ? book.borrowedBooksCount + 1 // 取消归还
-                    : book.borrowedBooksCount - 1, // 归还一本
-            };
+    // const handleReturn = async () => {
+    //     if (!borrow || !book) return;
+    //     setUpdating(true);
+    //     try {
+    //         const updated: IBook = {
+    //             ...book,
+    //             borrowedBooksCount: book.borrowedBooksCount - borrow.outstandingQty
+    //
+    //         };
+    //
+    //         await bookApi.update(updated);
+    //         borrow.isReturned = !borrow.isReturned;
+    //         if (onUpdate) onUpdate();
+    //     } catch (err) {
+    //         console.error("❌ Failed to update return state", err);
+    //     } finally {
+    //         setUpdating(false);
+    //     }
+    // };
 
-            await bookApi.update(updated);
-            borrow.isReturned = !borrow.isReturned;
-            if (onUpdate) onUpdate();
-        } catch (err) {
-            console.error("❌ Failed to update return state", err);
-        } finally {
-            setUpdating(false);
-        }
-    };
+    const handleReturn = async()=>{
+        if (!borrow?._id) return;
+        await borrowApi.toggleReturned(borrow._id);
+    }
 
-    // 点击坏账状态切换
-    const handleToggleDebt = async () => {
+    //
+    const handleToggleBadDebt = async () => {
         if (!borrow || !book) return;
-        if (!borrow.isReturned) return; // 未归还时不允许切换坏账
+        if (!borrow.isReturned) return;
         setUpdating(true);
         try {
             borrow.isBadDebt = !borrow.isBadDebt;
-            await bookApi.update(book); // book 不涉及库存，只是触发保存
+            await bookApi.update(book);
             if (onUpdate) onUpdate();
         } catch (err) {
             console.error("❌ Failed to update bad debt state", err);
@@ -110,7 +115,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ borrow, onUpdate }) => {
                     {/* status of return */}
                     <button
                         disabled={updating}
-                        onClick={handleToggleReturn}
+                        onClick={handleReturn}
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
                             borrow.isReturned
                                 ? "bg-green-100 text-green-700"
@@ -124,7 +129,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ borrow, onUpdate }) => {
                     {borrow.isReturned && (
                         <button
                             disabled={updating}
-                            onClick={handleToggleDebt}
+                            onClick={handleToggleBadDebt}
                             className={`px-3 py-1 rounded-full text-xs font-medium ${
                                 borrow.isBadDebt
                                     ? "bg-red-200 text-red-800"

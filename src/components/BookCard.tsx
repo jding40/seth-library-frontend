@@ -1,6 +1,10 @@
 // src/components/BookCard.tsx
 import { type IBook } from "../types";
-import {type FC } from "react";
+import {type FC, useState } from "react";
+import bookApi from "../services/bookApi";
+import classnames from "classnames";
+import { Link } from "react-router-dom";
+
 
 interface BookCardProps {
     book: IBook;
@@ -8,8 +12,31 @@ interface BookCardProps {
 }
 
 const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
+
+    const [isRecommended, setIsRecommend]=useState<boolean>(book.isRecommended || false)
+    const [isWishList, setIsWishList]=useState<boolean>(book.isWishList || false)
+
+
+    // const toggleFavorite = async()=>{
+    //     setIsRecommend(prev=>!prev)
+    //     const updatedBook:IBook ={...book, isRecommended: isRecommended};
+    //     await bookApi.update(updatedBook);
+    // }
+    const toggleFavorite = async () => {
+        const newValue = !isRecommended;
+        setIsRecommend(newValue);
+        const updatedBook: IBook = { ...book, isRecommended: newValue };
+        await bookApi.update(updatedBook);
+    };
+    const toggleWishList = async () => {
+        const newValue = !isWishList;
+        setIsWishList(newValue);
+        const updatedBook: IBook = { ...book, isWishList: newValue };
+        await bookApi.update(updatedBook);
+    };
+
     return (
-        <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition h-60">
+        <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition h-60 relative">
             {/* book cover on the left */}
             <div className="w-36 flex-shrink-0">
                 <img
@@ -18,11 +45,12 @@ const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
                     className="h-full w-full object-cover"
                 />
             </div>
+            {userRole === "admin" &&<span className={classnames("material-symbols-outlined  absolute top-5 right-5", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
 
             {/* book info on the right */}
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
-                    <h2 className="text-lg font-semibold text-gray-800">{book.title}</h2>
+                    <h2 className="text-lg font-semibold text-gray-800 pe-2">{book.title}</h2>
                     {book.subtitle && <p className="text-sm text-gray-500">{book.subtitle}</p>}
                     {book.authors && (
                         <p className="text-sm text-gray-600 mt-1">Author: {book.authors.join(", ")}</p>
@@ -30,6 +58,11 @@ const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
                     {book.publishDate && (
                         <p className="text-sm text-gray-600 mt-1">Publish Date: {book.publishDate}</p>
                     )}
+                </div>
+                <div>
+                    {book.qtyOwned===0 &&<span className={classnames("material-symbols-outlined ", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
+                    <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>
+
                 </div>
 
                 <div className="mt-2 flex justify-between items-center">

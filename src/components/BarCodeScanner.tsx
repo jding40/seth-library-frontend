@@ -73,9 +73,11 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
     }, [isScanning, cameraIndex, onDetected]);
 
     return (
+        <div className="mb-4">
         <div className="flex flex-col items-center relative">
-            <video ref={videoRef} className="w-full max-w-sm border rounded shadow" />
-            {error && <p className="text-red-600">{error}</p>}
+
+            <video ref={videoRef} className="w-full  border rounded shadow" />
+
 
             {/* switch camera */}
             {cameraQty > 1 && isScanning && (
@@ -90,10 +92,13 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
             {/* start/stop scanning*/}
             <div
                 onClick={() => setIsScanning((prev) => !prev)}
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer text-4xl"
+                // className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer text-4xl"
+                className="absolute bottom-5 right-5 cursor-pointer text-4xl"
             >
                 {!isScanning ? "▶️" : "⏹️"}
             </div>
+        </div>
+            {error && <p className="text-red-600">{error}</p>}
         </div>
     );
 }
