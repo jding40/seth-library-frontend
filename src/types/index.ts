@@ -27,3 +27,16 @@ export interface IBook {
     notes?: string;
 }
 
+export interface IBorrowRecord {
+    _id?: string;
+    ISBN: string;
+    totalQty:number;
+    outstandingQty: number;
+    borrowerName: string;
+    borrowDate:Date;
+    isReturned?: boolean;
+    returnDate?:Date,
+    isBadDebt?: boolean;
+    notes?: string;
+}
+

@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 // import { type IUserPayload } from "../../types";
 
 const Login: FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("test@email.com");
+  const [password, setPassword] = useState<string>("test");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 

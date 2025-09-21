@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
-import Home from "../pages/Home";
+import Home from "../pages/Books";
 import BooksPage from "../pages/Books";
 import UsersPage from "../pages/Users";
 import BorrowPage from "../pages/Borrows";
