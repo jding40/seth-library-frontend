@@ -52,14 +52,14 @@ const BorrowsPage = () => {
                     {/* filter */}
                     <div className="mb-6 space-y-2">
                             <div className="flex items-center space-x-4">
-                                    <span className="mr-2 xl:mr-4 font-medium w-45">Filter by return status:</span>
+                                    <span className="mr-2 xl:mr-4 font-medium w-45">Returned?</span>
                                     <label className="mr-2 xl:mr-4 w-36">
                                             <input
                                                 type="radio"
                                                 checked={returnFilter === "returned"}
                                                 onChange={() => setReturnFilter("returned")}
                                             />{" "}
-                                            Returned
+                                            Yes
                                     </label>
                                     <label className="mr-2 xl:mr-4  w-36">
                                             <input
@@ -67,7 +67,7 @@ const BorrowsPage = () => {
                                                 checked={returnFilter === "notReturned"}
                                                 onChange={() => setReturnFilter("notReturned")}
                                             />{" "}
-                                            Not Returned
+                                            No
                                     </label>
                                     <label>
                                             <input
@@ -80,14 +80,14 @@ const BorrowsPage = () => {
                             </div>
 
                             <div className="flex items-center space-x-4">
-                                    <span className="mr-2 xl:mr-4 font-medium w-45">Filter by bad debt:</span>
+                                    <span className="mr-2 xl:mr-4 font-medium w-45">Bad debt?</span>
                                     <label className="mr-2 xl:mr-4 w-36">
                                             <input
                                                 type="radio"
                                                 checked={debtFilter === "badDebt"}
                                                 onChange={() => setDebtFilter("badDebt")}
                                             />{" "}
-                                            Bad Debt
+                                            Yes
                                     </label>
                                     <label className="mr-2 xl:mr-4  w-36">
                                             <input
@@ -95,7 +95,7 @@ const BorrowsPage = () => {
                                                 checked={debtFilter === "notBadDebt"}
                                                 onChange={() => setDebtFilter("notBadDebt")}
                                             />{" "}
-                                            Normal
+                                            No
                                     </label>
                                     <label>
                                             <input
