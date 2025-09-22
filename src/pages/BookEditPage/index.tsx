@@ -5,13 +5,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import {type IBook } from "../../types"; // 假设 IBook 接口放在这里
 import bookApi from "../../services/bookApi";
 
+
 const BookEditPage:FC<IBook> = () => {
     const { isbn } = useParams<{ isbn: string }>();
     const navigate = useNavigate();
 
     const [book, setBook] = useState<IBook | null>(null);
+    // const [books, setBooks] = useState<IBook[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [categorySet, setCategorySet] = useState<Set<string>>(new Set());
+
 
     if (!isbn) throw new Error(`No book found with ISBN: ${isbn}`)
 
@@ -21,6 +25,23 @@ const BookEditPage:FC<IBook> = () => {
             try {
                 const res = await bookApi.getByIsbn(isbn);
                 setBook(res.data);
+
+                const booksRes = await bookApi.getAll();
+
+                // setBooks(booksRes);
+                const existedCategories= booksRes.reduce((acc: Set<string>, book) => {
+                    if (book.categories) {
+                        book.categories.forEach((category) => {
+                            if (!acc.has(category)) {
+                                acc.add(category);
+                            }
+                        });
+                    }
+                    return acc;
+                }, new Set<string>());
+
+                setCategorySet(existedCategories);
+
             } catch (err) {
                 setError("Failed to load book.");
                 console.log("Error: ", err)
@@ -28,9 +49,12 @@ const BookEditPage:FC<IBook> = () => {
                 setLoading(false);
             }
         };
-
         if (isbn) fetchBook();
+
+
     }, [isbn]);
+
+
 
     // 2. submit the form
     const handleSubmit = async (e: React.FormEvent) => {
@@ -84,6 +108,82 @@ const BookEditPage:FC<IBook> = () => {
                         className="w-full border rounded p-2"
                     />
                 </div>
+                {/* Categories */}
+
+
+                {/* existed categories */}
+                <div className="space-y-1">
+                    <label className="block text-gray-700">Categories</label>
+                    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2  3xl:grid-cols-3">
+                    {Array.from(categorySet).map((category) => (
+                        <label key={category} className="flex items-center space-x-2">
+                            <input
+                                type="checkbox"
+                                checked={book.categories?.includes(category) || false}
+                                onChange={(e) => {
+                                    if (e.target.checked) {
+                                        handleChange("categories", [...(book.categories || []), category]);
+                                    } else {
+                                        handleChange(
+                                            "categories",
+                                            (book.categories || []).filter((c) => c !== category)
+                                        );
+                                    }
+                                }}
+                            />
+                            <span>{category}</span>
+                        </label>
+                    ))}
+                    </div>
+                </div>
+
+                {/* add new category */}
+                <div className="mt-3">
+                    <label className="block text-gray-700">Add new category</label>
+                    <div className="flex space-x-2">
+                        <input
+                            type="text"
+                            placeholder="Enter new category"
+                            className="flex-1 border rounded p-2"
+                            id="newCategoryInput"
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    const newCategory = (e.currentTarget.value || "").trim();
+                                    if (newCategory) {
+                                        if (!book.categories?.includes(newCategory)) {
+                                            handleChange("categories", [...(book.categories || []), newCategory]);
+                                        }
+                                        setCategorySet((prev) => new Set([...Array.from(prev), newCategory]));
+                                        e.currentTarget.value = "";
+                                    }
+                                }
+                            }}
+                        />
+                        <button
+                            type="button"
+                            className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700"
+                            onClick={() => {
+                                const inputEl = document.getElementById("newCategoryInput") as HTMLInputElement;
+                                if (!inputEl) return;
+                                const newCategory = (inputEl.value || "").trim();
+                                if (newCategory) {
+                                    if (!book.categories?.includes(newCategory)) {
+                                        handleChange("categories", [...(book.categories || []), newCategory]);
+                                    }
+                                    setCategorySet((prev) => new Set([...Array.from(prev), newCategory]));
+                                    inputEl.value = "";
+                                }
+                            }}
+                        >
+                            Add
+                        </button>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-1">Press Enter or click Add</p>
+                </div>
+
+
+
 
                 {/* Authors */}
                 <div>

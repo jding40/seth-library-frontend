@@ -41,7 +41,7 @@ const BooksPage: FC = () => {
         }
 
         return (
-            <div className="p-6 space-y-10">
+            <div className="">
                     {/* Sub-menu */}
                     <div className="flex gap-4">
                             <Link
@@ -67,7 +67,7 @@ const BooksPage: FC = () => {
 
                     {/* Seth's Pick */}
                     <section className="">
-                            <h2 className="text-2xl font-bold mb-4">🔥 Seth's Pick</h2>
+                            <h2 className="text-2xl font-bold my-4">🔥 Seth's Pick</h2>
                             {recommendedBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {recommendedBooks.map((book) => (
@@ -81,7 +81,7 @@ const BooksPage: FC = () => {
 
                     {/* Seth's Book Collection */}
                     <section>
-                            <h2 className="text-2xl font-bold mb-4">📖 Seth's Book Collection</h2>
+                            <h2 className="text-2xl font-bold my-4">📖 Seth's Book Collection</h2>
                             {allBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {allBooks?.map((book) => (

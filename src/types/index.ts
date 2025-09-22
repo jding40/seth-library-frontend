@@ -40,3 +40,7 @@ export interface IBorrowRecord {
     notes?: string;
 }
 
+export interface ICategoriedBooks{
+   [name:string]:IBook[];
+}
+

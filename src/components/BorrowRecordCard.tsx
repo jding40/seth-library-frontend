@@ -86,7 +86,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                     </p>
                     <div className="flex space-x-2 text-xs">
                         {localRecord.isReturned ? (
-                            <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full cursor-pointer" >
+                            <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full" >
                 Returned
               </span>
                         ) : (
@@ -97,7 +97,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                         {localRecord.isBadDebt?(
                             <span className="bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded-full cursor-pointer" onClick = {toggleBadDebt}>
                 Bad Debt
-              </span>):( <span className="bg-yellow-100 hover:bg-yellow-200 text-green-700 px-2 py-1 rounded-full cursor-pointer" onClick = {toggleBadDebt}>
+              </span>):( <span className="bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 rounded-full cursor-pointer" onClick = {toggleBadDebt}>
                 Normal</span>)}
                     </div>
                 </div>

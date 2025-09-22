@@ -1,58 +1,54 @@
 import { type FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-//import { getAllBooks } from "@/api/bookApi";  // 假设你封装过bookApi
-//import { getAllBooks } from "../../services/bookApi";
 import BookCard from "../../components/BookCard.tsx";
 import bookApi from "../../services/bookApi.ts";
-import {type IBook} from "../../types"
-import { getUserRole } from "../../utils";
-//import type {AxiosResponse} from "axios";
+import {type IBook, type ICategoriedBooks } from "../../types";
+import useGetCategoriedBooksFromBooks from "../../hooks/useGetCategoriedBooksFromBooks.ts";
+import {Link} from "react-router-dom";
 
-const HomePage: FC = () => {
-
-        const [allBooks, setAllBooks] = useState<IBook[]>([]);
-        const [loading, setLoading] = useState(true);
-
-        const userRole=getUserRole();
-
+const BooksPage: FC =() => {
+        const [loading, setLoading] = useState(false);
+        const [books, setBooks] = useState<IBook[]>([]);
+        console.log(loading);
 
         useEffect(() => {
                 const fetchBooks = async () => {
+                        setLoading(true);
                         try {
-                                const books:IBook[] = await bookApi.getAll();
+                                const res:IBook[] = await bookApi.getAll();
+                                setBooks(res);
 
-                                //const books = res.data;
-                                console.log("books in BooksPage: ",books)
-
-
-                                setAllBooks(books);
-                                console.log("allbooks: ", allBooks);//allbooks: []
-
-
-                        } catch (error) {
-                                console.error("❌ Failed to fetch books:", error);
+                        } catch (err) {
+                                console.error("❌ Failed to fetch borrow records:", err);
                         } finally {
                                 setLoading(false);
                         }
                 };
-
                 fetchBooks();
         }, []);
 
-        if (loading) {
-                return <div className="p-4">Loading books...</div>;
+        //const categories:Set<string> = useGetCategoriesFromBooks(books);
+        const categoriedBooks:ICategoriedBooks = useGetCategoriedBooksFromBooks(books);
+        console.log(categoriedBooks);
+
+        const handleDelete = async(isbn:string): Promise<void>=>{
+
+                const confirmed:boolean = window.confirm("Are you sure to delete this book?")
+                if(!confirmed) return;
+                await bookApi.remove(isbn);
+                setBooks(books.filter((book:IBook):boolean=>book.ISBN !== isbn))
         }
 
+
         return (
-            <div className="p-6 space-y-10">
-                    {/* Sub-menu */}
-                    {userRole==="admin"&&<div className="flex gap-4">
+            <div>
+                    <div className="flex gap-4">
                             <Link
                                 to="/books/wishlist"
                                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                             >
                                     📚 Wishlist
                             </Link>
+
                             <Link
                                 to="/books/add-new-book-by-isbn"
                                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
@@ -64,26 +60,20 @@ const HomePage: FC = () => {
                                     Register A New Book Manually
                             </Link>
 
-
-                    </div>}
-
-
-
-                    {/* Seth's Book Collection */}
-                    <section>
-                            <h2 className="text-2xl font-bold mb-4">📖 Seth's Book Collection</h2>
-                            {allBooks?.length > 0 ? (
-                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
-                                        {allBooks?.map((book) => (
-                                            <BookCard key={book._id} book={book} userRole={userRole} />
-                                        ))}
-                                </div>
-                            ) : (
-                                <p>No books found in collection.</p>
-                            )}
-                    </section>
+                    </div>
+            {Object.entries(categoriedBooks).map(entry=>{
+                    return <div key={entry[0]}>
+                            <h1 key={entry[0]} className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white"}>{entry[0]}</h1>
+                            <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
+                                    {entry[1].map((book:IBook)=>{
+                                            return <BookCard book={book} userRole={"admin"} key={book.ISBN} onDelete={handleDelete} />
+                                    })}
+                            </div>
+                    </div>
+            })}
             </div>
+
         );
 };
 
-export default HomePage;
+export default BooksPage;

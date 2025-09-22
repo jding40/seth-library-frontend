@@ -3,6 +3,7 @@ import http from "./http";
 //import axios from "axios";
 //import type {AxiosResponse} from "axios";
 import {type IBook} from "../types"
+import type {AxiosResponse} from "axios";
 
 
 const bookApi = {
@@ -26,7 +27,16 @@ const bookApi = {
         http.put("/books", data),
 
     // delete a book
-    remove: (id: string) => http.delete(`/books/${id}`),
+    remove: async(isbn: string):Promise<void> => {
+        const res:AxiosResponse<IBook>=await bookApi.getByIsbn(isbn);
+        const book:IBook = res.data
+        if(!book) throw new Error("Book not found");
+        if(book.borrowedBooksCount !==0 ) {
+            alert("You can't delete a book with outstanding borrow record");
+            throw new Error("You can't delete a book with outstanding borrow record");
+        }
+        await http.delete(`/books/${isbn}`)
+    },
 };
 
 export default bookApi;
