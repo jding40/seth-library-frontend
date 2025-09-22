@@ -3,8 +3,9 @@ import { type FC, useState, useRef } from "react";
 import { fetchBookByISBN } from "../../services/googleBooksApi";
 import bookApi from "../../services/bookApi";
 import {type IBook} from "../../types"
-import axios from "axios";
+import axios, {type AxiosResponse} from "axios";
 import BarcodeScanner from "../../components/BarCodeScanner.tsx";
+import {Link} from "react-router-dom";
 
 const AddNewBookInfoByISBNPage: FC = () => {
         const [isbn, setIsbn] = useState("");
@@ -12,6 +13,15 @@ const AddNewBookInfoByISBNPage: FC = () => {
         const [loading, setLoading] = useState(false);
         const [message, setMessage] = useState("");
         const searchRef = useRef(null)
+        const [existed, setExisted] = useState<boolean>(false)
+
+        const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+                setIsbn(e.target.value);
+                setMessage("");
+                setExisted(false);
+                setBook(null);
+
+        }
 
 
 
@@ -37,9 +47,24 @@ const AddNewBookInfoByISBNPage: FC = () => {
         const handleSave = async () => {
                 if (!book) return;
                 setLoading(true);
-                setMessage("");
+
+                const res:AxiosResponse =await bookApi.getByIsbn(isbn);
+                let existedBook:IBook;
+                if(res){ existedBook=res.data;
+                        if(existedBook){
+                                setMessage("The book is already existed in your database. ");
+                                setExisted(true);
+                                setLoading(false);
+                                return;
+                        }
+                }
+
+
+
+
 
                 try {
+
                         //const savedBook = await bookApi.addBook(book);
                         console.log(book);
                         await bookApi.create(book)
@@ -72,7 +97,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                     <div className="flex items-center mb-4">
                             <input
                                 value={isbn}
-                                onChange={(e) => setIsbn(e.target.value)}
+                                onChange={handleInputChange}
                                 placeholder="Enter ISBN"
                                 className="flex-grow border px-3 py-2 rounded mr-2"
                             />
@@ -111,7 +136,9 @@ const AddNewBookInfoByISBNPage: FC = () => {
                     )}
 
                     {/* staus or error message */}
-                    {message && <p className="mt-4 text-left">{message}</p>}
+                    {message && <p className="my-4 text-left">{message}</p>}
+
+                    {existed && <Link className="my-6 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" to={`/books/edit/${isbn}`}>Edit Existed Book Information</Link>}
             </div>
         );
 };
