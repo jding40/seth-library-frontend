@@ -139,12 +139,12 @@ const AddNewBookInfoByISBNPage: FC = () => {
                                         <div>
                                                 {book.authors && <div className="mt-2">👤 Author: {book.authors.join(", ")}</div>}
                                                 {book.publishDate && <div>📅 Publish Date: {book.publishDate}</div>}
-                                                {Number(book.pageCount) > 0 && <div>📖 Pages: {book.pageCount}</div>}
-                                                {book.description && <div className={"flex"}><div className={"me-1"}>📅  </div><div>Description: {book.description}</div></div>}
+                                                {Number(book.pageCount) > 0 && <div>🗐 Pages: {book.pageCount}</div>}
+                                                {book.description && <div className={"flex"}><div className={"me-1"}>📖  </div><div>Description: {book.description}</div></div>}
                                         </div>
 
                                 </div>
-                                <label>Qty Owned:
+                                <label className={"me-3"}>🧮 Qty Owned:
                                         <input className="w-12 px-2" type={"number"} value={qtyOwned} onChange={qtyChangeHandler}/>
                                 </label>
                                 <button
