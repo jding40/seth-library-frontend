@@ -67,7 +67,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
                     <div className="relative">
-                        <h2 className="text-lg font-semibold text-gray-800">
+                        <h2 className="text-lg font-semibold text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
                             {book?.title || "Unknown Book"}
                         </h2>
                         {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 absolute bottom--20 right-1 cursor-pointer" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
