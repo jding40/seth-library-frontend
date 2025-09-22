@@ -133,7 +133,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                                             <img
                                                 src={book.imageLink}
                                                 alt={book.title}
-                                                className="mt-2 w-32 rounded shadow"
+                                                className="mt-2 w-32 rounded shadow max-h-50"
                                             />
                                         )}
                                         <div>
