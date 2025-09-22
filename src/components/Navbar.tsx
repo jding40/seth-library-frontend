@@ -51,8 +51,7 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <Link
               to="/"
-              className="text-gray-700 hover:text-blue-600 transition"
-            >
+              className="text-gray-700 hover:text-blue-600 transition">
               Home
             </Link>
 
@@ -113,6 +112,7 @@ const Navbar = () => {
         id="mobile-menu"
         className="hidden md:hidden bg-gray-50 px-4 py-2 space-y-2"
         ref={mobileMenuRef}
+        onClick={()=>{mobileMenuRef.current?.classList.toggle("hidden"); }}
       >
         <Link to="/" className="block text-gray-700 hover:text-blue-600">
           Home
@@ -140,7 +140,7 @@ const Navbar = () => {
           </>
         )}
         {userRole==='guest' ? (
-          <Link to="/login" className="block text-gray-700 hover:text-blue-600">
+          <Link to="/login" className="block text-gray-700 hover:text-blue-600" >
             Login
           </Link>
         ) : (
