@@ -9,9 +9,10 @@ import { Link } from "react-router-dom";
 interface BookCardProps {
     book: IBook;
     userRole?: string;
+    onDelete?: (isbn:string) => void;
 }
 
-const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
+const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps) => {
 
     const [isRecommended, setIsRecommend]=useState<boolean>(book.isRecommended || false)
     const [isWishList, setIsWishList]=useState<boolean>(book.isWishList || false)
@@ -72,11 +73,18 @@ const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
                             {book.qtyOwned - book.borrowedBooksCount}/{book.qtyOwned}
                         </span>
                     </p>
+
+
                     {userRole === "admin" && (
-                        <a  href={`\\books\\edit\\${book.ISBN}`} className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                            Edit
-                        </a>
+                        <div>
+                            <button type="button" className="text-xs bg-red-300 hover:bg-red-500 text-white px-1 py-1 rounded-full mr-2 w-15 cursor-pointer" onClick={()=> onDelete ? onDelete(book.ISBN ) :undefined}>Delete</button>
+                            <Link  to={`edit\\${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
+                                Edit
+                            </Link>
+                        </div>
+
                     )}
+
                 </div>
             </div>
         </div>
