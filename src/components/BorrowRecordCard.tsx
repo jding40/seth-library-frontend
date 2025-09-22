@@ -5,9 +5,10 @@ import { type IBook, type IBorrowRecord } from "../types";
 
 interface BorrowCardProps {
     record: IBorrowRecord;
+    handleDelete: (id:string)=>void;
 }
 
-const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
+const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
     const [book, setBook] = useState<IBook | null>(null);
     const [localRecord, setLocalRecord] = useState(record)
 
@@ -40,11 +41,11 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
         borrowApi.handleReturn(record._id as string)
     }
 
-    const handleDelete = ():void=>{
-        const confirmed = window.confirm("Are you sure to delete this borrow record?")
-        if(!confirmed) return;
-        if(localRecord._id)borrowApi.remove(localRecord._id);
-    }
+    // const handleDelete = ():void=>{
+    //     const confirmed = window.confirm("Are you sure to delete this borrow record?")
+    //     if(!confirmed) return;
+    //     if(localRecord._id)borrowApi.remove(localRecord._id);
+    // }
 
 
 
@@ -62,14 +63,14 @@ const BorrowCard: FC<BorrowCardProps> = ({ record }) => {
                 />
             </div>
 
-            {/* 右侧信息 */}
+            {/* info on left side */}
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
                     <div className="relative">
                         <h2 className="text-lg font-semibold text-gray-800">
                             {book?.title || "Unknown Book"}
                         </h2>
-                        {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 absolute bottom--20 right-1" onClick={handleDelete}>delete</span>}
+                        {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 absolute bottom--20 right-1" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
                     </div>
                     <p className="text-sm text-gray-600 mt-1">
                         Borrower: <span className="font-medium">{localRecord.borrowerName}</span>
