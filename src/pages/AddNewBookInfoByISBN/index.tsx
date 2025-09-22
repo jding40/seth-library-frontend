@@ -10,7 +10,8 @@ import {Link} from "react-router-dom";
 const AddNewBookInfoByISBNPage: FC = () => {
         const [isbn, setIsbn] = useState("");
         const [book, setBook] = useState<IBook | null>(null);
-        const [loading, setLoading] = useState(false);
+        const [searchLoading, setSearchLoading] = useState(false);
+        const [saveLoading, setSaveLoading] = useState(false);
         const [message, setMessage] = useState<string>("");
         const searchRef = useRef(null)
         const [existed, setExisted] = useState<boolean>(false)
@@ -27,7 +28,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
 
 
         const handleSearch = async (queryIsbn?:string) => {
-                setLoading(true);
+                setSearchLoading(true);
                 setMessage("");
                 try {
                         const result = await fetchBookByISBN(queryIsbn??isbn);
@@ -41,13 +42,13 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         console.error(error);
                         setMessage("❌ Query failed...");
                 } finally {
-                        setLoading(false);
+                        setSearchLoading(false);
                 }
         };
 
         const handleSave = async () => {
                 if (!book) return;
-                setLoading(true);
+                setSaveLoading(true);
 
                 const res:AxiosResponse =await bookApi.getByIsbn(isbn);
                 let existedBook:IBook;
@@ -55,7 +56,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         if(existedBook){
                                 setMessage("The book is already existed in your database. ");
                                 setExisted(true);
-                                setLoading(false);
+                                setSaveLoading(false);
                                 return;
                         }
                 }
@@ -80,7 +81,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         }
                         else {setMessage(`❌ Failed to save, ${(error as Error).message}...`);}
                 } finally {
-                        setLoading(false);
+                        setSaveLoading(false);
                 }
         };
 
@@ -114,11 +115,11 @@ const AddNewBookInfoByISBNPage: FC = () => {
                             />
                             <button
                                 onClick={()=>handleSearch(isbn)}
-                                disabled={loading || !isbn.trim()}
+                                disabled={searchLoading || !isbn.trim()}
                                 ref={searchRef}
                                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
                             >
-                                    {loading ? "Searching......" : "Search"}
+                                    {searchLoading ? "Searching......" : "Search"}
                             </button>
                     </div>
 
@@ -148,6 +149,8 @@ const AddNewBookInfoByISBNPage: FC = () => {
                                 </label>
                                 <button
                                     onClick={handleSave}
+                                    disabled={saveLoading}
+                                    type="button"
                                     className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                                 >
                                         Save to database
