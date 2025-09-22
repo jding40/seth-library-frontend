@@ -50,7 +50,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
 
 
     return (
-        <div className="flex bg-white shadow-md rounded-lg  hover:shadow-lg transition h-40 mb-4 w-full">
+        <div className="flex bg-white shadow-md rounded-lg  hover:shadow-lg transition mb-4 w-full">
             {/* 左侧封面 */}
             <div className="w-28 flex-shrink-0">
                 <img
@@ -67,7 +67,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
                     <div className="flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-gray-800 truncate break-words break-all max-w-[90%]">
+                        <h2 className="text-lg font-semibold text-gray-800 max-w-[90%]">
                             {book?.title || "Unknown Book"}
                         </h2>
                         {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 cursor-pointer" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
