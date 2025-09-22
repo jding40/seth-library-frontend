@@ -1,4 +1,5 @@
 import { type FC, useEffect, useState } from "react";
+//import "./index.css"
 import BookCard from "../../components/BookCard.tsx";
 import bookApi from "../../services/bookApi.ts";
 import {type IBook, type ICategoriedBooks } from "../../types";
@@ -63,7 +64,7 @@ const BooksPage: FC =() => {
                     </div>
             {Object.entries(categoriedBooks).map(entry=>{
                     return <div key={entry[0]}>
-                            <h1 key={entry[0]} className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white"}>{entry[0]}</h1>
+                            <h1 key={entry[0]} className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>{entry[0]}</h1>
                             <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                     {entry[1].map((book:IBook)=>{
                                             return <BookCard book={book} userRole={"admin"} key={book.ISBN} onDelete={handleDelete} />

@@ -67,7 +67,7 @@ const BooksPage: FC = () => {
 
                     {/* Seth's Pick */}
                     <section className="">
-                            <h2 className="text-2xl font-bold my-4">🔥 Seth's Pick</h2>
+                            <h1  className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>🔥 Seth's Pick</h1>
                             {recommendedBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {recommendedBooks.map((book) => (
@@ -81,7 +81,8 @@ const BooksPage: FC = () => {
 
                     {/* Seth's Book Collection */}
                     <section>
-                            <h2 className="text-2xl font-bold my-4">📖 Seth's Book Collection</h2>
+                            <h1  className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>📖  New Arrival</h1>
+
                             {allBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {allBooks?.map((book) => (

@@ -43,12 +43,12 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
-          <Link to="/" className="text-xl font-bold text-blue-600">
+          <Link to="/" className="text-2xl font-bold text-blue-600">
             Seth Library
           </Link>
 
           {/* Menu */}
-          <div className="hidden md:flex space-x-6">
+          <div className="hidden md:flex space-x-6 font-[Kablammo]">
             <Link
               to="/"
               className="text-gray-700 hover:text-blue-600 transition">
@@ -61,19 +61,19 @@ const Navbar = () => {
                   to="/books"
                   className="text-gray-700 hover:text-blue-600 transition"
                 >
-                  Book Management
+                  Books
                 </Link>
                 <Link
                   to="/users"
                   className="text-gray-700 hover:text-blue-600 transition"
                 >
-                  Users Management
+                  Users
                 </Link>
                 <Link
                   to="/borrows"
                   className="text-gray-700 hover:text-blue-600 transition"
                 >
-                  Borrow Management
+                  Borrows
                 </Link>
               </>
             )}

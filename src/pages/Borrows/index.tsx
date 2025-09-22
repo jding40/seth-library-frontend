@@ -54,10 +54,11 @@ const BorrowsPage = () => {
                             </Link>
                     </div>
 
-                    <h1 className="text-2xl font-bold mb-4">📖 Borrow Records</h1>
+
+                    <h1  className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>📖 Filters</h1>
 
                     {/* filter */}
-                    <div className="mb-6 space-y-2 w-full">
+                    <div className="mb-6 px-3 space-y-2 w-full">
                             <div className="flex justify-between sm:justify-start items-center space-x-2">
                                     <span className="w-20 xl:w-30">Returned?</span>
                                     <label className="xl:mr-4  w-16 xl:w-24">
@@ -114,6 +115,9 @@ const BorrowsPage = () => {
                                     </label>
                             </div>
                     </div>
+
+
+                    <h1 className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>📖 Borrow Records</h1>
 
                     {/* card list */}
                     {loading ? (
