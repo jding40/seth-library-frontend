@@ -11,10 +11,9 @@ const AddNewBookInfoByISBNPage: FC = () => {
         const [isbn, setIsbn] = useState("");
         const [book, setBook] = useState<IBook | null>(null);
         const [loading, setLoading] = useState(false);
-        const [message, setMessage] = useState<string>("");
+        const [message, setMessage] = useState("");
         const searchRef = useRef(null)
         const [existed, setExisted] = useState<boolean>(false)
-        const [qtyOwned, setQtyOwned] = useState<number>(1)
 
         const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
                 setIsbn(e.target.value);
@@ -89,13 +88,6 @@ const AddNewBookInfoByISBNPage: FC = () => {
                 handleSearch(barCode);
         }
 
-        const qtyChangeHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
-                setQtyOwned(e.target.valueAsNumber);
-                const newBook:IBook = {...book, qtyOwned, ISBN: isbn, title: book?.title||"", borrowedBooksCount:0};
-                setBook(newBook);
-
-        }
-
         return (
             <div className="p-6 max-w-xl mx-auto">
                     <h1 className="text-2xl font-bold mb-4">📚 Register new book in database</h1>
@@ -124,25 +116,16 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         <div className="border p-4 rounded shadow mb-4">
                                 <h2 className="text-lg font-bold">{book.title}</h2>
                                 {book.subtitle && <p className="text-sm">{book.subtitle}</p>}
-                                <div className="flex">
-                                        {book.imageLink && (
-                                            <img
-                                                src={book.imageLink}
-                                                alt={book.title}
-                                                className="mt-2 w-32 rounded shadow"
-                                            />
-                                        )}
-                                        <div>
-                                                {book.authors && <div className="mt-2">👤 Author: {book.authors.join(", ")}</div>}
-                                                {book.publishDate && <div>📅 Publish Date: {book.publishDate}</div>}
-                                                {Number(book.pageCount) > 0 && <div>📖 Pages: {book.pageCount}</div>}
-                                                {book.description && <div className={"flex"}><div className={"me-1"}>📅  </div><div>Description: {book.description}</div></div>}
-                                        </div>
-
-                                </div>
-                                <label>Qty Owned:
-                                        <input className="w-12 px-2" type={"number"} value={qtyOwned} onChange={qtyChangeHandler}/>
-                                </label>
+                                {book.authors && <p className="mt-2">👤 Author: {book.authors.join(", ")}</p>}
+                                {book.publishDate && <p>📅 Publish Date: {book.publishDate}</p>}
+                                {Number(book.pageCount) > 0 && <p>📖 Pages: {book.pageCount}</p>}
+                                {book.imageLink && (
+                                    <img
+                                        src={book.imageLink}
+                                        alt={book.title}
+                                        className="mt-2 w-32 rounded shadow"
+                                    />
+                                )}
                                 <button
                                     onClick={handleSave}
                                     className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
