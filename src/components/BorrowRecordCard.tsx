@@ -66,8 +66,8 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
             {/* info on left side */}
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
-                    <div className="relative">
-                        <h2 className="text-lg font-semibold text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
+                    <div className="relative flex items-center justify-between">
+                        <h2 className="text-lg font-semibold text-gray-800 truncate max-w-[90%]">
                             {book?.title || "Unknown Book"}
                         </h2>
                         {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 absolute bottom--20 right-1 cursor-pointer" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
@@ -81,7 +81,10 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                 </div>
 
                 <div className="mt-2 flex justify-between items-center">
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 md:hidden">
+                        <span className="font-medium me-2">{localRecord.outstandingQty} / {localRecord.totalQty}</span>
+                    </p>
+                    <p className="text-sm text-gray-700 hidden md:block">
                         <span className="font-medium me-2">Total: {localRecord.totalQty}</span><span className="font-medium">Outstanding: {localRecord.outstandingQty}</span>
                     </p>
                     <div className="flex space-x-2 text-xs">
