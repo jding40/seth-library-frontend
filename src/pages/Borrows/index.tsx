@@ -36,6 +36,13 @@ const BorrowsPage = () => {
                 return true;
         });
 
+        const handleDelete = async(id:string): Promise<void>=>{
+                const confirmed = window.confirm("Are you sure to delete this borrow record?")
+                if(!confirmed) return;
+                if(id)await borrowApi.remove(id);
+                setRecords(records.filter((r:IBorrowRecord)=>r._id!==id));
+        }
+
         return (
             <div className="p-6 max-w-4xl mx-auto">
                     <div className="my-4">
@@ -116,7 +123,7 @@ const BorrowsPage = () => {
                     ) : (
                         <div>
                                 {filteredRecords.map((record) => (
-                                    <BorrowCard key={record._id} record={record} />
+                                    <BorrowCard key={record._id} record={record} handleDelete={handleDelete} />
                                 ))}
                         </div>
                     )}
