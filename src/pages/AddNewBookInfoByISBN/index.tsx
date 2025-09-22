@@ -90,8 +90,11 @@ const AddNewBookInfoByISBNPage: FC = () => {
         }
 
         const qtyChangeHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
-                setQtyOwned(e.target.valueAsNumber);
-                const newBook:IBook = {...book, qtyOwned, ISBN: isbn, title: book?.title||"", borrowedBooksCount:0};
+                //setQtyOwned(e.target.valueAsNumber);//asynchronous
+                const newQty = e.target.valueAsNumber;
+                setQtyOwned(newQty);//asynchronous
+
+                const newBook:IBook = {...book, qtyOwned:newQty, ISBN: isbn, title: book?.title||"", borrowedBooksCount:0};
                 setBook(newBook);
 
         }
