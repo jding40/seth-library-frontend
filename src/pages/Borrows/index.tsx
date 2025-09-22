@@ -44,7 +44,7 @@ const BorrowsPage = () => {
         }
 
         return (
-            <div className="max-w-4xl mx-auto">
+            <div className="mx-auto w-full">
                     <div className="my-4">
                             <Link
                                 to="/borrows/new"
@@ -57,7 +57,7 @@ const BorrowsPage = () => {
                     <h1 className="text-2xl font-bold mb-4">📖 Borrow Records</h1>
 
                     {/* filter */}
-                    <div className="mb-6 space-y-2">
+                    <div className="mb-6 space-y-2 w-full">
                             <div className="flex justify-between sm:justify-start items-center space-x-2">
                                     <span className="w-20 xl:w-30">Returned?</span>
                                     <label className="xl:mr-4  w-16 xl:w-24">
@@ -121,7 +121,7 @@ const BorrowsPage = () => {
                     ) : filteredRecords.length === 0 ? (
                         <p className="text-gray-500">No borrow records found.</p>
                     ) : (
-                        <div>
+                        <div className={"w-full"}>
                                 {filteredRecords.map((record) => (
                                     <BorrowCard key={record._id} record={record} handleDelete={handleDelete} />
                                 ))}

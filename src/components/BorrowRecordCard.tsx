@@ -50,7 +50,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
 
 
     return (
-        <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition h-40 mb-4">
+        <div className="flex bg-white shadow-md rounded-lg  hover:shadow-lg transition h-40 mb-4 w-full">
             {/* 左侧封面 */}
             <div className="w-28 flex-shrink-0">
                 <img
@@ -66,14 +66,14 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
             {/* info on left side */}
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
-                    <div className="relative flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-gray-800 overflow-hidden  whitespace-nowrap max-w-[90%]">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-lg font-semibold text-gray-800 truncate break-words break-all max-w-[90%]">
                             {book?.title || "Unknown Book"}
                         </h2>
-                        {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 absolute bottom--20 right-1 cursor-pointer" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
+                        {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 cursor-pointer" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
                     </div>
                     <p className="text-sm text-gray-600 mt-1">
-                        Borrower: <span className="font-medium">{localRecord.borrowerName}</span>
+                        Borrower: <span className="font-medium">{localRecord.borrowerName} </span>
                     </p>
                     <p className="text-sm text-gray-600 mt-1">
                         Borrow Date: {new Date(record.borrowDate).toLocaleDateString()}
