@@ -144,8 +144,8 @@ const AddNewBookInfoByISBNPage: FC = () => {
                                         </div>
 
                                 </div>
-                                <label className={"me-3"}>🧮 Qty Owned:
-                                        <input className="w-12 px-2" type={"number"} value={qtyOwned} onChange={qtyChangeHandler}/>
+                                <label className={"me-3 text-2xl"}>🧮 Qty Owned:
+                                        <input className="w-18 px-2" type={"number"} value={qtyOwned} onChange={qtyChangeHandler}/>
                                 </label>
                                 <button
                                     onClick={handleSave}
