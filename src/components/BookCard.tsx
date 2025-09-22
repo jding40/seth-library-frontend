@@ -45,7 +45,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
                     className="h-full w-full object-cover"
                 />
             </div>
-            {userRole === "admin" &&<span className={classnames("material-symbols-outlined  absolute top-5 right-5", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
+            {userRole === "admin" &&<span className={classnames("material-symbols-outlined  absolute top-5 right-5 cursor-pointer", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
 
             {/* book info on the right */}
             <div className="p-4 flex flex-col justify-between flex-1">
@@ -60,8 +60,8 @@ const BookCard:FC<BookCardProps> = ({ book, userRole }: BookCardProps) => {
                     )}
                 </div>
                 <div>
-                    {book.qtyOwned===0 &&<span className={classnames("material-symbols-outlined me-2", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
-                    <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>
+                    {book.qtyOwned===0 &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
+                    {book.qtyOwned>0 && <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
 
                 </div>
 
