@@ -44,7 +44,7 @@ const BorrowsPage = () => {
         }
 
         return (
-            <div className="p-6 max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto">
                     <div className="my-4">
                             <Link
                                 to="/borrows/new"
