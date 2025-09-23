@@ -13,7 +13,7 @@ export interface IUser {
 
 const userApi = {
     // Sign up
-    register: (data: { email: string; password: string; role?: string }) =>
+    register: (data: Record<string, string>) =>
         http.post<IUser>("/user/register", data),
 
     // Log in
@@ -29,6 +29,8 @@ const userApi = {
     // update a user（user role has to be admin）
     update: (id: string, data: Partial<IUser>) =>
         http.put(`/user/${id}`, data),
+
+    switchRole: (userId:string)=>http.get(`/user/switch-role/${userId}`),
 };
 
 export default userApi;

@@ -2,7 +2,7 @@ import { type IBook, type ICategoriedBooks } from "../types";
 
 const useGetCategoriedBooksFromBooks = (books: IBook[]): ICategoriedBooks => {
     return books.reduce((acc: ICategoriedBooks, book: IBook) => {
-        const categories = book.categories || ["No Category"];
+        const categories:string[] = (book.categories?.length===0? ["No Category"] : book.categories)||["No Category"];
 
         categories.forEach((category: string) => {
             if (!acc[category]) {

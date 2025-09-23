@@ -47,8 +47,8 @@ const Login: FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+    <div className="flex items-center justify-center h-full ">
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md lg:mt-10 2xl:mt-20">
         <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
           Login
         </h2>

@@ -1,16 +1,21 @@
 // src/components/Navbar.tsx
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 //import {jwtDecode} from "jwt-decode";
 import {getUserRole} from "../utils";
+import classnames from "classnames";
 import type {RoleType} from "../types";
+import "./navbar.css"
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const path:string = location.pathname.split("/")[1] || "";
   const role: RoleType = getUserRole();
 
   const [userRole, setUserRole] = useState<RoleType>("guest");
   //const token = localStorage.getItem("token");
+  console.log("location.pathname: ",location.pathname)
 
   useEffect(() => {
 
@@ -27,8 +32,9 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setUserRole("guest");
 
-    navigate("/login");
+    navigate("/signin");
   };
 
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
@@ -43,7 +49,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-blue-600">
+          <Link to="/" className="text-2xl font-bold text-blue-600 font-[SUSE_Mono]">
             Seth Library
           </Link>
 
@@ -51,27 +57,27 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6 font-[Kablammo]">
             <Link
               to="/"
-              className="text-gray-700 hover:text-blue-600 transition">
+              className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path===""&&"active")}>
               Home
             </Link>
 
-            {userRole === "admin" && (
+            {(userRole === "admin" || userRole === "owner") && (
               <>
                 <Link
                   to="/books"
-                  className="text-gray-700 hover:text-blue-600 transition"
+                  className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="books"&&"active")}
                 >
                   Books
                 </Link>
                 <Link
                   to="/users"
-                  className="text-gray-700 hover:text-blue-600 transition"
+                  className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="users"&&"active")}
                 >
                   Users
                 </Link>
                 <Link
                   to="/borrows"
-                  className="text-gray-700 hover:text-blue-600 transition"
+                  className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="borrows"&&"active")}
                 >
                   Borrows
                 </Link>
@@ -79,12 +85,20 @@ const Navbar = () => {
             )}
 
             {userRole==="guest" ? (
-              <Link
-                to="/login"
-                className="text-gray-700 hover:text-blue-600 transition"
-              >
-                Login
-              </Link>
+                <>
+                    <Link
+                        to="/signin"
+                        className={classnames("text-gray-700 hover:text-blue-600 transition", path==="signin"&&"active")}
+                    >
+                      Sign in
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className={classnames("text-gray-700 hover:text-blue-600 transition", path==="signup"&&"active")}
+                    >
+                      Sign up
+                    </Link>
+                </>
             ) : (
               <button
                 onClick={handleLogout}
@@ -110,39 +124,44 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         id="mobile-menu"
-        className="hidden md:hidden bg-gray-50 px-4 py-2 space-y-2"
+        className="hidden md:hidden bg-gray-50 px-4 py-2 space-y-2 font-[Kablammo]"
         ref={mobileMenuRef}
         onClick={()=>{mobileMenuRef.current?.classList.toggle("hidden"); }}
       >
-        <Link to="/" className="block text-gray-700 hover:text-blue-600">
+        <Link to="/" className={classnames("block text-gray-700 hover:text-blue-600", path===""&&"active")}>
           Home
         </Link>
-        {userRole === "admin" && (
+        {(userRole === "admin" || userRole === "owner") && (
           <>
             <Link
               to="/books"
-              className="block text-gray-700 hover:text-blue-600"
+              className={classnames("block text-gray-700 hover:text-blue-600", path==="books"&&"active")}
             >
               Book Management
             </Link>
             <Link
               to="/users"
-              className="block text-gray-700 hover:text-blue-600"
+              className={classnames("block text-gray-700 hover:text-blue-600", path==="users"&&"active")}
             >
               Users Management
             </Link>
             <Link
               to="/borrows"
-              className="block text-gray-700 hover:text-blue-600"
+              className={classnames("block text-gray-700 hover:text-blue-600", path==="borrows"&&"active")}
             >
               Borrow Management
             </Link>
           </>
         )}
         {userRole==='guest' ? (
-          <Link to="/login" className="block text-gray-700 hover:text-blue-600" >
-            Login
-          </Link>
+            <>
+              <Link to="/signin" className={classnames("block text-gray-700 hover:text-blue-600", path==="signin"&&"active")} >
+                Sign in
+              </Link>
+              <Link to="/signup" className={classnames("block text-gray-700 hover:text-blue-600", path==="signup"&&"active")} >
+                Sign up
+              </Link>
+            </>
         ) : (
           <button
             onClick={handleLogout}

@@ -88,7 +88,7 @@ const BookEditPage:FC<IBook> = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Title */}
                 <div>
-                    <label className="block text-gray-700">Title</label>
+                    <label className="block text-gray-700 font-[SUSE_Mono] ">Title</label>
                     <input
                         type="text"
                         value={book.title}
@@ -100,7 +100,7 @@ const BookEditPage:FC<IBook> = () => {
 
                 {/* Subtitle */}
                 <div>
-                    <label className="block text-gray-700">Subtitle</label>
+                    <label className="block text-gray-700 font-[SUSE_Mono]">Subtitle</label>
                     <input
                         type="text"
                         value={book.subtitle || ""}
@@ -113,7 +113,7 @@ const BookEditPage:FC<IBook> = () => {
 
                 {/* existed categories */}
                 <div className="space-y-1">
-                    <label className="block text-gray-700">Categories</label>
+                    <label className="block text-gray-700 font-[SUSE_Mono]">Categories</label>
                     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2  3xl:grid-cols-3">
                     {Array.from(categorySet).map((category) => (
                         <label key={category} className="flex items-center space-x-2">
@@ -139,7 +139,7 @@ const BookEditPage:FC<IBook> = () => {
 
                 {/* add new category */}
                 <div className="mt-3">
-                    <label className="block text-gray-700">Add new category</label>
+                    <label className="block text-gray-700 font-[SUSE_Mono]">Add new category</label>
                     <div className="flex space-x-2">
                         <input
                             type="text"
@@ -187,7 +187,7 @@ const BookEditPage:FC<IBook> = () => {
 
                 {/* Authors */}
                 <div>
-                    <label className="block text-gray-700">Authors (comma separated)</label>
+                    <label className="block text-gray-700 font-[SUSE_Mono]">Authors (comma separated)</label>
                     <input
                         type="text"
                         value={book.authors?.join(", ") || ""}
@@ -198,7 +198,7 @@ const BookEditPage:FC<IBook> = () => {
 
                 {/* Qty Owned */}
                 <div>
-                    <label className="block text-gray-700">Quantity Owned</label>
+                    <label className="block text-gray-700 font-[SUSE_Mono]">Quantity Owned</label>
                     <input
                         type="number"
                         value={book.qtyOwned}
@@ -215,12 +215,12 @@ const BookEditPage:FC<IBook> = () => {
                         onChange={(e) => handleChange("isRecommended", e.target.checked)}
                         className="mr-2"
                     />
-                    <span>Recommended</span>
+                    <span className={"font-[SUSE_Mono]"}>Recommended</span>
                 </div>
 
                 {/* Notes */}
                 <div>
-                    <label className="block text-gray-700">Notes</label>
+                    <label className="block text-gray-700 font-[SUSE_Mono]">Notes</label>
                     <textarea
                         value={book.notes || ""}
                         onChange={(e) => handleChange("notes", e.target.value)}
@@ -232,7 +232,7 @@ const BookEditPage:FC<IBook> = () => {
                 {/* Submit */}
                 <button
                     type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 font-[SUSE_Mono]"
                 >
                     Save Changes
                 </button>

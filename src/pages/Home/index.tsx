@@ -1,10 +1,10 @@
 import { type FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-//import { getAllBooks } from "@/api/bookApi";  // 假设你封装过bookApi
+//import { getAllBooks } from "@/api/bookApi";
 //import { getAllBooks } from "../../services/bookApi";
 import BookCard from "../../components/BookCard.tsx";
 import bookApi from "../../services/bookApi.ts";
 import {type IBook } from "../../types";
+import SubMenu from "../../components/SubMenu.tsx";
 //import type {AxiosResponse} from "axios";
 
 
@@ -43,26 +43,7 @@ const BooksPage: FC = () => {
         return (
             <div className="">
                     {/* Sub-menu */}
-                    <div className="flex gap-4">
-                            <Link
-                                to="/books/wishlist"
-                                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                            >
-                                    📚 Wishlist
-                            </Link>
-
-                            <Link
-                                to="/books/add-new-book-by-isbn"
-                                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                            >
-                                    ✏️ Register A New Book By ISBN
-                            </Link>
-                            <Link to="/books/add-new-book-by-isbn"
-                            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                                    Register A New Book Manually
-                            </Link>
-
-                    </div>
+                    <SubMenu />
 
 
                     {/* Seth's Pick */}

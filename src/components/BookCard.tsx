@@ -37,9 +37,9 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
     };
 
     return (
-        <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition h-60 relative">
+        <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition lg:h-64 relative">
             {/* book cover on the left */}
-            <div className="w-36 flex-shrink-0">
+            <div className="w-36 flex-shrink-0 max-h-60">
                 <img
                     src={book.imageLink || "https://books.google.ca/googlebooks/images/no_cover_thumb.gif"}
                     alt={book.title}
@@ -53,17 +53,23 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                 <div>
                     <h2 className="text-lg font-semibold text-gray-800 pe-2">{book.title}</h2>
                     {book.subtitle && <p className="text-sm text-gray-500">{book.subtitle}</p>}
-                    {book.authors && (
-                        <p className="text-sm text-gray-600 mt-1">Author: {book.authors.join(", ")}</p>
+                    {book.authors && book.authors.length>0 && (
+                        <p className="text-sm text-gray-600 mt-1"><strong>Author: </strong>{book.authors.join(", ")}</p>
                     )}
                     {book.publishDate && (
-                        <p className="text-sm text-gray-600 mt-1">Publish Date: {book.publishDate}</p>
+                        <p className="text-sm text-gray-600 mt-1"><strong>Publish Date: </strong>{book.publishDate}</p>
                     )}
+                    {
+                        book.description &&(
+                            <p className="text-sm text-gray-600 mt-1"><strong>Description: </strong>{book.description}</p>
+                        )
+                    }
                 </div>
                 <div>
-                    {book.qtyOwned===0 &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
-                    {book.qtyOwned>0 && <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
-
+                    {/*wish list*/}
+                    {book.qtyOwned===0  && (userRole==="admin"||(userRole!=="admin"&& book.isWishList)) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
+                    {/*create a borrow record*/}
+                    {book.qtyOwned>0 && userRole === "admin" && <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
                 </div>
 
                 <div className="mt-2 flex justify-between items-center">

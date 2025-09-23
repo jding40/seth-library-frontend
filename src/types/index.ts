@@ -1,4 +1,4 @@
-export type RoleType = "admin" | "guest" | "user";
+export type RoleType = "owner" | "admin" | "guest" | "user";
 
 export interface IUserPayload {
     role: RoleType;
@@ -44,3 +44,12 @@ export interface ICategoriedBooks{
    [name:string]:IBook[];
 }
 
+export interface IUser{
+    _id?: string;
+    email: string;
+    password?: string;
+    role: RoleType;
+    firstName?: string;
+    lastName?: string;
+    tel?: string;
+}

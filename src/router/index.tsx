@@ -16,6 +16,7 @@ import BorrowCreationPage from "../pages/BorrowCreationPage";
 import {type FC } from "react";
 import {RequireAuth} from "../auth";
 import WishListPage from "../pages/WishListPage";
+import Signup from "../pages/Signup";
 
 const router= createBrowserRouter([
         {
@@ -23,7 +24,7 @@ const router= createBrowserRouter([
             element: (
                 <>
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-6">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
                     <Home />
                     </div>
                     </>
@@ -107,12 +108,23 @@ const router= createBrowserRouter([
         ),
     },
     {
-        path: "/login",
+        path: "/signin",
         element: (
             <>
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 h-full">
                     <Signin />
+                </div>
+            </>
+        ),
+    },
+    {
+        path: "/signup",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 h-full">
+                    <Signup />
                 </div>
             </>
         ),
