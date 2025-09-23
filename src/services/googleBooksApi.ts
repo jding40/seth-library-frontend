@@ -15,7 +15,7 @@ export async function fetchBookByISBN(isbn: string): Promise<IBook | null> {
 
     const book: IBook = {
       ISBN: isbn,
-      title: bookData.title || "未命名",
+      title: bookData.title || "no title",
       subtitle: bookData.subtitle,
       authors: bookData.authors,
       publishDate: bookData.publishedDate,

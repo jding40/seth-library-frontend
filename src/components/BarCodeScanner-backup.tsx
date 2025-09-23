@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { BrowserMultiFormatReader, type IScannerControls } from "@zxing/browser";
-import "./BarCodeScanner.css"
 
 interface BarcodeScannerProps {
     onDetected: (isbn: string) => void;
 }
 
-export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
+export default function BarCodeScanner({ onDetected }: BarcodeScannerProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const codeReaderRef = useRef<BrowserMultiFormatReader | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -75,39 +74,33 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
 
     return (
         <div className="mb-4">
-            <div className="flex flex-col items-center relative overflow-hidden cssContainer rounded-xl">
+            <div className="flex flex-col items-center relative ">
 
-                {/* 背景层 */}
-                <div className="bg absolute w-full h-full z-0"></div>
-                <div className="bg bg2 absolute w-full h-full z-0"></div>
-                <div className="bg bg3 absolute w-full h-full z-0"></div>
+                <video ref={videoRef} className="w-full  border rounded shadow" />
 
-                {/* 前景层 */}
-                <video ref={videoRef} className="w-full border shadow rounded-xl relative z-10"/>
-
-                <div className="absolute bottom-5 right-5 z-20">
+                <div className="absolute bottom-5 right-5">
                     {/* switch camera */}
                     {cameraQty > 1 && isScanning && (
                         <span
-                            className="cursor-pointer text-4xl"
+                            className=" cursor-pointer text-4xl"
                             onClick={switchCamera}
                         >
-                    🔄
-                </span>
+                            🔄
+                        </span>
                     )}
 
-                    {/* start/stop scanning */}
+                    {/* start/stop scanning*/}
                     <span
                         onClick={() => setIsScanning((prev) => !prev)}
+                        // className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer text-4xl"
                         className="cursor-pointer text-4xl"
                     >
-                {!isScanning ? "▶️" : "⏹️"}
-            </span>
+                        {!isScanning ? "▶️" : "⏹️"}
+                    </span>
                 </div>
-            </div>
 
+            </div>
             {error && <p className="text-red-600">{error}</p>}
         </div>
-
     );
 }

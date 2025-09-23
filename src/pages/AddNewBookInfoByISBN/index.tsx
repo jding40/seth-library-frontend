@@ -4,7 +4,7 @@ import { fetchBookByISBN } from "../../services/googleBooksApi";
 import bookApi from "../../services/bookApi";
 import {type IBook} from "../../types"
 import axios, {type AxiosResponse} from "axios";
-import BarcodeScanner from "../../components/BarCodeScanner.tsx";
+import BarcodeScanner from "../../components/BarCodeScanner3.tsx";
 import {Link} from "react-router-dom";
 
 const AddNewBookInfoByISBNPage: FC = () => {

@@ -4,7 +4,7 @@ import bookApi from "../../services/bookApi";
 import { type IBorrowRecord } from "../../types";
 import axios from "axios";
 import {type Location, useLocation} from "react-router-dom";
-import BarcodeScanner from "../../components/BarCodeScanner.tsx";
+import BarCodeScannerBackup from "../../components/BarCodeScanner-backup.tsx";
 
 export default function BorrowCreationPage() {
 
@@ -88,7 +88,7 @@ export default function BorrowCreationPage() {
     return (
         <div className="max-w-lg mx-auto bg-white shadow rounded p-6">
             <h2 className="text-xl font-bold mb-4">Create Borrow Record</h2>
-            {!formData.ISBN && <BarcodeScanner onDetected={handleOnDetect}/>}
+            {!formData.ISBN && <BarCodeScannerBackup onDetected={handleOnDetect}/>}
             {message && (
                 <div className="mb-4 text-sm">
                     {message.startsWith("✅") ? (
