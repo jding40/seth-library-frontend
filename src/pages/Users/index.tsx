@@ -73,6 +73,15 @@ const UsersPage: FC = () => {
                 }
         }
 
+        const concatName = (user: IUser)=>{
+                let name= "";
+                if(!user.firstName && !user.lastName) return "nobody";
+                if(user.firstName) name=name+user.firstName;
+                if(user.lastName) name=name+" " + user.lastName;
+                return name.trim();
+
+        }
+
 
 
         if (loading) {
@@ -111,7 +120,7 @@ const UsersPage: FC = () => {
                                                     className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
                                                 >
                                                         <td className="px-4 py-2 border-b">{user.email}</td>
-                                                        <td className="px-4 py-2 border-b">{`${user.firstName} ${user.lastName}`}</td>
+                                                        <td className="px-4 py-2 border-b">{concatName(user)}</td>
                                                         <td className="px-4 py-2 border-b">{user.role}</td>
                                                         <td className="px-4 py-2 border-b">
                                                                 {user.role!=="owner" && <button
