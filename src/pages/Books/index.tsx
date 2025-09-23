@@ -40,7 +40,7 @@ const BooksPage: FC =() => {
 
 
         return (
-            <div>
+            <div className="">
                     <SubMenu />
             {Object.entries(categoriedBooks).map(entry=>{
                     return <div key={entry[0]}>

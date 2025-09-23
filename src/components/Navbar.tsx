@@ -61,14 +61,16 @@ const Navbar = () => {
               Home
             </Link>
 
+            <Link
+                to="/books"
+                className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="books"&&"active")}
+            >
+              Books
+            </Link>
+
             {(userRole === "admin" || userRole === "owner") && (
               <>
-                <Link
-                  to="/books"
-                  className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="books"&&"active")}
-                >
-                  Books
-                </Link>
+
                 <Link
                   to="/users"
                   className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="users"&&"active")}
