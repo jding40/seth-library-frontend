@@ -46,7 +46,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     className="h-full w-full object-cover"
                 />
             </div>
-            {userRole === "admin" &&<span className={classnames("material-symbols-outlined  absolute top-5 right-5 cursor-pointer", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
+            {userRole === "admin" &&<span className={classnames("material-symbols-outlined  absolute top-5 right-0.5 cursor-pointer", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
 
             {/* book info on the right */}
             <div className="p-4 flex flex-col justify-between flex-1">
