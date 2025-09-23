@@ -17,6 +17,7 @@ import {type FC } from "react";
 import {RequireAuth} from "../auth";
 import WishListPage from "../pages/WishListPage";
 import Signup from "../pages/Signup";
+import FindAndEdit  from "../pages/FindAndEdit";
 
 const router= createBrowserRouter([
         {
@@ -125,6 +126,17 @@ const router= createBrowserRouter([
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 h-full">
                     <Signup />
+                </div>
+            </>
+        ),
+    },
+    {
+        path: "/books/find-and-edit",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 h-full">
+                    <FindAndEdit />
                 </div>
             </>
         ),
