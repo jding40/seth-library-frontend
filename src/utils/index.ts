@@ -14,4 +14,27 @@ const getUserRole = ():RoleType=>{
     }
 }
 
-export {getUserRole};
+const getUserEmail = ():string|undefined=>{
+    const token: string | null= localStorage.getItem("token");
+    if(!token)throw new Error("Not implemented yet");
+    try {
+        const decoded:IUserPayload = jwtDecode<IUserPayload>(token);
+        return decoded.email;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+const getCurrentUser = ():IUserPayload|undefined=>{
+    const token: string | null= localStorage.getItem("token");
+    if(!token)throw new Error("Not implemented yet");
+    try {
+        const decoded:IUserPayload = jwtDecode<IUserPayload>(token);
+        return decoded;
+    }catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
+export {getUserRole, getUserEmail, getCurrentUser};

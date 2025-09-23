@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import borrowApi from "../../services/borrowApi";
 import  { type IBorrowRecord } from "../../types";
 import BorrowCard from "../../components/BorrowRecordCard";
-import {Link} from "react-router-dom";
+import SubMenu from "../../components/SubMenu.tsx";
 
 type ReturnFilter = "all" | "returned" | "notReturned";
 type DebtFilter = "all" | "badDebt" | "notBadDebt";
@@ -45,14 +45,7 @@ const BorrowsPage = () => {
 
         return (
             <div className="mx-auto w-full">
-                    <div className="my-4">
-                            <Link
-                                to="/borrows/new"
-                                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                            >
-                                    📚 Create a New Borrow Record
-                            </Link>
-                    </div>
+                   <SubMenu />
 
 
                     <h1  className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>📖 Filters</h1>
