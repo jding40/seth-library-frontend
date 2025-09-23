@@ -28,21 +28,21 @@ const UsersPage: FC = () => {
                 fetchUsers();
         }, []);
 
-        const handleSwitchRole2 = async (userId: string) => {
-                try {
-                        await userApi.switchRole(userId);
-                        // update users
-                        setUsers((prev:IUser[]) =>
-                            prev.map((u:IUser) => {
-                                    if (u.email!==selfEmail) return u;
-                                    else return{...u, role: u.role==="admin"?"user":"admin"}
-                                }
-                            )
-                        );
-                } catch (error) {
-                        console.error("❌ Failed to switch role:", error);
-                }
-        };
+        // const handleSwitchRole2 = async (userId: string) => {
+        //         try {
+        //                 await userApi.switchRole(userId);
+        //                 // update users
+        //                 setUsers((prev:IUser[]) =>
+        //                     prev.map((u:IUser) => {
+        //                             if (u.email!==selfEmail) return u;
+        //                             else return{...u, role: u.role==="admin"?"user":"admin"}
+        //                         }
+        //                     )
+        //                 );
+        //         } catch (error) {
+        //                 console.error("❌ Failed to switch role:", error);
+        //         }
+        // };
 
         const handleSwitchRole = async (userId: string) => {
                 try {
