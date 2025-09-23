@@ -37,7 +37,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
     };
 
     return (
-        <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition lg:h-64 relative">
+        <div className="flex bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition lg:mini-h-64 relative">
             {/* book cover on the left */}
             <div className="w-36 flex-shrink-0 max-h-60">
                 <img
