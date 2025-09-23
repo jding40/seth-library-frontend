@@ -22,7 +22,6 @@ const AddNewBookInfoByISBNPage: FC = () => {
                 setMessage("");
                 setExisted(false);
                 setBook(null);
-
         }
 
 
@@ -102,7 +101,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
 
         return (
             <div className="p-6 max-w-xl mx-auto">
-                    <h1 className="text-2xl font-bold mb-4">📚 Register new book in database</h1>
+                    <h1 className="text-2xl font-bold mb-4">📚 Register new book into database</h1>
                     <BarcodeScanner onDetected={ handleOnDetect } />
 
                     {/* enter ISBN */}
