@@ -22,6 +22,13 @@ const SubMenu:FC = ():JSX.Element=>{
             >
                 ✏️ Register A New Book By ISBN
             </Link>}
+
+            {userRole !== "guest" && <Link
+                to="/books/wishlist"
+                className="px-4 py-2 bg-amber-800 text-white rounded hover:bg-amber-900"
+            >
+                📚 My Profile
+            </Link>}
             {/*<Link to="/books/add-new-book-by-isbn"*/}
             {/*      className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">*/}
             {/*    Register A New Book Manually*/}
