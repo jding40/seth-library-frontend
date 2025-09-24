@@ -1,8 +1,10 @@
 import { type FC } from "react";
 import userApi from "../../services/userApi";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import {getUserRole} from "../../utils"
 // import { jwtDecode } from "jwt-decode";
 // import { type IUserPayload } from "../../types";
 
@@ -45,6 +47,17 @@ const Login: FC = () => {
       }
     }
   };
+
+
+  useEffect(()=>{
+    if(getUserRole() !=="guest"){
+      console.log("user role in sign in page: ", getUserRole())
+      navigate("/"); //You should call navigate() in a React.useEffect(), not when your component is first rendered.
+    }
+
+  },[])
+
+
 
   return (
     <div className="flex items-center justify-center h-full ">
