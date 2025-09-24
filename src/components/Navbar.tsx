@@ -136,25 +136,26 @@ const Navbar = () => {
         <Link to="/" className={classnames("block text-gray-700 hover:text-blue-600", path===""&&"active")}>
           Home
         </Link>
+        <Link
+            to="/books"
+            className={classnames("block text-gray-700 hover:text-blue-600", path==="books"&&"active")}
+        >
+          Books
+        </Link>
         {(userRole === "admin" || userRole === "owner") && (
           <>
-            <Link
-              to="/books"
-              className={classnames("block text-gray-700 hover:text-blue-600", path==="books"&&"active")}
-            >
-              Book Management
-            </Link>
+
             <Link
               to="/users"
               className={classnames("block text-gray-700 hover:text-blue-600", path==="users"&&"active")}
             >
-              Users Management
+              Users
             </Link>
             <Link
               to="/borrows"
               className={classnames("block text-gray-700 hover:text-blue-600", path==="borrows"&&"active")}
             >
-              Borrow Management
+              Borrows
             </Link>
           </>
         )}
