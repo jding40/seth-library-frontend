@@ -14,24 +14,44 @@ const BooksPage: FC =() => {
         // const [filteredBooks, setFilteredBooks] = useState<IBook[]>([]);
         console.log(loading);
 
+        // useEffect(() => {
+        //         const fetchBooks = async () => {
+        //                 setLoading(true);
+        //                 try {
+        //                         const res:IBook[] = await bookApi.getAll();
+        //                         setBooks(res.filter((book)=>book.title.toLowerCase().includes(keyWord.trim().replace(/\s+/g, " "))));
+        //
+        //                 } catch (err) {
+        //                         console.error("❌ Failed to fetch borrow records:", err);
+        //                 } finally {
+        //                         setLoading(false);
+        //                 }
+        //         };
+        //         fetchBooks();
+        // }, [keyWord]);
+
         useEffect(() => {
                 const fetchBooks = async () => {
                         setLoading(true);
                         try {
-                                const res:IBook[] = await bookApi.getAll();
-                                setBooks(res.filter((book)=>book.title.toLowerCase().includes(keyWord.trim().replace(/\s+/g, " "))));
-
+                                const res: IBook[] = await bookApi.getAll();
+                                setBooks(res); // 不在这里过滤
                         } catch (err) {
-                                console.error("❌ Failed to fetch borrow records:", err);
+                                console.error("❌ Failed to fetch books:", err);
                         } finally {
                                 setLoading(false);
                         }
                 };
                 fetchBooks();
-        }, [keyWord]);
+        }, []);
 
         //const categories:Set<string> = useGetCategoriesFromBooks(books);
-        const categoriedBooks:ICategoriedBooks = useGetCategoriedBooksFromBooks(books);
+        //const categoriedBooks:ICategoriedBooks = useGetCategoriedBooksFromBooks(books);
+
+        const filteredBooks = books.filter(book =>
+            book.title.toLowerCase().includes(keyWord.toLowerCase().trim())
+        );
+        const categoriedBooks: ICategoriedBooks = useGetCategoriedBooksFromBooks(filteredBooks);
         console.log("categoriedBooks: ",categoriedBooks);
 
         const handleKeyWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
