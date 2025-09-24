@@ -142,7 +142,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                                                 {book.authors && <div className="ps-1">👤 Author: {book.authors.join(", ")}</div>}
                                                 {book.publishDate && <div className="ps-1">📅 Publish Date: {book.publishDate}</div>}
                                                 {Number(book.pageCount) > 0 && <div className="ps-1">🗐 Pages: {book.pageCount}</div>}
-                                                {book.description && <div className={"flex"}><div className={"me-1 ps-1"}>📖  </div><div>Description: {book.description}</div></div>}
+                                                {/*{book.description && <div className={"flex"}><div className={"me-1 ps-1"}>📖  </div><div>Description: {book.description}</div></div>}*/}
                                         </div>
 
                                 </div>
