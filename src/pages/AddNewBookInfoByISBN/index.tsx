@@ -71,6 +71,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         book.qtyOwned = qtyOwned;
                         await bookApi.create(book)
                         setIsbn("");
+                        setBook(null);
 
                         setMessage(`✅ Information of ${book.title} already saved...`);
 
