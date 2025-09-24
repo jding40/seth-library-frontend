@@ -9,8 +9,8 @@ const borrowApi = {
     update: (data: Partial<IBorrowRecord>) =>
         http.put(`/borrow-record/${data._id}`, data),
     remove: (id: string) => http.delete(`/borrow-record/${id}`),
-    toggleBadDebt: (id: string) => http.get(`/borrow-record/toggle-bad-debt/${id}`),
-    handleReturn: (id: string) => http.get(`/borrow-record/toggle-returned/${id}`),
+    toggleBadDebt: (id: string) => http.patch(`/borrow-record/toggle-bad-debt/${id}`),
+    handleReturn: (id: string) => http.patch(`/borrow-record/toggle-returned/${id}`),
 
 }
 
