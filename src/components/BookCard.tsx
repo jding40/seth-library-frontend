@@ -46,7 +46,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     className="h-full w-full object-cover"
                 />
             </div>
-            {userRole === "admin" &&<span className={classnames("material-symbols-outlined  absolute top-5 right-0.5 cursor-pointer", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
+            {(userRole === "admin" || userRole == "owner") &&<span className={classnames("material-symbols-outlined  absolute top-5 right-0.5 cursor-pointer", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
 
             {/* book info on the right */}
             <div className="p-4 flex flex-col justify-between flex-1">
@@ -67,7 +67,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                 </div>
                 <div>
                     {/*wish list*/}
-                    {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
+                    {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={(userRole === "admin" || userRole == "owner") ? toggleWishList : undefined}>favorite</span>}
                     {/*create a borrow record*/}
                     {book.qtyOwned>0 && (userRole === "admin" || userRole==="owner")&& <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
                 </div>
@@ -83,7 +83,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     </p>
 
 
-                    {userRole === "admin" && (
+                    {(userRole === "admin" || userRole == "owner") && (
                         <div>
                             <button type="button" className="text-xs bg-red-300 hover:bg-red-500 text-white px-1 py-1 rounded-full mr-2 w-15 cursor-pointer" onClick={()=> onDelete ? onDelete(book.ISBN ) :undefined}>Delete</button>
                             <Link  to={`edit\\${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
