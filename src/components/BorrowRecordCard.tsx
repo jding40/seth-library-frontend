@@ -1,6 +1,7 @@
 import { type FC, useEffect, useState } from "react";
 import bookApi from "../services/bookApi";
 import borrowApi from "../services/borrowApi";
+import classnames from "classnames";
 import { type IBook, type IBorrowRecord } from "../types";
 
 interface BorrowCardProps {
@@ -28,6 +29,10 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
     const toggleBadDebt = ():void=>{
         const confirmed = window.confirm(localRecord.isBadDebt?"Are you sure to cancel the bad-debt status?":"Are you sure to mark it as bad debt?");
         if (!confirmed) return;
+        if(localRecord.isReturned) {
+            alert("You can't change bad debt status for returned item.");
+            return;
+        }
         const updated:IBorrowRecord  = {...record, isBadDebt: !localRecord.isBadDebt }
         setLocalRecord(updated);
         borrowApi.toggleBadDebt(record._id as string);
@@ -36,7 +41,11 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
     const handleReturn = ():void =>{
         const confirmed = window.confirm("Are you sure to mark it as returned?")
         if (!confirmed) return;
-        const updated:IBorrowRecord = {...record, isReturned:!localRecord.isReturned, outstandingQty:0};
+        if(localRecord.isBadDebt){
+            alert("You can't return bad debt, please cancel bad debt first...")
+            return;
+        }
+        const updated:IBorrowRecord = {...localRecord, isReturned:!localRecord.isReturned, outstandingQty:0};
         setLocalRecord(updated);
         borrowApi.handleReturn(record._id as string)
     }
@@ -95,9 +104,9 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
               </span>
                         )}
                         {localRecord.isBadDebt?(
-                            <span className="bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded-full cursor-pointer" onClick = {toggleBadDebt}>
+                            <span className="bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded-full cursor-pointer " onClick = { toggleBadDebt}>
                 Bad Debt
-              </span>):( <span className="bg-green-100 hover:bg-green-200 text-green-700 px-3.5 py-1 rounded-full cursor-pointer" onClick = {toggleBadDebt}>
+              </span>):( <span className={classnames("bg-green-100  text-green-700 px-3.5 py-1 rounded-full cursor-pointer hover:bg-green-200")} onClick = {toggleBadDebt}>
                 Normal</span>)}
                     </div>
                 </div>
