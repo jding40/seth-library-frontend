@@ -4,6 +4,7 @@ import {type FC, useState } from "react";
 import bookApi from "../services/bookApi";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
+import googleStoreIcon from "../../src/assets/google-play-store-icon-logo-symbol-free-png.webp";
 
 
 interface BookCardProps {
@@ -74,9 +75,8 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     </div>
                     <div>
                         <a className={""} href={book.webReaderLink}>
-                            <img className={"h-5"} src={"https://static.vecteezy.com/system/resources/previews/022/484/501/non_2x/google-play-store-icon-logo-symbol-free-png.png"} />
+                            <img className={"h-5"} src={googleStoreIcon} />
                         </a>
-
                     </div>
                 </div>
 
