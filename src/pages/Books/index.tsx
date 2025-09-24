@@ -68,7 +68,6 @@ const BooksPage: FC =() => {
                 setBooks(books.filter((book:IBook):boolean=>book.ISBN !== isbn))
         }
 
-
         return (
             <div className="">
                     <SubMenu />

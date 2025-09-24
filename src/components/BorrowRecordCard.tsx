@@ -3,6 +3,7 @@ import bookApi from "../services/bookApi";
 import borrowApi from "../services/borrowApi";
 import classnames from "classnames";
 import { type IBook, type IBorrowRecord } from "../types";
+import "./SlidingDiagonalsBackground.css"
 
 interface BorrowCardProps {
     record: IBorrowRecord;
@@ -59,9 +60,10 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
 
 
     return (
-        <div className="flex bg-white shadow-md rounded-lg  hover:shadow-lg transition mb-4 w-full">
-            {/* 左侧封面 */}
-            <div className="w-28 flex-shrink-0 max-h-56">
+        <div className={classnames("flex bg-white shadow-md rounded-lg  hover:shadow-lg transition mb-4 w-full")}>
+
+            {/* book cover pic on the  left side */}
+            <div className="w-28 flex-shrink-0 max-h-56 z-10">
                 <img
                     src={
                         book?.imageLink ||
@@ -72,9 +74,15 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                 />
             </div>
 
-            {/* info on left side */}
-            <div className="p-4 flex flex-col justify-between flex-1">
-                <div>
+            {/* info on the right side */}
+            <div className={classnames("p-4 flex flex-col justify-between flex-1 z-0 rounded-e-lg", localRecord.isReturned && "relative overflow-hidden cssContainer select-none")}>
+                {localRecord.isReturned && <>
+                    {/* background for returned items */}
+                    <div className="bg absolute w-full h-full z-0 opacity-10"></div>
+                    <div className="bg bg2 absolute w-full h-full z-0 opacity-10"></div>
+                    <div className="bg bg3 absolute w-full h-full z-0 opacity-10"></div>
+                </>}
+                <div className={classnames(localRecord.isReturned &&"z-20")}>
                     <div className="flex items-center justify-between">
                         <h2 className="text-lg font-semibold text-gray-800 max-w-[90%]">
                             {book?.title || "Unknown Book"}
@@ -99,7 +107,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                     <p className="text-sm text-gray-700 hidden md:block">
                         <span className="font-medium me-2">Total: {localRecord.totalQty}</span><span className="font-medium">Outstanding: {localRecord.outstandingQty}</span>
                     </p>
-                    <div className="space-x-2 text-xs">
+                    {!localRecord.isReturned &&<div className="space-x-2 text-xs">
                         {localRecord.isReturned ? (
                             <span className="bg-green-100 text-green-700  px-4.5 py-1 rounded-full" >Returned</span>) : (
                             <span className="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-2 py-1 rounded-full cursor-pointer" onClick = {handleReturn}>
@@ -111,7 +119,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                 Bad Debt
               </span>):( <span className={classnames("bg-green-100  text-green-700 px-3.5 py-1 rounded-full cursor-pointer hover:bg-green-200")} onClick = {toggleBadDebt}>
                 Normal</span>)}
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>

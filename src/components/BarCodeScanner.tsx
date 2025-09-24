@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BrowserMultiFormatReader, type IScannerControls } from "@zxing/browser";
-import "./BarCodeScanner.css"
+import "./SlidingDiagonalsBackground.css"
 
 interface BarcodeScannerProps {
     onDetected: (isbn: string) => void;
@@ -77,12 +77,12 @@ export default function BarcodeScanner({ onDetected }: BarcodeScannerProps) {
         <div className="mb-4">
             <div className="flex flex-col items-center relative overflow-hidden cssContainer rounded-xl">
 
-                {/* 背景层 */}
+                {/* background */}
                 <div className="bg absolute w-full h-full z-0"></div>
                 <div className="bg bg2 absolute w-full h-full z-0"></div>
                 <div className="bg bg3 absolute w-full h-full z-0"></div>
 
-                {/* 前景层 */}
+                {/* foreground */}
                 <video ref={videoRef} className="w-full border shadow rounded-xl relative z-10"/>
 
                 <div className="absolute bottom-5 right-5 z-20">
