@@ -72,7 +72,10 @@ const BooksPage: FC =() => {
         return (
             <div className="">
                     <SubMenu />
-                    <div> <input type={"text"} className={"border-2 border-blue-800  w-full my-2 h-10 px-3 rounded-xl" } placeholder="Please input title..." value={keyWord} onChange={handleKeyWordChange} /></div>
+                    <div className={"relative"}>
+                            <input type={"text"} className={"border-2 border-blue-800  w-full my-2 h-10 px-3 rounded-xl" } placeholder="Please input title..." value={keyWord} onChange={handleKeyWordChange} />
+                            {keyWord && <span className={"absolute right-3 top-3.5 text-gray-500"}> {filteredBooks.length} {filteredBooks.length>1?"results":"result"}</span>}
+                    </div>
             {Object.entries(categoriedBooks).map(entry=>{
                     return <div key={entry[0]}>
                             <h1 key={entry[0]} className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>{entry[0]}</h1>
