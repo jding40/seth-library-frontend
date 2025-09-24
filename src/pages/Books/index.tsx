@@ -4,6 +4,7 @@ import bookApi from "../../services/bookApi.ts";
 import {type IBook, type ICategoriedBooks } from "../../types";
 import useGetCategoriedBooksFromBooks from "../../hooks/useGetCategoriedBooksFromBooks.ts";
 import SubMenu from "../../components/SubMenu.tsx";
+import {getUserRole} from "../../utils";
 
 
 const BooksPage: FC =() => {
@@ -57,7 +58,7 @@ const BooksPage: FC =() => {
                             <h1 key={entry[0]} className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>{entry[0]}</h1>
                             <div className="grid gap-4 grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                     {entry[1].map((book:IBook)=>{
-                                            return <BookCard book={book} userRole={"admin"} key={book.ISBN} onDelete={handleDelete} />
+                                            return <BookCard book={book} userRole={getUserRole()} key={book.ISBN} onDelete={handleDelete} />
                                     })}
                             </div>
                     </div>
