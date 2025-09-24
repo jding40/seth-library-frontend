@@ -47,7 +47,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
         }
         const updated:IBorrowRecord = {...localRecord, isReturned:!localRecord.isReturned, outstandingQty:0};
         setLocalRecord(updated);
-        borrowApi.handleReturn(record._id as string)
+        borrowApi.handleReturn(record._id as string);
     }
 
     // const handleDelete = ():void=>{
@@ -87,6 +87,9 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                     <p className="text-sm text-gray-600 mt-1">
                         Borrow Date: {new Date(record.borrowDate).toLocaleDateString()}
                     </p>
+                    {record.returnDate && <p className="text-sm text-gray-600 mt-1">
+                        Return Date: {new Date(record.returnDate).toLocaleDateString()}
+                    </p>}
                 </div>
 
                 <div className="mt-2 flex justify-start sm:justify-between items-center">
