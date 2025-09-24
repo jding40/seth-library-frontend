@@ -68,6 +68,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
 
                         //const savedBook = await bookApi.addBook(book);
                         console.log(book);
+                        book.qtyOwned = qtyOwned;
                         await bookApi.create(book)
                         setIsbn("");
 
