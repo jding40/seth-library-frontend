@@ -65,11 +65,19 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                         )
                     }
                 </div>
-                <div>
-                    {/*wish list*/}
-                    {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={(userRole === "admin" || userRole == "owner") ? toggleWishList : undefined}>favorite</span>}
-                    {/*create a borrow record*/}
-                    {book.qtyOwned>0 && (userRole === "admin" || userRole==="owner")&& <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
+                <div className={"flex justify-between"}>
+                    <div>
+                        {/*wish list*/}
+                        {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={(userRole === "admin" || userRole == "owner") ? toggleWishList : undefined}>favorite</span>}
+                        {/*create a borrow record*/}
+                        {book.qtyOwned>0 && (userRole === "admin" || userRole==="owner")&& <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
+                    </div>
+                    <div>
+                        <a className={""} href={book.webReaderLink}>
+                            <img className={"h-5"} src={"https://static.vecteezy.com/system/resources/previews/022/484/501/non_2x/google-play-store-icon-logo-symbol-free-png.png"} />
+                        </a>
+
+                    </div>
                 </div>
 
                 {/*<div>Current role is {userRole === undefined? "undefined" :"not known"}</div>*/}
