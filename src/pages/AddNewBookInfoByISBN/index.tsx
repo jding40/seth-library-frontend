@@ -69,6 +69,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         //const savedBook = await bookApi.addBook(book);
                         console.log(book);
                         await bookApi.create(book)
+                        setIsbn("");
 
                         setMessage(`✅ Information of ${book.title} already saved...`);
 
