@@ -67,10 +67,12 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                 </div>
                 <div>
                     {/*wish list*/}
-                    {book.qtyOwned===0  && (userRole==="admin"||(userRole!=="admin"&& book.isWishList)) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
+                    {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={userRole === "admin" ? toggleWishList : undefined}>favorite</span>}
                     {/*create a borrow record*/}
-                    {book.qtyOwned>0 && userRole === "admin" && <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
+                    {book.qtyOwned>0 && (userRole === "admin" || userRole==="owner")&& <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
                 </div>
+
+                {/*<div>Current role is {userRole === undefined? "undefined" :"not known"}</div>*/}
 
                 <div className="mt-2 flex justify-between items-center">
                     <p className="text-sm text-gray-700">

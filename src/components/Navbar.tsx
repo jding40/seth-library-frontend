@@ -1,11 +1,13 @@
 // src/components/Navbar.tsx
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-//import {jwtDecode} from "jwt-decode";
+import http from "../services/http.ts"
+
 import {getUserRole} from "../utils";
 import classnames from "classnames";
 import type {RoleType} from "../types";
 import "./navbar.css"
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUserRole("guest");
+    delete http.defaults.headers.common["Authorization"];
 
     navigate("/signin");
   };

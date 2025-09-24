@@ -20,6 +20,7 @@ import Signup from "../pages/Signup";
 import FindAndEdit  from "../pages/FindAndEdit";
 import BorrowUpdate from "../pages/BorrowUpdate";
 
+
 const router= createBrowserRouter([
         {
             path: "/",
@@ -57,18 +58,18 @@ const router= createBrowserRouter([
     {
         path: "/books/edit/:isbn",
         element: (
-            <>
+            <RequireAuth roles={["admin","owner"]} >
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
                     <BookEditPage ISBN={""} title={""} qtyOwned={0} borrowedBooksCount={0} />
                 </div>
-            </>
+            </RequireAuth>
         ),
     },
     {
         path: "/books/add-new-book-by-isbn",
         element: (
-            <RequireAuth role="admin">
+            <RequireAuth roles={["admin","owner"]} >
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
                     <AddNewBookInfoByISBNPage />
@@ -79,34 +80,34 @@ const router= createBrowserRouter([
         {
             path: "/users",
             element: (
-                <>
+                <RequireAuth roles={["admin","owner"]} >
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
-                    <UsersPage />
+                    <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
+                        <UsersPage />
                     </div>
-                    </>
+                </RequireAuth>
             ),
         },
         {
             path: "/borrows",
             element: (
-                <>
+                <RequireAuth roles={["admin","owner"]} >
                     <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 ">
                     <BorrowPage />
                     </div>
-                    </>
+                    </RequireAuth>
             ),
         },
     {
         path: "/borrows/new",
         element: (
-            <>
+            <RequireAuth roles={["admin","owner"]} >
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
                     <BorrowCreationPage />
                 </div>
-            </>
+            </RequireAuth>
         ),
     },
     {
