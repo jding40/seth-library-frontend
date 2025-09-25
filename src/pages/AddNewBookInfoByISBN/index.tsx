@@ -1,4 +1,4 @@
-import { type FC, useState, useRef } from "react";
+import { type FC, useState, useRef, useCallback } from "react";
 
 import { fetchBookByISBN } from "../../services/googleBooksApi";
 import bookApi from "../../services/bookApi";
@@ -17,25 +17,51 @@ const AddNewBookInfoByISBNPage: FC = () => {
         const [existed, setExisted] = useState<boolean>(false)
         const [qtyOwned, setQtyOwned] = useState<number>(1)
 
-        const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+        // const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+        //         setIsbn(e.target.value);
+        //         setMessage("");
+        //         setExisted(false);
+        //         setBook(null);
+        // }
+
+        const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
                 setIsbn(e.target.value);
                 setMessage("");
                 setExisted(false);
                 setBook(null);
-        }
+        }, []);
 
 
 
-        const handleSearch = async (queryIsbn?:string) => {
+        // const handleSearch = async (queryIsbn?:string) => {
+        //         setSearchLoading(true);
+        //         setMessage("");
+        //         try {
+        //                 const result = await fetchBookByISBN(queryIsbn??isbn);
+        //                 if (result) {
+        //                         setBook(result);
+        //                 } else {
+        //                         setMessage("❌ No book information found for this ISBN...");
+        //                         setBook(null)
+        //                 }
+        //         } catch (error: unknown) {
+        //                 console.error(error);
+        //                 setMessage("❌ Query failed...");
+        //         } finally {
+        //                 setSearchLoading(false);
+        //         }
+        // };
+
+        const handleSearch = useCallback(async (queryIsbn?: string) => {
                 setSearchLoading(true);
                 setMessage("");
                 try {
-                        const result = await fetchBookByISBN(queryIsbn??isbn);
+                        const result = await fetchBookByISBN(queryIsbn ?? isbn);
                         if (result) {
                                 setBook(result);
                         } else {
                                 setMessage("❌ No book information found for this ISBN...");
-                                setBook(null)
+                                setBook(null);
                         }
                 } catch (error: unknown) {
                         console.error(error);
@@ -43,64 +69,115 @@ const AddNewBookInfoByISBNPage: FC = () => {
                 } finally {
                         setSearchLoading(false);
                 }
-        };
+        }, [isbn]);
 
-        const handleSave = async () => {
+        // const handleSave = async () => {
+        //         if (!book) return;
+        //         setSaveLoading(true);
+        //
+        //         const res:AxiosResponse =await bookApi.getByIsbn(isbn);
+        //         let existedBook:IBook;
+        //         if(res){ existedBook=res.data;
+        //                 if(existedBook){
+        //                         setMessage("The book is already existed in your database. ");
+        //                         setExisted(true);
+        //                         setSaveLoading(false);
+        //                         return;
+        //                 }
+        //         }
+        //         try {
+        //
+        //                 //const savedBook = await bookApi.addBook(book);
+        //                 console.log(book);
+        //                 book.qtyOwned = qtyOwned;
+        //                 await bookApi.create(book)
+        //                 setIsbn("");
+        //                 setBook(null);
+        //
+        //                 setMessage(`✅ Information of ${book.title} already saved...`);
+        //
+        //         } catch (error) {
+        //                 console.log("error: ",error);
+        //                 if (axios.isAxiosError(error)) {
+        //                         console.error("❌ response data:", error.response?.data);
+        //                         setMessage(`❌ ${error.response?.data?.message ?? error.message}`);
+        //                 }
+        //                 else {setMessage(`❌ Failed to save, ${(error as Error).message}...`);}
+        //         } finally {
+        //                 setSaveLoading(false);
+        //         }
+        // };
+
+        const handleSave = useCallback(async () => {
                 if (!book) return;
                 setSaveLoading(true);
 
-                const res:AxiosResponse =await bookApi.getByIsbn(isbn);
-                let existedBook:IBook;
-                if(res){ existedBook=res.data;
-                        if(existedBook){
-                                setMessage("The book is already existed in your database. ");
+                try {
+                        const res: AxiosResponse = await bookApi.getByIsbn(isbn);
+                        const existedBook: IBook = res.data;
+                        if (existedBook) {
+                                setMessage("The book is already existed in your database.");
                                 setExisted(true);
                                 setSaveLoading(false);
                                 return;
                         }
-                }
 
-
-
-
-
-                try {
-
-                        //const savedBook = await bookApi.addBook(book);
-                        console.log(book);
                         book.qtyOwned = qtyOwned;
-                        await bookApi.create(book)
+                        await bookApi.create(book);
+
                         setIsbn("");
                         setBook(null);
-
                         setMessage(`✅ Information of ${book.title} already saved...`);
-
                 } catch (error) {
-                        console.log("error: ",error);
+                        console.log("error: ", error);
                         if (axios.isAxiosError(error)) {
                                 console.error("❌ response data:", error.response?.data);
                                 setMessage(`❌ ${error.response?.data?.message ?? error.message}`);
+                        } else {
+                                setMessage(`❌ Failed to save, ${(error as Error).message}...`);
                         }
-                        else {setMessage(`❌ Failed to save, ${(error as Error).message}...`);}
                 } finally {
                         setSaveLoading(false);
                 }
-        };
+        }, [book, isbn, qtyOwned]);
 
-        const handleOnDetect =  (barCode: string):void=>{
+
+
+        // const handleOnDetect =  (barCode: string):void=>{
+        //         setIsbn(barCode);
+        //         handleSearch(barCode);
+        // }
+
+        const handleOnDetect = useCallback((barCode: string): void => {
                 setIsbn(barCode);
                 handleSearch(barCode);
-        }
+        }, [handleSearch]);
 
-        const qtyChangeHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
-                //setQtyOwned(e.target.valueAsNumber);//asynchronous
+        // const qtyChangeHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
+        //         //setQtyOwned(e.target.valueAsNumber);//asynchronous
+        //         const newQty = e.target.valueAsNumber;
+        //         setQtyOwned(newQty);//asynchronous
+        //
+        //         const newBook:IBook = {...book, qtyOwned:newQty, ISBN: isbn, title: book?.title||"", borrowedBooksCount:0};
+        //         setBook(newBook);
+        //
+        // }
+
+        const qtyChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
                 const newQty = e.target.valueAsNumber;
-                setQtyOwned(newQty);//asynchronous
+                setQtyOwned(newQty);
 
-                const newBook:IBook = {...book, qtyOwned:newQty, ISBN: isbn, title: book?.title||"", borrowedBooksCount:0};
-                setBook(newBook);
-
-        }
+                if (book) {
+                        const newBook: IBook = {
+                                ...book,
+                                qtyOwned: newQty,
+                                ISBN: isbn,
+                                title: book?.title || "",
+                                borrowedBooksCount: 0
+                        };
+                        setBook(newBook);
+                }
+        }, [book, isbn]);
 
         return (
             <div className="p-6 max-w-xl mx-auto">
