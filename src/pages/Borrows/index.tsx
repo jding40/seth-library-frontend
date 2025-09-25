@@ -47,8 +47,10 @@ const BorrowsPage = () => {
             <div className="mx-auto w-full">
                    <SubMenu />
 
-
-                    <h1  className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>📖 Filters</h1>
+                    <div className={"relative"}>
+                            <h1  className={"mt-5 mb-2 ps-20 py-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}> Filters</h1>
+                            <span className={"absolute bottom-2  text-6xl"}>🎏‍</span>
+                    </div>
 
                     {/* filter */}
                     <div className="mb-6 px-3 space-y-2 w-full">
@@ -109,8 +111,10 @@ const BorrowsPage = () => {
                             </div>
                     </div>
 
-
-                    <h1 className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>📖 Borrow Records</h1>
+                    <div className={"relative"}>
+                        <h1 className={"mt-5 mb-2 ps-20 py-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>Borrow Records</h1>
+                            <span className={"absolute bottom-2  text-6xl"}>📋</span>
+                    </div>
 
                     {/* card list */}
                     {loading ? (
