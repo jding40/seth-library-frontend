@@ -69,7 +69,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                 <div className={"flex justify-between"}>
                     <div>
                         {/*wish list*/}
-                        {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames("material-symbols-outlined me-2 cursor-pointer", isWishList && "text-amber-600" )} onClick={(userRole === "admin" || userRole == "owner") ? toggleWishList : undefined}>favorite</span>}
+                        {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames(" me-2 cursor-pointer" )} onClick={(userRole === "admin" || userRole == "owner") ? toggleWishList : undefined}>{isWishList?"💖":"🩶"}</span>}
                         {/*create a borrow record*/}
                         {book.qtyOwned>0 && (userRole === "admin" || userRole==="owner")&& <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
                     </div>
