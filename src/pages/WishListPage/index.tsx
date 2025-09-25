@@ -48,7 +48,7 @@ const BooksPage: FC = () => {
                     to="/books/wishlist"
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
-                    📚 Wishlist
+                    💖 Wishlist
                 </Link>
 
                 <Link
@@ -67,7 +67,7 @@ const BooksPage: FC = () => {
 
             {/* My Wishlist */}
             <section className="">
-                <h2 className="text-2xl font-bold mb-4">🔥 My Wishlist</h2>
+                <h2 className="text-2xl font-bold mb-4">💖 My Wishlist</h2>
                 {wishlistBooks?.length > 0 ? (
                     <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                         {wishlistBooks.map((book) => (

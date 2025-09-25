@@ -82,7 +82,8 @@ const router= createBrowserRouter([
             element: (
                 <RequireAuth roles={["admin","owner"]} >
                     <Navbar />
-                    <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
+
+                    <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
                         <UsersPage />
                     </div>
                 </RequireAuth>
@@ -93,10 +94,10 @@ const router= createBrowserRouter([
             element: (
                 <RequireAuth roles={["admin","owner"]} >
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 ">
-                    <BorrowPage />
+                    <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+                        <BorrowPage />
                     </div>
-                    </RequireAuth>
+                </RequireAuth>
             ),
         },
     {

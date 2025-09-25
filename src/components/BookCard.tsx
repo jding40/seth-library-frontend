@@ -66,41 +66,44 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                         )
                     }
                 </div>
-                <div className={"flex justify-between"}>
-                    <div>
-                        {/*wish list*/}
-                        {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames(" me-2 cursor-pointer" )} onClick={(userRole === "admin" || userRole == "owner") ? toggleWishList : undefined}>{isWishList?"💖":"🩶"}</span>}
-                        {/*create a borrow record*/}
-                        {book.qtyOwned>0 && (userRole === "admin" || userRole==="owner")&& <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
-                    </div>
-                    <div>
-                        <a className={""} href={book.webReaderLink}>
-                            <img className={"h-5"} src={googleStoreIcon} />
-                        </a>
-                    </div>
-                </div>
+
 
                 {/*<div>Current role is {userRole === undefined? "undefined" :"not known"}</div>*/}
-
-                <div className="mt-2 flex justify-between items-center">
-                    <p className="text-sm text-gray-700">
-                        Stock:{" "}
-                        <span className="font-medium">
-                            {book.qtyOwned - book.borrowedBooksCount}/{book.qtyOwned}
-                        </span>
-                    </p>
-
-
-                    {(userRole === "admin" || userRole == "owner") && (
+                <div>
+                    <div className={"flex justify-between"}>
                         <div>
-                            <button type="button" className="text-xs bg-red-300 hover:bg-red-500 text-white px-1 py-1 rounded-full mr-2 w-15 cursor-pointer" onClick={()=> onDelete ? onDelete(book.ISBN ) :undefined}>Delete</button>
-                            <Link  to={`edit\\${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
-                                Edit
-                            </Link>
+                            {/*wish list*/}
+                            {book.qtyOwned===0  && (userRole==="admin"|| userRole==="owner"||  book.isWishList) &&<span className={classnames(" me-2 cursor-pointer" )} onClick={(userRole === "admin" || userRole == "owner") ? toggleWishList : undefined}>{isWishList?"💖":"🩶"}</span>}
+                            {/*create a borrow record*/}
+                            {book.qtyOwned>0 && (userRole === "admin" || userRole==="owner")&& <Link to={`/borrows/new?isbn=${book.ISBN}`}> <span className="material-symbols-outlined text-amber-600">volunteer_activism</span></Link>}
                         </div>
+                        <div>
+                            <a className={""} href={book.webReaderLink}>
+                                <img className={"h-5"} alt={book.title} src={googleStoreIcon} />
+                            </a>
+                        </div>
+                    </div>
 
-                    )}
+                    <div className="mt-2 flex justify-between items-center">
+                        <p className="text-sm text-gray-700">
+                            Stock:{" "}
+                            <span className="font-medium">
+                                {book.qtyOwned - book.borrowedBooksCount}/{book.qtyOwned}
+                            </span>
+                        </p>
 
+
+                        {(userRole === "admin" || userRole == "owner") && (
+                            <div>
+                                <button type="button" className="text-xs bg-red-300 hover:bg-red-500 text-white px-1 py-1 rounded-full mr-2 w-15 cursor-pointer" onClick={()=> onDelete ? onDelete(book.ISBN ) :undefined}>Delete</button>
+                                <Link  to={`edit\\${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
+                                    Edit
+                                </Link>
+                            </div>
+
+                        )}
+
+                    </div>
                 </div>
             </div>
         </div>

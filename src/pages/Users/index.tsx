@@ -97,9 +97,12 @@ const UsersPage: FC = () => {
 
                     {/* Title */}
                     <section className="">
-                            <h1 className="my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl">
-                                    🔥 Users
-                            </h1>
+                            <div className={"relative"}>
+                                    <h1 className=" mt-5 mb-2 ps-20 py-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl">
+                                            Users
+                                    </h1>
+                                    <span className={"absolute bottom-2  text-6xl"}>🧑🏻‍🤝‍🧑🏽</span>
+                            </div>
 
                             {/* user table */}
                             <div className="overflow-x-auto rounded-md shadow">

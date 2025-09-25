@@ -49,7 +49,10 @@ const BooksPage: FC = () => {
 
                     {/* Seth's Pick */}
                     <section className="">
-                            <h1  className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>🔥 Seth's Pick</h1>
+                            <div className={"relative"}>
+                                    <h1  className={"mt-8 mb-2 ps-20 py-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>Seth's Pick</h1>
+                                    <span style={{ fontSize: "64px" }} className={"absolute bottom-2  material-symbols-outlined text-amber-600"}>thumb_up </span>
+                            </div>
                             {recommendedBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                                         {recommendedBooks.map((book) => (
@@ -63,7 +66,10 @@ const BooksPage: FC = () => {
 
                     {/* Seth's Book Collection */}
                     <section>
-                            <h1  className={"my-4 py-2 ps-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>📖  New Arrival</h1>
+                            <div className={"relative"}>
+                                    <h1  className={"mt-8 mb-2 ps-20 py-2 rounded-md bg-blue-700 text-white font-[Grenze_Gotisch] text-2xl"}>New Arrival</h1>
+                                    <span className={"absolute bottom-2 text-6xl"}>🛬</span>
+                            </div>
 
                             {allBooks?.length > 0 ? (
                                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
