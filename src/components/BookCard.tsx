@@ -65,7 +65,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     )}
                     {
                         book.description &&(
-                            <p className="text-sm text-gray-600 mt-1"><strong>Description: </strong>{book.description}</p>
+                            <p className="text-sm text-gray-600 mt-1 line-clamp-4"><strong>Description: </strong>{book.description}</p>
                         )
                     }
                 </div>
