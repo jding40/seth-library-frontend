@@ -108,7 +108,7 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                         <span className="font-medium me-2">Total: {localRecord.totalQty}</span><span className="font-medium">Outstanding: {localRecord.outstandingQty}</span>
                     </p>
                     {!localRecord.isReturned &&<div className="space-x-2 text-xs">
-                        {localRecord.isReturned ? (
+                       {localRecord.isReturned ? (
                             <span className="bg-green-100 text-green-700  px-4.5 py-1 rounded-full" >Returned</span>) : (
                             <span className="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-2 py-1 rounded-full cursor-pointer" onClick = {handleReturn}>
                 Not Returned

@@ -10,10 +10,10 @@ import googleStoreIcon from "../../src/assets/google-play-store-icon-logo-symbol
 interface BookCardProps {
     book: IBook;
     userRole?: string;
-    onDelete?: (isbn:string) => void;
+    onRemoval: (isbn:string) => void;
 }
 
-const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps) => {
+const ShelfBookCard:FC<BookCardProps> = ({ book, userRole, onRemoval }: BookCardProps) => {
 
     const [isRecommended, setIsRecommend]=useState<boolean>(book.isRecommended || false)
     const [isWishList, setIsWishList]=useState<boolean>(book.isWishList || false)
@@ -63,11 +63,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     {book.shelfLocation && (
                         <p className="text-sm text-gray-600 mt-1"><strong>Shelf Location: </strong>{book.shelfLocation.join(", ")}</p>
                     )}
-                    {
-                        book.description &&(
-                            <p className="text-sm text-gray-600 mt-1"><strong>Description: </strong>{book.description}</p>
-                        )
-                    }
+
                 </div>
 
 
@@ -98,8 +94,8 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
 
                         {(userRole === "admin" || userRole == "owner") && (
                             <div>
-                                <button type="button" className="text-xs bg-red-300 hover:bg-red-500 text-white px-1 py-1 rounded-full mr-2 w-15 cursor-pointer" onClick={()=> onDelete ? onDelete(book.ISBN ) :undefined}>Delete</button>
-                                <Link  to={`edit\\${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
+                                <button type="button" className="text-xs bg-red-300 hover:bg-red-500 text-white px-1 py-1 rounded-full mr-2 w-30 cursor-pointer" onClick={()=> onRemoval(book.ISBN)}>Remove from shelf</button>
+                                <Link  to={`/books/edit/${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
                                     Edit
                                 </Link>
                             </div>
@@ -113,4 +109,4 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
     );
 };
 
-export default BookCard;
+export default ShelfBookCard;

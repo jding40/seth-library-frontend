@@ -3,7 +3,7 @@ import {jwtDecode} from "jwt-decode";
 
 const getUserRole = ():RoleType=>{
     const token: string | null= localStorage.getItem("token");
-    console.log("token in utils.getUserRole: ", token);
+    //console.log("token in utils.getUserRole: ", token);
     if (!token) return "guest";
     try {
         const decoded:IUserPayload = jwtDecode<IUserPayload>(token);
@@ -38,5 +38,21 @@ const getCurrentUser = ():IUserPayload|undefined=>{
     }
 }
 
+const getMajorShelfList = (shelfList:string[]):string[]=>{
+    return shelfList.reduce((acc:string[], shelf:string)=>{
+        const major:string = shelf.split("-")[0];
 
-export {getUserRole, getUserEmail, getCurrentUser};
+        if(!acc.includes(major)){
+            acc.push(major);
+        }
+        return acc;
+    },[])
+}
+
+const getMinorShelfList = (shelfList:string[], majorShelfLocation:string):string[] =>{
+    const filteredShelfList:string[] = shelfList.filter((shelf:string)=>shelf.split("-")[0]===majorShelfLocation);
+    return filteredShelfList.map((shelf:string)=>shelf.split("-")[1]);
+
+}
+
+export {getUserRole, getUserEmail, getCurrentUser, getMajorShelfList, getMinorShelfList};
