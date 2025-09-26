@@ -98,6 +98,10 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                     {record.returnDate && <p className="text-sm text-gray-600 mt-1">
                         Return Date: {new Date(record.returnDate).toLocaleDateString()}
                     </p>}
+                    {book?.shelfLocation?.length  && <p className="text-sm text-gray-600 mt-1">
+                        Shelf Location: {book.shelfLocation.join(", ")}
+                    </p>}
+
                 </div>
 
                 <div className="mt-2 flex justify-start sm:justify-between items-center">
