@@ -413,7 +413,7 @@ const ShelfPage = () => {
             )}
 
             {/* Book Display */}
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 my-8">
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3 my-8">
                 {action === "check books" &&
                     shelfBookList.map((book: IBook) => (
                         <ShelfBookCard
