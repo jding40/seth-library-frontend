@@ -29,11 +29,12 @@ const SubMenu:FC = ():JSX.Element=>{
                 🔍 Find Book By ISBN
             </Link>}
 
-            {userRole !== "guest" && <Link
-                to="/books/wishlist"
+            {(userRole === "owner" || userRole==="admin") && <Link
+                to="/borrows/new"
                 className="px-4 py-2 bg-amber-800 text-white rounded hover:bg-amber-900"
             >
-                🪪 My Profile
+                {/*🪪 My Profile*/}
+                Create Borrow Record
             </Link>}
             {/*<Link to="/books/add-new-book-by-isbn"*/}
             {/*      className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">*/}
