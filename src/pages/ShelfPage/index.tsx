@@ -59,9 +59,6 @@ const ShelfPage = () => {
             console.log("newLocation: ",newLocation);
             setNeedNewShelf(false);
         }
-
-
-
     }
 
     const handleMinor = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
@@ -200,7 +197,7 @@ const ShelfPage = () => {
                 <div className="border-1 rounded-xl w-200 px-4">
                     <h1 className={"text-2xl border-b-2 border-b-amber-600"}>Major</h1>
                     <div>
-                        {majorShelves.map((majorShelf) => (
+                        {majorShelves.sort().map((majorShelf) => (
                                 <p className={classnames("text-2xl cursor-pointer", shelfLocation.split("-")[0]===majorShelf && "bg-amber-500 text-white")} key={majorShelf} onClick={handleMajor}>{majorShelf}</p>
                         ))}
                     </div>
@@ -208,7 +205,7 @@ const ShelfPage = () => {
                 <div className=" border-1 rounded-xl w-200">
                     <h1 className={"text-2xl  border-b-2 border-b-amber-600"}>Minor</h1>
                     <div>
-                        {getMinorShelfList(shelves, shelfLocation.split("-")[0]).map((minorShelf) => (
+                        {getMinorShelfList(shelves, shelfLocation.split("-")[0]).sort().map((minorShelf) => (
                             <p className={classnames("text-2xl cursor-pointer", shelfLocation.split("-")[1] === minorShelf && "bg-amber-500 text-white" )} key={minorShelf} onClick={handleMinor}>{minorShelf}</p>
                         ))}
                     </div>
