@@ -118,6 +118,7 @@ const ShelfPage = () => {
 
     const onDected = async (barCode: string) => {
         setNewBookISBN(barCode);
+        setMessage("");
     };
 
     const handleIsbnInputChange = useCallback(
