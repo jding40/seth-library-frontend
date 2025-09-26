@@ -1,7 +1,7 @@
 import { useState } from "react";
 import borrowApi from "../../services/borrowApi";
 import bookApi from "../../services/bookApi";
-import { type IBorrowRecord } from "../../types";
+import {type IBook, type IBorrowRecord} from "../../types";
 import axios from "axios";
 import {type Location, useLocation} from "react-router-dom";
 import BarCodeScannerBackup from "../../components/BarCodeScanner-backup.tsx";
@@ -23,7 +23,8 @@ export default function BorrowCreationPage() {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-    const [bookTitle, setBookTitle] = useState("");
+    const [book, setBook] = useState<IBook | null>(null);
+
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -82,7 +83,7 @@ export default function BorrowCreationPage() {
     const getInfo = async () => {
 
         const res = await bookApi.getByIsbn(formData.ISBN);
-        setBookTitle(res.data.title);
+        if(res.data)setBook(res.data);
     }
 
     return (
@@ -113,10 +114,13 @@ export default function BorrowCreationPage() {
                         <button type="button" className="absolute right-2 top-1 bg-blue-700 text-white py-1 px-2 rounded-sm" onClick={getInfo}>Get Info</button>
                     </div>
                 </div>
-                {bookTitle && (
-                    <div className="mb-4 text-sm">
-                        {bookTitle}
+                {book?.title && (
+                    <>
+                    <div className="mb-2 text-sm">
+                        {book.title}
                     </div>
+                    {book.shelfLocation && (<div className="mb-4 text-sm">Shelf Location: {book.shelfLocation.join(", ")}</div>)}
+                    </>
                 )}
 
 

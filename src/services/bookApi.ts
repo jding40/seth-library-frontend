@@ -42,8 +42,10 @@ const bookApi = {
         const res = await bookApi.getByIsbn(isbn);
         const book:IBook = res.data;
         const newShelf = book?.shelfLocation?.filter(s => s!==bookShelf);
-        http.patch(`/books/updateshelf/${isbn}`,{shelfLocation:newShelf})
-
+        const updateRes = await http.patch(`/books/updateshelf/${isbn}`, {
+            shelfLocation: newShelf,
+        });
+        return updateRes.data as IBook;
     },
 
     addBookToShelf: async(isbn: string, bookShelf: string):Promise<IBook>=>{

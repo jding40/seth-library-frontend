@@ -9,6 +9,7 @@ import Home from "../pages/Home";
 import BooksPage from "../pages/Books";
 import UsersPage from "../pages/Users";
 import BorrowPage from "../pages/Borrows";
+import BookPage from "../pages/BookPage"
 import AddNewBookInfoByISBNPage from "../pages/AddNewBookInfoByISBN";
 import Signin from "../pages/Signin";
 import BookEditPage from "../pages/BookEditPage";
@@ -17,7 +18,7 @@ import {type FC } from "react";
 import {RequireAuth} from "../auth";
 import WishListPage from "../pages/WishListPage";
 import Signup from "../pages/Signup";
-import FindAndEdit  from "../pages/FindAndEdit";
+import Find  from "../pages/Find";
 import BorrowUpdate from "../pages/BorrowUpdate";
 import ShelfPage from "../pages/ShelfPage";
 
@@ -46,6 +47,17 @@ const router= createBrowserRouter([
             ),
         },
     {
+        path: "/books/:isbn",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6">
+                    <BookPage />
+                </div>
+            </>
+        ),
+    },
+    {
         path: "/books/wishlist",
         element: (
             <>
@@ -62,7 +74,7 @@ const router= createBrowserRouter([
             <RequireAuth roles={["admin","owner"]} >
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
-                    <BookEditPage ISBN={""} title={""} qtyOwned={0} borrowedBooksCount={0} />
+                    <BookEditPage  />
                 </div>
             </RequireAuth>
         ),
@@ -146,12 +158,12 @@ const router= createBrowserRouter([
         ),
     },
     {
-        path: "/books/find-and-edit",
+        path: "/books/find",
         element: (
             <>
                 <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 h-full">
-                    <FindAndEdit />
+                    <Find />
                 </div>
             </>
         ),

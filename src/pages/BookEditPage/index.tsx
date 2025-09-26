@@ -6,7 +6,7 @@ import {type IBook } from "../../types"; // 假设 IBook 接口放在这里
 import bookApi from "../../services/bookApi";
 
 
-const BookEditPage:FC<IBook> = () => {
+const BookEditPage:FC= () => {
     const { isbn } = useParams<{ isbn: string }>();
     const navigate = useNavigate();
 
@@ -108,6 +108,20 @@ const BookEditPage:FC<IBook> = () => {
                         className="w-full border rounded p-2"
                     />
                 </div>
+
+                {/* Cover */}
+                <div>
+                    <label className="block text-gray-700 font-[SUSE_Mono]">Cover Image</label>
+                    <input
+                        type="text"
+                        value={book.imageLink || ""}
+                        onChange={(e) => handleChange("imageLink", e.target.value)}
+                        className="w-full border rounded p-2"
+                    />
+                </div>
+
+
+
                 {/* Categories */}
 
 

@@ -22,7 +22,7 @@ export interface IBook {
     language?: string;
     pdfTokenLink?: string;
     webReaderLink?: string;
-    shelfLocation?: string[];
+    shelfLocation: string[];
     isRecommended?: boolean;
     isWishList?: boolean;
     notes?: string;
