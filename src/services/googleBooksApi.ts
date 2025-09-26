@@ -33,6 +33,7 @@ export async function fetchBookByISBN(isbn: string): Promise<IBook | null> {
         "http:",
         "https:"
       ),
+      shelfLocation: [],
       qtyOwned: 0, // default qty is 0
       borrowedBooksCount: 0, // default value is 0
       isRecommended: false,
