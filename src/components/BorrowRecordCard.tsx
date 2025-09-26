@@ -89,16 +89,16 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
                         </h2>
                         {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 cursor-pointer" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-600 mt-0.5">
                         Borrower: <span className="font-medium">{localRecord.borrowerName} </span>
                     </p>
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-600 mt-0.5">
                         Borrow Date: {new Date(record.borrowDate).toLocaleDateString()}
                     </p>
-                    {record.returnDate && <p className="text-sm text-gray-600 mt-1">
+                    {record.returnDate && <p className="text-sm text-gray-600 mt-0.5">
                         Return Date: {new Date(record.returnDate).toLocaleDateString()}
                     </p>}
-                    {book?.shelfLocation?.length  && <p className="text-sm text-gray-600 mt-1">
+                    {book && book.shelfLocation.length>0  && <p className="text-sm text-gray-600 mt-0.5">
                         Shelf Location: {book.shelfLocation.join(", ")}
                     </p>}
 
