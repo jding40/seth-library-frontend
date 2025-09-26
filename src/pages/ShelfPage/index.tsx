@@ -82,6 +82,28 @@ const ShelfPage = () => {
         setBooks(prevBooks => prevBooks.filter(book => book.ISBN !== isbn));
     }
 
+    const putUnshelvedBookToShelf = async (isbn: string) => {
+        if (shelfLocation.split("-")[1] === "" || shelfLocation.split("-")[0] === "") {
+            alert("Please select an exact shelf location first!");
+            return;
+        }
+
+        try {
+            const updatedBook: IBook = await bookApi.addBookToShelf(isbn, shelfLocation);
+
+            // update local books list
+            setBooks(prevBooks =>
+                prevBooks.map(book =>
+                    book.ISBN === isbn ? updatedBook : book
+                )
+            );
+        } catch (error) {
+            console.error("Failed to put book on shelf:", error);
+            alert("❌ Failed to update shelf, please try again.");
+        }
+    };
+
+
     const handleNewShelfInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newShelfLocation = e.currentTarget.value;
         if(!/[0-9a-zA-Z]+-[0-9a-zA-Z]+/.test(newShelfLocation)) {
@@ -163,13 +185,15 @@ const ShelfPage = () => {
         try {
             if(existed){
                 const newShelfLocation:string[]=Array.from(new Set(newBook.shelfLocation).add(shelfLocation));
-                await bookApi.update({...newBook, qtyOwned: newBookQty, shelfLocation:newShelfLocation})
-                const updatedBooks = books.map(book => book.ISBN === newBook.ISBN ? newBook : book);
+                const res = await bookApi.update({...newBook, qtyOwned: newBookQty, shelfLocation:newShelfLocation})
+                const updatedBook:IBook = res.data;
+                const updatedBooks = books.map(book => book.ISBN === updatedBook.ISBN ? updatedBook : book);
 
                 setBooks(updatedBooks);
             }else{
-                await bookApi.create({...newBook, shelfLocation: [shelfLocation]})
-                const updatedBooks = [...books, newBook];
+                const res = await bookApi.create({...newBook, shelfLocation: [shelfLocation]});
+                const createdBook = res.data;
+                const updatedBooks = [...books, createdBook];
                 setBooks(updatedBooks);
                 // setBooks(prevBooks => [...prevBooks, newBook]);
 
@@ -270,6 +294,7 @@ const ShelfPage = () => {
                                 {newBook.authors && <div className="ps-1">👤 Author: {newBook.authors.join(", ")}</div>}
                                 {newBook.publishDate && <div className="ps-1">📅 Publish Date: {newBook.publishDate}</div>}
                                 {Number(newBook.pageCount) > 0 && <div className="ps-1">🗐 Pages: {newBook.pageCount}</div>}
+                                {newBook?.shelfLocation && <div className="ps-1">📅 Shelf Location: {newBook.shelfLocation.join(", ")}</div>}
                                 {/*{book.description && <div className={"flex"}><div className={"me-1 ps-1"}>📖  </div><div>Description: {book.description}</div></div>}*/}
                             </div>
 
@@ -283,7 +308,7 @@ const ShelfPage = () => {
                             type="button"
                             className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                         >
-                            Save to database
+                            Save to {shelfLocation}
                         </button>
                     </div>
                 )}
@@ -293,12 +318,12 @@ const ShelfPage = () => {
             {/*book display for designated shelf*/}
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3 my-8">
                 {action === "check books" && shelfBookList.map((book:IBook) =>
-                    <ShelfBookCard key={book._id} book={book} userRole={getUserRole()}  onRemoval={removeBookFromShelf} />)}
+                    <ShelfBookCard key={book._id} book={book} userRole={getUserRole()} pageShelf={shelfLocation}  onRemoval={removeBookFromShelf}  onAddToShelf={putUnshelvedBookToShelf} action={"remove"} />)}
 
                 {action === "check books with multiple locations" && books.filter((book:IBook) => (book?.shelfLocation as string[]).length > 1).map((book:IBook) =>
-                    <ShelfBookCard key={book._id} book={book} userRole={getUserRole()}  onRemoval={()=>{}} />)}
+                    <ShelfBookCard key={book._id} book={book} userRole={getUserRole()} pageShelf={shelfLocation}  onRemoval={removeBookFromShelf} onAddToShelf={()=>{}} action={"remove"}/>)}
                 {action === "check books with no locations" && books.filter((book:IBook) => (book?.shelfLocation as string[]).length == 0).map((book:IBook) =>
-                    <ShelfBookCard key={book._id} book={book} userRole={getUserRole()} onRemoval={()=>{}} />)}
+                    <ShelfBookCard key={book._id} book={book} userRole={getUserRole()} pageShelf={shelfLocation}  onRemoval={()=>{}} onAddToShelf={putUnshelvedBookToShelf} action={"add"} />)}
             </div>
         </div>)
 
