@@ -38,6 +38,14 @@ const bookApi = {
         await http.delete(`/books/${isbn}`)
     },
 
+    removeBookFromShelf: async(isbn: string, bookShelf:string) => {
+        const res = await bookApi.getByIsbn(isbn);
+        const book:IBook = res.data;
+        const newShelf = book?.shelfLocation?.filter(s => s!==bookShelf);
+        http.patch(`/books/updateshelf/${isbn}`,{shelfLocation:newShelf})
+
+    },
+
 
 };
 

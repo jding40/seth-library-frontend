@@ -17,11 +17,12 @@ export interface IBook {
     description?: string;
     pageCount?: number;
     categories?: string[];
+
     imageLink?: string;
     language?: string;
     pdfTokenLink?: string;
     webReaderLink?: string;
-    shelfLocation?: string;
+    shelfLocation?: string[];
     isRecommended?: boolean;
     isWishList?: boolean;
     notes?: string;
