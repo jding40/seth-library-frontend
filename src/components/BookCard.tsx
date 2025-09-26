@@ -61,7 +61,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                         <p className="text-sm text-gray-600 mt-1"><strong>Publish Date: </strong>{book.publishDate}</p>
                     )}
                     {book.shelfLocation && (
-                        <p className="text-sm text-gray-600 mt-1"><strong>Shelf Location: </strong>{book.shelfLocation.join(", ")}</p>
+                        <p className="text-sm text-gray-600 mt-1"><strong>Shelf Location: </strong>{book.shelfLocation.sort().join(", ")}</p>
                     )}
                     {
                         book.description &&(

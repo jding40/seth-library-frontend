@@ -46,6 +46,13 @@ const bookApi = {
 
     },
 
+    addBookToShelf: async(isbn: string, bookShelf: string):Promise<IBook>=>{
+        const res = await bookApi.getByIsbn(isbn);
+        const book:IBook = res.data;
+        const newShelf = Array.from(new Set(book?.shelfLocation).add(bookShelf));
+        const updatedRes = await http.patch(`/books/updateshelf/${isbn}`,{shelfLocation:newShelf})
+        return updatedRes.data;
+    }
 
 };
 
