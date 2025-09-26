@@ -23,10 +23,10 @@ const SubMenu:FC = ():JSX.Element=>{
                 ✏️ Register A New Book By ISBN
             </Link>}
             {(userRole === "admin"|| userRole === "owner") && <Link
-                to="/books/find-and-edit"
+                to="/books/find"
                 className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded"
             >
-                🔍 Find And Edit Book By ISBN
+                🔍 Find Book By ISBN
             </Link>}
 
             {userRole !== "guest" && <Link

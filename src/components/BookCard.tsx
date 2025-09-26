@@ -52,7 +52,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
             {/* book info on the right */}
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
-                    <h2 className="text-lg font-semibold text-gray-800 pe-2">{book.title}</h2>
+                    <h2 className="text-lg font-semibold text-gray-800 hover:text-fuchsia-800 pe-2"><Link to={`/books/${book.ISBN}`}>{book.title}</Link></h2>
                     {book.subtitle && <p className="text-sm text-gray-500">{book.subtitle}</p>}
                     {book.authors && book.authors.length>0 && (
                         <p className="text-sm text-gray-600 mt-1"><strong>Author: </strong>{book.authors.join(", ")}</p>
@@ -60,7 +60,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     {book.publishDate && (
                         <p className="text-sm text-gray-600 mt-1"><strong>Publish Date: </strong>{book.publishDate}</p>
                     )}
-                    {book.shelfLocation && (
+                    {book.shelfLocation.length>0 && (
                         <p className="text-sm text-gray-600 mt-1"><strong>Shelf Location: </strong>{book.shelfLocation.sort().join(", ")}</p>
                     )}
                     {

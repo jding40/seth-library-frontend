@@ -7,7 +7,7 @@ import type {AxiosResponse} from "axios";
 import type {IBook} from "../../types";
 // import type {IBook} from "../../types";
 
-const FindAndEdit: FC = () => {
+const Find: FC = () => {
     const [isbn, setIsbn] = useState("");
     const [searchLoading, setSearchLoading] = useState(false);
     // const [book, setBook] = useState<IBook | null>(null);
@@ -23,7 +23,7 @@ const FindAndEdit: FC = () => {
         const book: IBook | null = res.data;
         if(book) {
             //setExisted(true);
-            navigate(`/books/edit/${barCode}`)
+            navigate(`/books/${barCode}`)
         }else{
             setMessage("We don't have this book in our database...")
         }
@@ -37,7 +37,7 @@ const FindAndEdit: FC = () => {
             console.log("handlesearch=> book: ", book)
             if (book) {
                 //setExisted(true);
-                navigate(`/books/edit/${isbn}`)
+                navigate(`/books/${isbn}`)
             } else {
                 setMessage("We don't have this book in our database...")
             }
@@ -84,4 +84,4 @@ const FindAndEdit: FC = () => {
 
 }
 
-export default FindAndEdit;
+export default Find;
