@@ -6,7 +6,6 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 import googleStoreIcon from "../../src/assets/google-play-store-icon-logo-symbol-free-png.webp";
 
-
 interface BookCardProps {
     book: IBook;
     userRole?: string;
@@ -93,7 +92,6 @@ const ShelfBookCard:FC<BookCardProps> = ({ book, userRole, onRemoval,onAddToShel
                                 {book.qtyOwned - book.borrowedBooksCount}/{book.qtyOwned}
                             </span>
                         </p>
-
 
                         {(userRole === "admin" || userRole == "owner") && (
                             <div>
