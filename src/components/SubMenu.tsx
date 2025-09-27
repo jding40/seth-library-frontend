@@ -15,6 +15,12 @@ const SubMenu:FC = ():JSX.Element=>{
             >
                 💖 Wishlist
             </Link>
+            <Link
+                to="/books/find"
+                className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded"
+            >
+                🔍 Find Book By ISBN
+            </Link>
 
             {(userRole === "admin"|| userRole === "owner") && <Link
                 to="/books/add-new-book-by-isbn"
@@ -22,12 +28,7 @@ const SubMenu:FC = ():JSX.Element=>{
             >
                 ✏️ Register A New Book By ISBN
             </Link>}
-            {(userRole === "admin"|| userRole === "owner") && <Link
-                to="/books/find"
-                className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded"
-            >
-                🔍 Find Book By ISBN
-            </Link>}
+
 
             {(userRole === "owner" || userRole==="admin") && <Link
                 to="/borrows/new"

@@ -47,12 +47,12 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                     className="h-full w-full object-cover"
                 />
             </div>
-            {(userRole === "admin" || userRole == "owner") &&<span className={classnames("material-symbols-outlined  absolute top-5 right-0.5 cursor-pointer", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
+            {(userRole === "admin" || userRole == "owner") &&<span className={classnames("material-symbols-outlined  absolute top-5 right-0.5 cursor-pointer hover:top-4", isRecommended && "text-amber-600" )} onClick={toggleFavorite}>thumb_up</span>}
 
             {/* book info on the right */}
             <div className="p-4 flex flex-col justify-between flex-1">
                 <div>
-                    <h2 className="text-lg font-semibold text-gray-800 hover:text-fuchsia-800 pe-2"><Link to={`/books/${book.ISBN}`}>{book.title}</Link></h2>
+                    <h2 className="text-lg font-semibold text-gray-800 hover:text-fuchsia-800 hover:ps-1 pe-2"><Link to={`/books/${book.ISBN}`}>{book.title}</Link></h2>
                     {book.subtitle && <p className="text-sm text-gray-500">{book.subtitle}</p>}
                     {book.authors && book.authors.length>0 && (
                         <p className="text-sm text-gray-600 mt-1"><strong>Author: </strong>{book.authors.join(", ")}</p>

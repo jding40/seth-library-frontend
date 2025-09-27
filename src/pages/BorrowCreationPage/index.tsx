@@ -45,6 +45,7 @@ export default function BorrowCreationPage() {
         e.preventDefault();
         setLoading(true);
         setMessage("");
+        setBook(null);
 
         try {
             const res = await borrowApi.create(formData);

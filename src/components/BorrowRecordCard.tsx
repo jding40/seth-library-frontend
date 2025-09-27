@@ -1,9 +1,11 @@
 import { type FC, useEffect, useState } from "react";
+
 import bookApi from "../services/bookApi";
 import borrowApi from "../services/borrowApi";
 import classnames from "classnames";
 import { type IBook, type IBorrowRecord } from "../types";
 import "./SlidingDiagonalsBackground.css"
+import {Link} from "react-router-dom";
 
 interface BorrowCardProps {
     record: IBorrowRecord;
@@ -75,19 +77,20 @@ const BorrowCard: FC<BorrowCardProps> = ({ record, handleDelete }) => {
             </div>
 
             {/* info on the right side */}
-            <div className={classnames("p-4 flex flex-col justify-between flex-1 z-0 rounded-e-lg", localRecord.isReturned && "relative overflow-hidden cssContainer select-none")}>
-                {localRecord.isReturned && <>
+            <div className={classnames("p-4 flex flex-col justify-between flex-1 z-0 rounded-e-lg", localRecord.isReturned && "relative overflow-hidden cssContainer select-none", localRecord.isBadDebt && "relative overflow-hidden cssContainer-fail select-none")}>
+                {(localRecord.isReturned || localRecord.isBadDebt) && <>
                     {/* background for returned items */}
                     <div className="bg absolute w-full h-full z-0 opacity-10"></div>
                     <div className="bg bg2 absolute w-full h-full z-0 opacity-10"></div>
                     <div className="bg bg3 absolute w-full h-full z-0 opacity-10"></div>
                 </>}
-                <div className={classnames(localRecord.isReturned &&"z-20")}>
+                <div className={classnames((localRecord.isReturned||localRecord.isBadDebt)&&"z-20")}>
                     <div className="flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-gray-800 max-w-[90%]">
-                            {book?.title || "Unknown Book"}
+                        <h2 className="text-lg font-semibold text-gray-800 max-w-[90%] hover:text-blue-800 hover:ps-1">
+                            <Link to={`/books/${book?.ISBN}`}>{book?.title || "Unknown Book"}</Link>
                         </h2>
                         {(localRecord.isBadDebt || localRecord.isReturned) && <span className="material-symbols-outlined text-red-600 cursor-pointer" onClick={()=>handleDelete(localRecord._id as string)}>delete</span>}
+                        {(!localRecord.isBadDebt && !localRecord.isReturned) && <Link to={`/borrows/update/${record._id}`} className="material-symbols-outlined text-blue-600 cursor-pointer">edit_note</Link>}
                     </div>
                     <p className="text-sm text-gray-600 mt-0.5">
                         Borrower: <span className="font-medium">{localRecord.borrowerName} </span>
