@@ -222,7 +222,7 @@ const ShelfPage = () => {
     }, [existed, newBook, newBookQty, shelfLocation, books]);
 
     return (
-        <div className="mx-auto w-full px-2 sm:px-4 lg:px-8">
+        <div className="mx-auto w-full ">
             <SubMenu />
 
             {/* Major & Minor Shelves */}
