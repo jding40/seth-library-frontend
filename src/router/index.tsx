@@ -47,6 +47,18 @@ const router= createBrowserRouter([
             ),
         },
     {
+        path: "/shelf",
+        element: (
+            <>
+                <Navbar />
+
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+                    <ShelfPage />
+                </div>
+            </>
+        ),
+    },
+    {
         path: "/books/:isbn",
         element: (
             <>
@@ -168,17 +180,7 @@ const router= createBrowserRouter([
             </>
         ),
     },
-    {
-        path: "/shelf",
-        element: (
-            <>
-                <Navbar />
-                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 h-full">
-                    <ShelfPage />
-                </div>
-            </>
-        ),
-    },
+
 
 
 
