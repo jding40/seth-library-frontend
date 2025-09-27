@@ -180,6 +180,10 @@ const ShelfPage = () => {
 
     const handleSave = useCallback(async () => {
         if (!newBook) return;
+        if (!/[0-9a-zA-Z]+-[0-9a-zA-Z]+/.test(shelfLocation)){
+            alert("Illegal shelf location! Please select a exact shelf location first!");
+            return;
+        }
         setSaveLoading(true);
 
         try {

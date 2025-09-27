@@ -49,9 +49,9 @@ http.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // 401 Not logged in / token expired
-      alert("Your session has expired. Please log in again.");
+      alert("Your session has expired. Please sign in again.");
       localStorage.removeItem("token");
-      window.location.href = "/login"; // 跳转登录页
+      window.location.href = "/signin"; // navigate to signin page
     }
     return Promise.reject(error);
   }

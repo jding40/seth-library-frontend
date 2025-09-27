@@ -40,10 +40,10 @@ const router= createBrowserRouter([
             element: (
                 <>
                     <Navbar />
-                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6">
-                    <BooksPage />
+                    <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6">
+                        <BooksPage />
                     </div>
-                    </>
+                </>
             ),
         },
     {
@@ -74,7 +74,7 @@ const router= createBrowserRouter([
         element: (
             <>
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6">
                     <WishListPage />
                 </div>
             </>
@@ -174,7 +174,8 @@ const router= createBrowserRouter([
         element: (
             <>
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6 h-full">
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 h-full">
+
                     <Find />
                 </div>
             </>

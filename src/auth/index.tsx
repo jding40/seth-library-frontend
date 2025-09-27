@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import {getUserRole} from "../utils";
 import {type RoleType} from "../types";
 import { type JSX, type ReactNode} from "react";
+import Navbar from "../components/Navbar.tsx";
 // import NavBar from "../components/Navbar";
 
 interface RequireAuthProps {
@@ -28,7 +29,7 @@ export function RequireAuth({ children, roles }: RequireAuthProps): JSX.Element 
 
 
     if (!roles.includes(userRole)) {
-        return userRole == "guest"? <Navigate to="/signin" replace /> : <div className="p-4 text-red-600">Sorry, only {roles.join(", ")} is authorized! </div>;
+        return userRole == "guest"? <Navigate to="/signin" replace /> : <><Navbar /><div className="py-40 text-red-600 text-center text-2xl">Sorry, only {roles.join(", ")} is authorized! </div></>;
     }
 
     return <>{children}</>;

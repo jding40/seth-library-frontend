@@ -5,6 +5,7 @@ import BarcodeScanner from "../../components/BarCodeScanner.tsx";
 import bookApi from "../../services/bookApi";
 import type {AxiosResponse} from "axios";
 import type {IBook} from "../../types";
+import SubMenu from "../../components/SubMenu.tsx";
 // import type {IBook} from "../../types";
 
 const Find: FC = () => {
@@ -57,7 +58,10 @@ const Find: FC = () => {
     }
 
     return (
+        <div className="mx-auto w-full ">
+            <SubMenu />
         <div className="p-6 max-w-xl mx-auto">
+
             <h1 className="text-2xl font-bold mb-4">📚 Find and edit</h1>
             <BarcodeScanner onDetected={ handleOnDetect } />
 
@@ -80,7 +84,8 @@ const Find: FC = () => {
 
             </div>
             {message.length>0 && <div className={"text-red-600"}>{message}</div>}
-        </div>)
+        </div>
+    </div>)
 
 }
 

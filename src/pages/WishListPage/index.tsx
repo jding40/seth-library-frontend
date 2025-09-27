@@ -1,10 +1,10 @@
 import { type FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 //import { getAllBooks } from "@/api/bookApi";  // 假设你封装过bookApi
 //import { getAllBooks } from "../../services/bookApi";
 import BookCard from "../../components/BookCard.tsx";
 import bookApi from "../../services/bookApi.ts";
 import {type IBook } from "../../types";
+import SubMenu from "../../components/SubMenu.tsx";
 //import type {AxiosResponse} from "axios";
 
 
@@ -41,32 +41,13 @@ const BooksPage: FC = () => {
     }
 
     return (
-        <div className="p-6 space-y-10">
+        <div className="">
             {/* Sub-menu */}
-            <div className="flex gap-4">
-                <Link
-                    to="/books/wishlist"
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                    💖 Wishlist
-                </Link>
-
-                <Link
-                    to="/books/add-new-book-by-isbn"
-                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                >
-                    ✏️ Register A New Book By ISBN
-                </Link>
-                <Link to="/books/add-new-book-by-isbn"
-                      className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                    Register A New Book Manually
-                </Link>
-
-            </div>
+            <SubMenu />
 
 
             {/* My Wishlist */}
-            <section className="">
+            <section className="mt-6">
                 <h2 className="text-2xl font-bold mb-4">💖 My Wishlist</h2>
                 {wishlistBooks?.length > 0 ? (
                     <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
