@@ -22,6 +22,7 @@ import Find  from "../pages/Find";
 import BorrowUpdate from "../pages/BorrowUpdate";
 import ShelfPage from "../pages/ShelfPage";
 import BookCreationPage from "../pages/BookCreationPage";
+import ProcessBom from "../pages/ProcessBom";
 
 
 const router= createBrowserRouter([
@@ -189,6 +190,18 @@ const router= createBrowserRouter([
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 h-full">
 
                     <Find />
+                </div>
+            </>
+        ),
+    },
+    {
+        path: "/parse-bom",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 h-full">
+
+                    <ProcessBom />
                 </div>
             </>
         ),
