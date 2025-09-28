@@ -59,9 +59,11 @@ const BookEditPage:FC= () => {
     // 2. submit the form
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("begin to submit...")
         if (!book || !isbn) return;
 
         try {
+            console.log("begin to update: ...")
             //await http.put(`/books/${isbn}`, book);
             await bookApi.update(book);
             alert("✅ Book updated successfully!");
