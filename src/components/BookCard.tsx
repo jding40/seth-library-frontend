@@ -99,7 +99,7 @@ const BookCard:FC<BookCardProps> = ({ book, userRole, onDelete }: BookCardProps)
                         {(userRole === "admin" || userRole == "owner") && (
                             <div>
                                 <button type="button" className="text-xs bg-red-300 hover:bg-red-500 text-white px-1 py-1 rounded-full mr-2 w-15 cursor-pointer" onClick={()=> onDelete ? onDelete(book.ISBN ) :undefined}>Delete</button>
-                                <Link  to={`edit\\${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
+                                <Link  to={`/books/edit/${book.ISBN}`} className="text-xs bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded-full">
                                     Edit
                                 </Link>
                             </div>

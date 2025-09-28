@@ -35,7 +35,7 @@ const BooksPage: FC =() => {
                         setLoading(true);
                         try {
                                 const res: IBook[] = await bookApi.getAll();
-                                setBooks(res); // 不在这里过滤
+                                setBooks(res.filter((book:IBook)=> book.qtyOwned>0));
                         } catch (err) {
                                 console.error("❌ Failed to fetch books:", err);
                         } finally {
