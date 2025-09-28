@@ -21,6 +21,7 @@ import Signup from "../pages/Signup";
 import Find  from "../pages/Find";
 import BorrowUpdate from "../pages/BorrowUpdate";
 import ShelfPage from "../pages/ShelfPage";
+import BookCreationPage from "../pages/BookCreationPage";
 
 
 const router= createBrowserRouter([
@@ -46,6 +47,17 @@ const router= createBrowserRouter([
                 </>
             ),
         },
+    {
+        path: "/books/create",
+        element: (
+            <>
+                <Navbar />
+                <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6">
+                    <BookCreationPage />
+                </div>
+            </>
+        ),
+    },
     {
         path: "/shelf",
         element: (

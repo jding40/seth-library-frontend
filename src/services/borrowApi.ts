@@ -11,7 +11,6 @@ const borrowApi = {
     remove: (id: string) => http.delete(`/borrow-record/${id}`),
     toggleBadDebt: (id: string) => http.patch(`/borrow-record/toggle-bad-debt/${id}`),
     handleReturn: (id: string) => http.patch(`/borrow-record/toggle-returned/${id}`),
-
 }
 
 export default borrowApi;
