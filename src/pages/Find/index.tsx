@@ -26,7 +26,7 @@ const Find: FC = () => {
             //setExisted(true);
             navigate(`/books/${barCode}`)
         }else{
-            setMessage("We don't have this book in our database...")
+            setMessage("Book not found...")
         }
     }
 
@@ -40,7 +40,7 @@ const Find: FC = () => {
                 //setExisted(true);
                 navigate(`/books/${isbn}`)
             } else {
-                setMessage("We don't have this book in our database...")
+                setMessage("Book not found...")
             }
         }catch(error: unknown){
             console.error(error);
