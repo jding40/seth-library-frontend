@@ -65,7 +65,7 @@ const BookEditPage:FC= () => {
             //await http.put(`/books/${isbn}`, book);
             await bookApi.update(book);
             alert("✅ Book updated successfully!");
-            navigate("/books/find-and-edit");
+            navigate("/books");
         } catch (err) {
             console.error("❌ Update failed:", err);
             setError("Failed to update book.");
