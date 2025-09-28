@@ -354,13 +354,13 @@ const ShelfPage = () => {
                             value={newBookISBN}
                             onChange={handleIsbnInputChange}
                             placeholder="Enter ISBN"
-                            className="flex-grow border px-3 py-2 rounded-l-lg"
+                            className="flex-grow border px-3 py-2 rounded-l-lg me-2"
                         />
                         <button
                             onClick={() => handleSearch(newBookISBN)}
                             disabled={searchLoading || !newBookISBN.trim()}
                             ref={searchRef}
-                            className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 disabled:opacity-50"
+                            className="bg-blue-500 text-white px-4 py-2.5 rounded-r-lg  hover:bg-blue-600 disabled:opacity-50"
                         >
                             {searchLoading ? "Searching..." : "Search"}
                         </button>
