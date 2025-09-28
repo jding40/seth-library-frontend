@@ -16,6 +16,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
         const searchRef = useRef(null)
         const [existed, setExisted] = useState<boolean>(false)
         const [qtyOwned, setQtyOwned] = useState<number>(1)
+        const [registerManually, setRegisterManually] = useState<boolean>(false);
 
         // const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
         //         setIsbn(e.target.value);
@@ -62,6 +63,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                         } else {
                                 setMessage("❌ No book information found for this ISBN...");
                                 setBook(null);
+                                setRegisterManually(true);
                         }
                 } catch (error: unknown) {
                         console.error(error);
@@ -202,6 +204,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
                             </button>
                     </div>
 
+
                     {/* Display query result */}
                     {book && (
                         <div className="border p-4 rounded shadow mb-4">
@@ -239,6 +242,7 @@ const AddNewBookInfoByISBNPage: FC = () => {
 
                     {/* staus or error message */}
                     {message && <p className="my-4 text-left">{message}</p>}
+                    {registerManually && <div className={"w-full bg-blue-700 h-12 text-center pt-2.5 text-white text-xl rounded-xl"}><Link className={""} to={`/books/create?isbn=${isbn}`}>Register Manually</Link></div>}
 
                     {existed && <Link className="my-6 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" to={`/books/edit/${isbn}`}>Edit Existed Book Information</Link>}
             </div>
