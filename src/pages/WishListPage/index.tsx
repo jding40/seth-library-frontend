@@ -5,6 +5,7 @@ import BookCard from "../../components/BookCard.tsx";
 import bookApi from "../../services/bookApi.ts";
 import {type IBook } from "../../types";
 import SubMenu from "../../components/SubMenu.tsx";
+import {getUserRole} from "../../utils";
 //import type {AxiosResponse} from "axios";
 
 
@@ -25,7 +26,7 @@ const BooksPage: FC = () => {
                 // setAllBooks(books);
                 // console.log("allbooks: ", allBooks);//allbooks: []
 
-                setWishlistBooks(books?.filter((b) => b.isWishList));
+                setWishlistBooks(books?.filter((b:IBook) => b.qtyOwned===0));
             } catch (error) {
                 console.error("❌ Failed to fetch books:", error);
             } finally {
@@ -52,7 +53,7 @@ const BooksPage: FC = () => {
                 {wishlistBooks?.length > 0 ? (
                     <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
                         {wishlistBooks.map((book) => (
-                            <BookCard key={book._id} book={book} />
+                            <BookCard key={book._id} book={book} userRole={getUserRole()} />
                         ))}
                     </div>
                 ) : (
