@@ -108,12 +108,16 @@ const ShelfPage = () => {
         } else setShelfLocation(newShelfLocation);
     };
 
+    // const setActionAsAddNewBooks = () => {
+    //     if (/[0-9a-zA-Z]+-[0-9a-zA-Z]+/.test(shelfLocation)) {
+    //         setAction("add new books");
+    //     } else {
+    //         alert("Please select a exact shelf location first!");
+    //     }
+    // };
+
     const setActionAsAddNewBooks = () => {
-        if (/[0-9a-zA-Z]+-[0-9a-zA-Z]+/.test(shelfLocation)) {
             setAction("add new books");
-        } else {
-            alert("Please select a exact shelf location first!");
-        }
     };
 
     const onDected = async (barCode: string) => {
@@ -124,6 +128,7 @@ const ShelfPage = () => {
     const handleIsbnInputChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             setNewBookISBN(e.target.value);
+            setMessage("");
         },
         []
     );
@@ -137,18 +142,18 @@ const ShelfPage = () => {
             if (book) {
                 setExisted(true);
                 setNewBook(book);
-                setMessage("We found this book in our database...");
+                setMessage("✅ We found this book in our database...");
                 return;
             } else {
                 setExisted(false);
                 const book: IBook | null = await fetchBookByISBN(newBookISBN);
                 if (book) {
                     setNewBook(book);
-                    setMessage("We found this book in Google Books API...");
+                    setMessage("✅ We found this book in Google Books API...");
                 } else {
                     setNewBook(null);
                     setMessage(
-                        "No book found in our database or Google Books API... Please input book information manually..."
+                        "❌ No book found in our database or Google Books API... Please input book information manually..."
                     );
                 }
             }
@@ -212,6 +217,7 @@ const ShelfPage = () => {
             }
             setNewBook(null);
             setNewBookQty(1);
+            setNewBookISBN("");
             setMessage(`✅ Information of ${newBook.title} already saved...`);
         } catch (error) {
             console.log("error: ", error);
