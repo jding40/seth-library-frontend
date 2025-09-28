@@ -5,6 +5,8 @@ const ProcessBom: FC = () => {
     const [originalString, setOriginalString] = useState<string>("")
 
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const qtyForMultiLines:number[]=[]
+    let lineCount:number=0;
 
     // 让 textarea 自适应高度
     useEffect(() => {
@@ -77,13 +79,24 @@ const ProcessBom: FC = () => {
             return materials.join(",");
     }
 
+    const parseMultipleLine = (str:string):string=>{
+        const lines:string[] = str.split("\n");
+        lineCount=lines.length;
+        for(let i = 0; i<lines.length; i++){
+            lines[i]=parseString(lines[i]);
+            qtyForMultiLines.push(countQty(lines[i]));
+        }
+        return lines.join("\n")
+    }
+
     function countQty(str:string) {
         if (str === "") return 0;
         return str.split(",").length;
     }
 
-    const parsedString = parseString(originalString);
-    const totalQty = countQty(parsedString);
+    //const parsedString = parseString(originalString);
+    const parsedString:string = parseMultipleLine(originalString);
+    const totalQty:number = countQty(parsedString);
 
 
 
@@ -102,12 +115,20 @@ const ProcessBom: FC = () => {
             />
         </div>
 
-        {/* 数量统计 */}
-        {totalQty>0 && <div className="flex items-center space-x-3">
-            <h2 className="text-lg font-semibold text-gray-800">Total Qty:</h2>
+        {/* 单行数量统计 */}
+        {totalQty>0 && lineCount == 1&& <div className="flex items-center space-x-3">
+            <h2 className="text-lg font-semibold text-gray-800 self-start">Total Qty:</h2>
             <span className="px-3 py-1 bg-blue-600 text-white text-sm font-bold rounded-full shadow">
           {totalQty}
         </span>
+        </div>}
+
+        {/* 多行数量统计 */}
+        {totalQty>0 && lineCount >1 && <div className="flex items-center space-x-3">
+            <h2 className="text-lg font-semibold text-gray-800 self-start">Total Qty:</h2>
+            <div className="px-3 py-1 bg-blue-600 text-white text-sm font-bold rounded-2xl shadow">
+          {qtyForMultiLines.map((qty:number)=><div className={"w-20 text-center"}>{qty}</div>)}
+        </div>
         </div>}
 
         <hr className="border-gray-200" />
