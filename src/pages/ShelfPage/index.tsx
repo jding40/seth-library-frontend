@@ -209,6 +209,7 @@ const ShelfPage = () => {
             } else {
                 const res = await bookApi.create({
                     ...newBook,
+                    qtyOwned: newBookQty,
                     shelfLocation: [shelfLocation],
                 });
                 const createdBook = res.data;
@@ -264,7 +265,7 @@ const ShelfPage = () => {
                     </h1>
                     <div className="space-y-2">
                         {getMinorShelfList(shelves, shelfLocation.split("-")[0])
-                            .sort()
+                            .sort().reverse()
                             .map((minorShelf) => (
                                 <p
                                     className={classnames(

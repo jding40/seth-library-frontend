@@ -86,7 +86,7 @@ const ProcessBom: FC = () => {
             lines[i]=parseString(lines[i]);
             qtyForMultiLines.push(countQty(lines[i]));
         }
-        return lines.join("\n")
+        return lines.join("\r\n")
     }
 
     function countQty(str:string) {
@@ -141,6 +141,11 @@ const ProcessBom: FC = () => {
             <p className="p-3 bg-gray-100 border border-gray-300 rounded-lg font-mono text-sm text-gray-700 whitespace-pre-wrap break-words">
                 {parsedString}
             </p>
+            <textarea
+                value={parsedString}   // parsedString 里是 lines.join("\r\n")
+                readOnly
+                className="w-full border rounded p-3 font-mono text-sm text-gray-700 h-40 resize"
+            >{parsedString}</textarea>
         </div>}
     </div>)
 

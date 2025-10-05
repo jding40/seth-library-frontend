@@ -18,6 +18,7 @@ import {type FC } from "react";
 import {RequireAuth} from "../auth";
 import WishListPage from "../pages/WishListPage";
 import Signup from "../pages/Signup";
+import {signupAction}  from "../pages/Signup/signupAction.ts";
 import Find  from "../pages/Find";
 import BorrowUpdate from "../pages/BorrowUpdate";
 import ShelfPage from "../pages/ShelfPage";
@@ -181,6 +182,7 @@ const router= createBrowserRouter([
                 </div>
             </>
         ),
+        action: signupAction,
     },
     {
         path: "/books/find",
@@ -217,9 +219,9 @@ const router= createBrowserRouter([
                     <Navbar />
                 <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-6 py-6">
                 <h2 className="text-red-500">404 Page not existed</h2>
-        </div>
+                </div>
         </>
-    ),
+        ),
     },
     ]);
 

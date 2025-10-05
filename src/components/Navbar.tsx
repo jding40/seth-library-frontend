@@ -1,5 +1,5 @@
 // src/components/Navbar.tsx
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation, type NavLinkRenderProps, type NavigateFunction } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import http from "../services/http.ts"
 
@@ -10,7 +10,7 @@ import "./navbar.css"
 
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const navigate:NavigateFunction = useNavigate();
   const location = useLocation();
   const path:string = location.pathname.split("/")[1] || "";
   const role: RoleType = getUserRole();
@@ -58,57 +58,58 @@ const Navbar = () => {
 
           {/* Menu */}
           <div className="hidden md:flex space-x-4  shadows-into-light-regular  text-2xl">
-            <Link
+            <NavLink
               to="/"
-              className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path===""&&"active")}>
+              className={({isActive}:NavLinkRenderProps)=> classnames("text-gray-700 hover:text-blue-600 transition px-2", isActive&&"active")}>
               Home
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
                 to="/books"
-                className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="books"&&"active")}
+                className={({isActive}:NavLinkRenderProps)=> classnames("text-gray-700 hover:text-blue-600 transition px-2", isActive&&"active")}
+
             >
               Books
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
                 to="/shelf"
-                className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="shelf"&&"active")}
+                className={({isActive}) => classnames("text-gray-700 hover:text-blue-600 transition px-2", isActive&&"active")}
             >
               Shelves
-            </Link>
+            </NavLink>
 
             {(userRole === "admin" || userRole === "owner") && (
               <>
 
-                <Link
+                <NavLink
                   to="/users"
-                  className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="users"&&"active")}
+                  className={({isActive}) => classnames("text-gray-700 hover:text-blue-600 transition px-2", isActive &&"active")}
                 >
                   Users
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/borrows"
-                  className={classnames("text-gray-700 hover:text-blue-600 transition px-2", path==="borrows"&&"active")}
+                  className={({isActive}) =>classnames("text-gray-700 hover:text-blue-600 transition px-2", isActive&&"active")}
                 >
                   Borrows
-                </Link>
+                </NavLink>
               </>
             )}
 
             {userRole==="guest" ? (
                 <>
-                    <Link
+                    <NavLink
                         to="/signin"
-                        className={classnames("text-gray-700 hover:text-blue-600 transition", path==="signin"&&"active")}
+                        className={({isActive}) =>classnames("text-gray-700 hover:text-blue-600 transition", isActive&&"active")}
                     >
                       Sign in
-                    </Link>
-                    <Link
+                    </NavLink>
+                    <NavLink
                       to="/signup"
                       className={classnames("text-gray-700 hover:text-blue-600 transition", path==="signup"&&"active")}
                     >
                       Sign up
-                    </Link>
+                    </NavLink>
                 </>
             ) : (
               <button
@@ -139,46 +140,46 @@ const Navbar = () => {
         ref={mobileMenuRef}
         onClick={()=>{mobileMenuRef.current?.classList.toggle("hidden"); }}
       >
-        <Link to="/" className={classnames("block text-gray-700 hover:text-blue-600", path===""&&"active")}>
+        <NavLink to="/" className={classnames("block text-gray-700 hover:text-blue-600", path===""&&"active")}>
           Home
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
             to="/books"
             className={classnames("block text-gray-700 hover:text-blue-600", path==="books"&&"active")}
         >
           Books
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
             to="/shelf"
             className={classnames("block text-gray-700 hover:text-blue-600", path==="shelf"&&"active")}
         >
           Shelves
-        </Link>
+        </NavLink>
         {(userRole === "admin" || userRole === "owner") && (
           <>
 
-            <Link
+            <NavLink
               to="/users"
               className={classnames("block text-gray-700 hover:text-blue-600", path==="users"&&"active")}
             >
               Users
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/borrows"
               className={classnames("block text-gray-700 hover:text-blue-600", path==="borrows"&&"active")}
             >
               Borrows
-            </Link>
+            </NavLink>
           </>
         )}
         {userRole==='guest' ? (
             <>
-              <Link to="/signin" className={classnames("block text-gray-700 hover:text-blue-600", path==="signin"&&"active")} >
+              <NavLink to="/signin" className={classnames("block text-gray-700 hover:text-blue-600", path==="signin"&&"active")} >
                 Sign in
-              </Link>
-              <Link to="/signup" className={classnames("block text-gray-700 hover:text-blue-600", path==="signup"&&"active")} >
+              </NavLink>
+              <NavLink to="/signup" className={classnames("block text-gray-700 hover:text-blue-600", path==="signup"&&"active")} >
                 Sign up
-              </Link>
+              </NavLink>
             </>
         ) : (
           <button
