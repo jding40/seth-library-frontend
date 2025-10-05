@@ -1,13 +1,13 @@
 // src/pages/BookPage.tsx
 import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, type NavigateFunction } from "react-router-dom";
 import bookApi from "../../services/bookApi";
 import { type IBook } from "../../types";
 import SubMenu from "../../components/SubMenu.tsx";
 
 const BookPage = () => {
     const { isbn } = useParams<{ isbn: string }>();
-    const navigate = useNavigate();
+    const navigate:NavigateFunction = useNavigate();
     const [book, setBook] = useState<IBook | null>(null);
 
     useEffect(() => {
