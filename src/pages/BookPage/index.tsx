@@ -4,11 +4,14 @@ import { useParams, Link, useNavigate, type NavigateFunction } from "react-route
 import bookApi from "../../services/bookApi";
 import { type IBook } from "../../types";
 import SubMenu from "../../components/SubMenu.tsx";
+import {getUserRole} from "../../utils";
+
 
 const BookPage = () => {
     const { isbn } = useParams<{ isbn: string }>();
     const navigate:NavigateFunction = useNavigate();
     const [book, setBook] = useState<IBook | null>(null);
+    const role = getUserRole();
 
     useEffect(() => {
         const fetchBook = async () => {
@@ -114,7 +117,7 @@ const BookPage = () => {
             </div>
 
             {/* operations */}
-            <div className="mt-6 flex gap-4">
+            {role === "owner" || role === "admin" &&<div className="mt-6 flex gap-4">
                 <Link
                     to={`/borrows/new?isbn=${book.ISBN}`}
                     className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
@@ -133,7 +136,7 @@ const BookPage = () => {
                 >
                     Edit
                 </Link>
-            </div>
+            </div>}
         </div>
         </>
     );
