@@ -18,8 +18,8 @@ const BooksPage: FC = () => {
     });
 
 
-    const filteredBooks = useMemo(() => {
-        const keyword = keyWord.trim().toLowerCase();
+    const filteredBooks:IBook[] = useMemo(() => {
+        const keyword:string = keyWord.trim().toLowerCase();
         if (!keyword) return books.filter((book) => book.qtyOwned > 0);
         return books.filter(
             (book) => book.qtyOwned > 0 && book.title.toLowerCase().includes(keyword)
