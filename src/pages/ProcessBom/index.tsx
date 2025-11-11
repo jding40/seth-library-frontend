@@ -1,12 +1,20 @@
 import {type FC, useState, useRef, useEffect} from "react";
+import {getUserEmail} from "../../utils";
+import sideJobApi from "../../services/sideJobApi.ts";
+import type {IParseBomRecord} from "../../types";
+
 
 const ProcessBom: FC = () => {
 
     const [originalString, setOriginalString] = useState<string>("")
+    const [parsedString, setParsedString] = useState<string>("")
+    const [totalQty, setTotalQty] = useState<number>(0)
+    const [lineCount, setLineCount] = useState<number>(0)
+    const [lineQty, setLineQty] = useState<number[]>([]);
 
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const qtyForMultiLines:number[]=[]
-    let lineCount:number=0;
+    //let lineCount:number=0;
 
     // 让 textarea 自适应高度
     useEffect(() => {
@@ -81,22 +89,62 @@ const ProcessBom: FC = () => {
 
     const parseMultipleLine = (str:string):string=>{
         const lines:string[] = str.split("\n");
-        lineCount=lines.length;
+        //lineCount=lines.length;
+        setLineCount(lines.length)
         for(let i = 0; i<lines.length; i++){
             lines[i]=parseString(lines[i]);
-            qtyForMultiLines.push(countQty(lines[i]));
+            qtyForMultiLines.push(countQty(lines[i]) as number);
         }
+        setLineQty(qtyForMultiLines);
         return lines.join("\r\n")
     }
 
     function countQty(str:string) {
-        if (str === "") return 0;
-        return str.split(",").length;
+        if (str === "") return setTotalQty(0);
+        //setTotalQty(countQty(parsedString))
+        const tq = str.split(",").length
+        setTotalQty(tq);
+        return tq;
     }
 
     //const parsedString = parseString(originalString);
-    const parsedString:string = parseMultipleLine(originalString);
-    const totalQty:number = countQty(parsedString);
+    //const parsedString:string = parseMultipleLine(originalString);
+    //const totalQty:number = countQty(parsedString);
+
+    const clickHandler = ()=>{
+        console.log("test print at the beginning!!")
+        setParsedString(parseMultipleLine(originalString));
+        // setTotalQty(countQty(parsedString))
+        // setLineQty(qtyForMultiLines);
+        let uuid:string|null = localStorage.getItem('uuid');
+        if (uuid == null)  {
+            uuid = crypto.randomUUID();
+        localStorage.setItem('uuid', uuid);
+        }
+
+        console.log("test print in the middle!!")
+
+        let email:string;
+        try{
+            email = getUserEmail() || 'N/A';
+        }catch(e){
+            console.log(e);
+            email = 'N/A';
+        }
+        //const email:string = getUserEmail() || 'N/A';
+
+        const record:IParseBomRecord = {
+            email: email, // 可从登录状态中读取
+            uuid: uuid,
+            originalString,
+            timestamp: new Date()
+        };
+
+        sideJobApi.saveParseBomRecord(record);
+        console.log("test print at the end!!")
+
+        console.log("record: ", record);
+    }
 
 
 
@@ -114,6 +162,9 @@ const ProcessBom: FC = () => {
                 placeholder="例如: A1-A3, B5-B2, C7"
             />
         </div>
+        <div className="my-6  py-2">
+            <button className="bg-blue-700 text-white px-3 py-2 rounded-lg" onClick={clickHandler}>Parse</button>
+        </div>
 
         {/* 单行数量统计 */}
         {totalQty>0 && lineCount == 1&& <div className="flex items-center space-x-3">
@@ -127,7 +178,7 @@ const ProcessBom: FC = () => {
         {totalQty>0 && lineCount >1 && <div className="flex items-center space-x-3">
             <h2 className="text-lg font-semibold text-gray-800 self-start">Total Qty:</h2>
             <div className="px-3 py-1 bg-blue-600 text-white text-sm font-bold rounded-2xl shadow">
-          {qtyForMultiLines.map((qty:number)=><div className={"w-20 text-center"}>{qty}</div>)}
+          {lineQty.map((qty:number, index:number)=><div key={index} className={"w-20 text-center"}>{qty}</div>)}
         </div>
         </div>}
 

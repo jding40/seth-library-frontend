@@ -54,3 +54,12 @@ export interface IUser{
     lastName?: string;
     tel?: string;
 }
+
+export interface IParseBomRecord  {
+
+    email:string;
+    uuid:string;
+    originalString:string;
+    timestamp:Date;
+
+}
